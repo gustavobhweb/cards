@@ -45,6 +45,10 @@ class FichaTecnica extends Eloquent
         return $this->hasManyThrough('Solicitacao', 'Remessa');
     }
 
+    public function cliente()
+    {
+        return $this->belongsTo('Cliente', 'cliente_id');
+    }
 
     public function getFotoFrenteLinkAttribute()
     {

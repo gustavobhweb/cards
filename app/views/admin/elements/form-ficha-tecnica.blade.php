@@ -25,7 +25,7 @@
         <select name="cliente_id" class="medium total">
             <option>Selecione o cliente</option>
             @foreach($clientes as $cliente)
-            <option {{ ($cliente->id == $ficha->cliente_id) ? 'selected' : '' }} value="{{ $cliente->id }}">{{{  $cliente->nome }}}</option>
+            <option {{ (isset($ficha) && $cliente->id == $ficha->cliente_id) ? 'selected' : '' }} value="{{ $cliente->id }}">{{{  $cliente->nome }}}</option>
             @endforeach
         </select>
         </div>

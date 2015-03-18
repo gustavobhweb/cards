@@ -14,6 +14,10 @@
 		'placeholder' => 'Pesquise pelo nome da empresa'
 	]) }}
 
+	@if(Input::has('search'))
+	<a href="{{ URL::to('admin/gerenciar-clientes') }}" class="btn medium">{{{ Input::get('search') }}} <i class="halflings halflings-remove"></i></a>
+	@endif
+
 	{{ Form::submit('Enviar', [
 		'class' => 'btn medium blue'
 	]) }}

@@ -7,7 +7,7 @@
 @section('content')
 
 {{ Form::open(['method' => 'get']) }}
-    {{ Form::text('remessa_id', '', [
+    {{ Form::text('search', '', [
         'class' => 'medium ',
         'placeholder' => 'Nº da remessa'
     ]) }}

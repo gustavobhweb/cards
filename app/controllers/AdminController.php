@@ -38,6 +38,7 @@ class AdminController extends BaseController
             }
         }
         $vars['niveis'] = Nivel::whereStatus(1)->get();
+        $vars['clientes'] = Cliente::whereStatus(1)->get();
         return View::make('admin.cadastrar-usuarios', $vars);
     }
 
@@ -63,7 +64,7 @@ class AdminController extends BaseController
 
     public function anyAcl()
     {
-        $vars['niveis'] = Nivel::all();
+        $vars['niveis'] = Nivel::whereStatus(1)->get();
         $vars['permissoes'] = Permissao::all();
 
         if (Request::isMethod('post')) {
@@ -464,7 +465,8 @@ class AdminController extends BaseController
                     'tipo_entrega_id',
                     'tipo',
                     'campo_chave',
-                    'tem_furo'
+                    'tem_furo',
+                    'cliente_id'
                 );
 
                 $files = [];

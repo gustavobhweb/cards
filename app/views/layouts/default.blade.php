@@ -32,7 +32,7 @@
 
 	<div data-open="false" id="right-top-menu">
 		<ul>
-			<li><a href="#"><i class="halflings halflings-user"></i> Minha conta</a></li>
+			<li><a href="{{ URL::to('auth/meus-dados') }}"><i class="halflings halflings-cog"></i> Minha conta</a></li>
 			<li><a href="{{ URL::to('logout') }}"><i class="halflings halflings-remove"></i> Sair</a></li>
 		</ul>
 	</div><!-- .right-top-menu -->
@@ -94,6 +94,16 @@
 	<div class="content">
 		@yield('content')
 	</div><!-- .content -->
+
+	<div class="footer">
+		<p>Let´scom &copy; <?=date('Y');?> - Todos os direitos reservados</p>
+		<div class="desenvolvido">
+			<p>Desenvolvido por</p>
+			<a href="http://www.worktab.com.br/" target="_blank">
+				<img src="{{ URL::to('img/worktab.png') }}" width="70" />
+			</a>
+		</div>
+	</div><!-- .footer -->
 
 </body>
 </html>

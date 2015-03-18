@@ -27,8 +27,10 @@
 
 @section('content')
 
-    {{ $errors->first('ficha_tecnica', '<div class="j-alert-error">:message</div>') }}
+    {{ $errors->first('ficha_tecnica', '<div class="alert warning">:message</div>') }}
 
+
+    @if($fichas_tecnicas->count())
     <div class="jtable" style="margin: 20px 0 0 0">
         <table>
             <thead>
@@ -43,11 +45,11 @@
             <tbody>
                 @foreach($fichas_tecnicas as $ficha_tecnica)
                 <tr>
-                    <td>{{{ $ficha_tecnica->nome }}}</td>
-                    <td class="text-center">
+                    <td class="center">{{{ $ficha_tecnica->nome }}}</td>
+                    <td class="center">
                         <img src="{{ $ficha_tecnica->foto_frente_link }}" height="50" width="50" />
                     </td>
-                    <td class="text-center">
+                    <td class="center">
                         <img src="{{ $ficha_tecnica->foto_verso_link }}" height="50" width="50" />
                     </td>
                     <td class="center">{{{ $ficha_tecnica->camposVariaveis->count() }}}</td>
@@ -71,6 +73,9 @@
             </tbody>
         </table>
     </div><!-- .jtable -->
+    @else
+    <div class="alert warning">Ainda não existem fichas técnicas cadastradas. Clique em Gerenciar > Nova ficha técnica</div>
+    @endif
 
 @stop
 

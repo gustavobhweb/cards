@@ -34,6 +34,24 @@ class Solicitacao extends Eloquent
         
     }
 
+    public function getFotoFullPathAttribute()
+    {
+
+
+        $remessa_id = $this->attributes['remessa_id'];
+
+        $codigo = $this->attributes['codigo'];
+
+        $filename = public_path("solicitacoes/{$remessa_id}/{$codigo}.jpg");
+
+        if (file_exists($filename)) {
+
+            return $filename;
+        }
+
+
+        return false;
+    }
 
     public function remessa()
     {

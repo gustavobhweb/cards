@@ -1,10 +1,13 @@
 @extends('layouts.default')
 
-@section('title') Pesquisar solicitações @stop
+@section('topbar')
+	<h4><i class="halflings halflings-search"></i> Pesquisar solicitações</h4>
+@stop
 
 @section('content')
 
-<div class="gerenciamento-table">
+@if($fichas_tecnicas->count())
+<div class="jtable">
 		<table border="0">
 			<thead>
 				<tr>
@@ -18,22 +21,23 @@
 				@foreach($fichas_tecnicas as $ficha_tecnica)
 				<tr data-solicitacoes="{{ $ficha_tecnica->solicitacoes->count() }}" 
 					class="{{ (!$ficha_tecnica->aprovado) ? 'red' : '' }} clickable">
-					<td>{{ $ficha_tecnica->nome }}</td>
-					<td class="fotos-modelos">
+					<td class="center">{{ $ficha_tecnica->nome }}</td>
+					<td class="fotos-modelos center">
 						<img src="{{ URL::to($ficha_tecnica->foto_frente_link) }}" />
 						<img src="{{ URL::to($ficha_tecnica->foto_verso_link) }}" />
 					</td>
-					<td>{{ $ficha_tecnica->solicitacoes->count() }}</td>
-					<td>
-						<a href="{{ URL::to('cliente/pesquisar-solicitacoes-modelo/' . $ficha_tecnica->id) }}" class="btn-style arrow-right continuar">CONTINUAR</a>
+					<td class="center">{{ $ficha_tecnica->solicitacoes->count() }}</td>
+					<td class="center">
+						<a href="{{ URL::to('cliente/pesquisar-solicitacoes-modelo/' . $ficha_tecnica->id) }}" class="btn medium blue continuar">CONTINUAR</a>
 					</td>
-				</tr>
-				<tr class="normalize">
 				</tr>
 				@endforeach
 			</tbody>
 		</table>
-	</div><!-- .gerenciamento-table -->
+	</div><!-- .jtable -->
+	@else
+    <div class="alert warning">Ainda não existem fichas técnicas cadastradas. Entre em contato conosco e solicite uma proposta.</div>
+    @endif
 
 @stop
 

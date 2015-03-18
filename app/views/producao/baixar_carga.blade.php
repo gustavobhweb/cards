@@ -1,12 +1,16 @@
 @extends('layouts.default') 
 
-@section('title') <i class="glyphicon glyphicon-download-alt"></i> Baixar Carga @stop
+@section('topbar') 
+    <h4><i class="halflings halflings-download-alt"></i> Baixar Carga </h4>
+@stop
 
 @section('content')
 
 <div class="wm-btn-group not-print">
-	<a id="btn-tab-remessas" class="wm-btn change-tab active"
-		data-target="tab-remessas">Remessas</a> <a class="wm-btn change-tab"
+	<a id="btn-tab-remessas" class="btn medium change-tab active"
+		data-target="tab-remessas">Remessas</a> 
+
+    <a class="change-tab btn medium"
 		data-target="tab-tarefas">Minhas Tarefas</a>
 </div>
 
@@ -14,70 +18,72 @@
 
     <input type='hidden' id="user-data" data-nome="{{{ $user->nome }}}" />
 
-    {{ $errors->first('message', '<div class="j-alert-error">:message</div>') }}
+    {{ $errors->first('message', '<div class="alert warning">:message</div>') }}
 
     @if($remessas->count())
     
-    <table class="wm-table" id="tabela-baixar-carga">
-        <thead>
-            <tr>
-                <th width="12%">Remessa</th>
-                <th>Data de Criação</th>
-                <th>Responsável financeiro</th>
-                <th width="10%">Nº de Solicitações</th>
-                <th>Iniciou a produção</th>
-                
-                <th width="10%">Baixar</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($remessas as $remessa)
+    <div class="jtable" style="margin:20px 0 0 0">
+        <table id="tabela-baixar-carga">
+            <thead>
+                <tr>
+                    <th width="12%">Remessa</th>
+                    <th>Data de Criação</th>
+                    <th>Responsável financeiro</th>
+                    <th width="10%">Nº de Solicitações</th>
+                    <th>Iniciou a produção</th>
+                    
+                    <th width="10%">Baixar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($remessas as $remessa)
 
-                @if( !($temProtocolo = ! is_null($remessa->protocolo)) || $remessa->protocolo->usuario_id == $user->id) 
+                    @if( !($temProtocolo = ! is_null($remessa->protocolo)) || $remessa->protocolo->usuario_id == $user->id) 
 
-                    <tr class="{{ $temProtocolo ? 'tab-tarefas' : 'tab-remessas' }}">
-                        <td>{{ zero_fill($remessa->id, 4) }}</td>
-                        <td>{{ $remessa->created_at->format('d/m/Y H:i') }}</td>
-                        <td>{{{ $remessa->usuario->nome }}}</td>
-                        <td>{{ $remessa->solicitacoes->count() }}</td>
-                        <td class='responsavel-producao'>
-                            {{ $remessa->protocolo->usuario->nome or '--' }}
-                        </td>
-                        <td width="25%" class="links-actions-groups">
+                        <tr class="{{ $temProtocolo ? 'tab-tarefas' : 'tab-remessas' }}">
+                            <td class="center">{{ zero_fill($remessa->id, 4) }}</td>
+                            <td class="center">{{ $remessa->created_at->format('d/m/Y H:i') }}</td>
+                            <td class="center">{{{ $remessa->usuario->nome }}}</td>
+                            <td class="center">{{ $remessa->solicitacoes->count() }}</td>
+                            <td class='responsavel-producao center'>
+                                {{ $remessa->protocolo->usuario->nome or '--' }}
+                            </td>
+                            <td width="25%" class="links-actions-groups center">
 
-                            @if(! $temProtocolo || $remessa->protocolo->usuario_id == $user->id)
-                                
-                                <a data-id="{{ $remessa->id }}" class="wm-btn imprimir-remessa" href="#">
-                                    <span class="glyphicon glyphicon-print"></span>
-                                </a>
+                                @if(! $temProtocolo || $remessa->protocolo->usuario_id == $user->id)
+                                    
+                                    <a data-id="{{ $remessa->id }}" class="btn medium imprimir-remessa" href="#">
+                                        <span class="halflings halflings-print"></span>
+                                    </a>
 
-                                <a  class="{{ !$temProtocolo ?  'disabled' : ''  }} download-xls wm-btn" href="{{ URL::to('producao/download-excel-remessa', $remessa->id) }}">
-                                    <span class="glyphicon glyphicon-download-alt"></span>
-                                </a>
+                                    <a  class="{{ !$temProtocolo ?  'disabled' : ''  }} download-xls btn medium" href="{{ URL::to('producao/download-excel-remessa', $remessa->id) }}">
+                                        <span class="halflings halflings-download-alt"></span>
+                                    </a>
 
-                                <a class="{{ !$temProtocolo ? 'disabled' : ''  }} download-zip wm-btn" href="{{ URL::to('producao/download-fotos-remessa', $remessa->id) }}">
-                                    <span class="glyphicon glyphicon-picture"></span>
-                                </a>
+                                    <a class="{{ !$temProtocolo ? 'disabled' : ''  }} download-zip btn medium" href="{{ URL::to('producao/download-fotos-remessa', $remessa->id) }}">
+                                        <span class="halflings halflings-picture"></span>
+                                    </a>
 
-                                <button data-id="{{ $remessa->id }}" class="{{ !$temProtocolo ? 'disabled' : '' }} wm-btn wm-btn-green btn-enviar-conferencia ">
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                </button>
+                                    <button data-id="{{ $remessa->id }}" class="{{ !$temProtocolo ? 'disabled' : '' }} btn medium green btn-enviar-conferencia ">
+                                        <span class="halflings halflings-ok"></span>
+                                    </button>
 
-                            @endif
-                        </td>
-                    </tr> 
+                                @endif
+                            </td>
+                        </tr> 
 
-                @endif   
+                    @endif   
 
-            @endforeach
-            <tr id="sem-resultados" style="display:none">
-                <td colspan='6'>Não existem tarefas</td>
-            </tr>
-        </tbody>
-    </table>
+                @endforeach
+                <tr id="sem-resultados" style="display:none">
+                    <td colspan='6'>Não existem tarefas</td>
+                </tr>
+            </tbody>
+        </table>
+    </div><!-- .jtable -->
 
     @else
-        <div class="j-alert-error">Não há solicitações para produção</div>
+        <div class="alert warning">Não há solicitações para produção</div>
     @endif
 
 </section>

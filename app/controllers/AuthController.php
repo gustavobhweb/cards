@@ -71,8 +71,14 @@ class AuthController extends BaseController
                 }
             }
 
-
-            return Redirect::action($paginaInicial);
+            if (!$auth->primeiro_acesso) {
+                $auth->update([
+                    'primeiro_acesso' => 1
+                ]);
+                return Redirect::to('auth/meus-dados');
+            } else {
+                return Redirect::action($paginaInicial);
+            }
 
         } else {
 
@@ -291,4 +297,6 @@ class AuthController extends BaseController
 
         return View::make('auth.login_colaboradores');
     }
+
+
 }
