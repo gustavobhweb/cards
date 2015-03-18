@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
-	<link rel="icon" type="image/png" href="{{ URL::to('img/favicon.png?2015') }}" />
+	<link rel="icon" type="image/png" href="{{ URL::to('img/favicon_lets.png') }}" />
 	{{ HTML::style('css/glyphicons.css') }}
 	{{ HTML::style('css/default.css') }}
 	{{ HTML::style('css/jtable.css') }}
@@ -25,7 +25,7 @@
 
 	<div class="header">
 		<div class="main">
-			<a href="{{ URL::to('/') }}"><img src="{{ URL::to('img/worktab.png') }}" /></a>
+			<a href="{{ URL::to('/') }}"><img src="{{ URL::to('img/letscom.gif') }}" /></a>
 			<button id="btn-menu-header"></button>
 		</div><!-- .main -->
 	</div><!-- .header -->
