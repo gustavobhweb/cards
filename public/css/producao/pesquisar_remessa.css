@@ -1,0 +1,30 @@
+.img-aluno{
+	height: 100px;
+	width: 100px;
+	background-position: center;
+	background-size: cover;
+	position: relative;
+}
+
+/*.img-aluno:after{
+	content:'';
+	opacity: 0;
+	transition: opacity 1s;
+}
+
+.img-aluno:hover:after{
+	content: '';
+	background-image: inherit;
+	height: 300px;
+	width: 300px;
+	display: block;
+	background-color:rgba(255, 255, 255, 0.3);
+	background-size:100%;
+	position: absolute;
+	left: 100px;
+	z-index: 4;
+	opacity: 1;
+	border:10px solid rgba(100, 100, 100, 0.7);
+	border-radius: 10px;
+	top: -10%;
+}*/

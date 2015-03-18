@@ -1,0 +1,7 @@
+.solicsHovered{
+	visibility: hidden;
+}
+.fotos-modelos img{
+	max-height: 80px;
+	max-width: 100px;
+}

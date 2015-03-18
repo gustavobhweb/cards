@@ -1,0 +1,69 @@
+.assunto{
+    width:100%;
+    background:#eeeeee;
+    font:15px Arial;
+    border-radius:4px 4px 0 0;
+}
+.assunto .header{
+    border-radius:4px 4px 0 0;
+    width:100%;
+    padding:10px;
+    box-sizing:border-box;
+    background:#0965AF;
+}
+.assunto .header .left{
+    float:left;
+    color:#FFFFFF;
+    margin-right:3px;
+}
+.assunto .header .right{
+    float:left;
+    color:#FFFFFF;
+    font-weight:bold;
+}
+.assunto .content{
+    border-sizing:border-box;
+    padding:10px;
+    border:1px solid #BBBBBB;
+    border-top:none;
+    border-radius: 0 0 5px 5px
+}
+.assunto .content .remetente{
+    border-sizing:border-box;
+    padding:5px 0;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+}
+.assunto .content .remetente h5{
+    font: 12px Calibri;
+    font-weight: bold;
+    color: #999999;
+    float:left;
+    margin: 8px 0 0 0;
+}
+.assunto .content .remetente p{
+    font: 15px Calibri;
+    color: #333333;
+    float:left;
+    margin: 8px 0 0 6px;
+}
+.assunto .content .mensagem{
+    border-sizing:border-box;
+    padding:10px 0;
+}
+.assunto .content .mensagem h5{
+    font: 12px Calibri;
+    font-weight: bold;
+    color: #999999;
+}
+.assunto .content .mensagem p{
+    font: 15px Calibri;
+    color: #333333;
+    margin: 5px 0 0 0;
+}
+.btn-back{
+    margin-bottom:5px;
+    font-size:13px;
+    height:auto;
+    color: #777777;
+}

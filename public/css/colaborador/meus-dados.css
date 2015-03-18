@@ -1,0 +1,117 @@
+#form-meus-dados{
+    width: 100%;
+}
+.conteudo-form {
+    width: 100%;
+}
+
+.conteudo-form fieldset {
+    border: 1px solid #B5B5B5;
+    padding: 20px;
+    background: #EFEFEF;
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+
+.conteudo-form fieldset h5 {
+    float: left;
+    font-size: 24px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #000;
+    font-weight: bold;
+    width: 100%;
+}
+
+.input-email-format input {
+    background: url('../../img/aluno/icon-email.png') no-repeat #FFF;
+    background-position: 5px;
+    border: 1px solid #B5B5B5;
+}
+
+.glif {
+    display: none;
+}
+
+.wm-input-container{
+    float: left;
+}
+
+
+.wm-input-container input:not([type="submit"]),
+.wm-input-container select{
+    box-sizing:border-box;
+    width: calc(100% - 0.625em);
+    height: 48px;
+    padding: 10px;
+    padding-left: 25px;
+    border:thin solid #aaa;
+    margin:10px 0;
+}
+
+.wm-input-container button,
+.wm-input-container a {
+    margin:10px 0;
+    display: inline-block;
+}
+
+
+.wm-input-container input:focus:invalid{
+    box-shadow: 0 0 5px #a00;
+}
+
+.wm-input-container input:focus:valid{
+    box-shadow: 0 0 5px green;
+}
+
+.wm-input-container{
+    width: 100%;
+}
+
+.wm-input-container.per-2 {
+    width: 50%;
+}
+
+.per-2:nth-child(2n+1):after {
+    clear: both;
+    content:'';
+    display: block;
+}
+
+.wm-input-container label {
+    display: block;
+    font-size: 20px;
+    color: #0060B2;
+    font-weight: bold;
+}
+
+.j-alert-error {
+    background: rgba(0,0,0,0.2);
+}
+
+
+.btn_nao_sabe {
+    font-size: 12px;
+    font-weight: normal;
+    color: #0060B2;
+    font-family: Arial, Verdana, sans-serif;
+    background: #E2E2E2;
+    width: auto !important;
+    margin-left: 20px;
+    padding-top: 17px;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 16px;
+    margin-top: 1px;
+    float: left;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+
+.sub-container-input{
+   float: left;
+   padding: 5px;
+   box-sizing: border-box;
+}

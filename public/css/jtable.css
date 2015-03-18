@@ -1,0 +1,160 @@
+.jtable {
+	overflow: hidden;
+}
+
+.jtable div[data-section="header"] {
+	padding: 10px;
+	background: #FFFFFF;
+	border-radius: 10px 10px 0 0;
+}
+
+.jtable div[data-section="header"] p {
+	float: left;
+	font: 15px Calibri;
+	color: #333333;
+}
+
+.jtable div[data-section="header"] select {
+	border: none;
+	outline: none;
+	color: #333;
+	font: 15px calibri;
+	cursor: pointer;
+}
+
+.jtable div[data-section="header"] #jsearch {
+	float: right;
+	padding: 2px;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	font: 15px calibri;
+	background: linear-gradient(to top, #dddddd, #efefef);
+}
+
+.jtable div[data-section="header"] #jsearch input[type="text"] {
+	padding: 1px;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	font: 15px calibri;
+	width: 170px;
+	outline: none;
+	color: #333333;
+}
+
+.jtable div[data-section="header"] #jsearch button[type="button"] {
+	font-size: 13px;
+	padding: 2px 4px;
+	border: none;
+	background: #0965AF;
+	color: white;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+.jtable div[data-section="header"] #jsearch button[type="button"]:hover {
+	opacity: 0.8;
+}
+
+.jtable table {
+	margin: 0;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.jtable table thead tr th {
+	padding: 8px 10px;
+	background: #EEEEEE;
+	font: 15px Roboto;
+	color: #222222;
+	font-weight: normal;
+}
+
+.jtable table thead tr th:last-child {
+	border: none
+}
+
+/**
+* Row colors
+*/
+/*.jtable table tbody tr:nth-child(odd) {
+	background: #FFF1DF;
+}
+.jtable table tbody tr:nth-child(even) {
+	background: #FFFFFF;
+}*/
+.jtable table tbody tr {
+	background: #FFFFFF;
+}
+.jtable table tbody tr:hover {
+	background: #F9DCB7;
+}
+
+.jtable.green table tbody tr:nth-child(odd) {
+	background: #E1ECD7;
+}
+.jtable.green table tbody tr:nth-child(even) {
+	background: #F8F8F8;
+}
+.jtable.green table tbody tr:hover {
+	background: #CDEAB3;
+}
+
+.jtable table tbody tr td {
+	padding: 8px 10px;
+	font: 14px Roboto;
+	color: #222222;
+}
+
+.jtable table tbody tr td.center{
+	text-align: center;
+}
+.jtable table tbody tr td.left{
+	text-align: center;
+}
+.jtable table tbody tr td.right{
+	text-align: center;
+}
+
+.jtable div[data-section="footer"] {
+	padding: 5px 10px;
+	border-top: 3px solid #DDDDDD;
+	border-bottom: 3px solid #DDDDDD;
+	margin: 10px 0 0 0;
+}
+
+.jtable div[data-section="footer"]:after{
+	content: '';
+	display: block;
+	clear: both;
+}
+
+.jtable div[data-section="footer"] .exibicao {
+	float: left;
+	font: 13px Roboto;
+	color: #999999;
+}
+
+.jtable div[data-section="footer"] div[data-section="pagination"] {
+	float: right;
+}
+
+.jtable div[data-section="footer"] div[data-section="pagination"] p {
+	display: inline;
+	font: 15px Roboto;
+	color: #000000;
+	font-weight: normal;
+	margin: 0 4px;
+}
+
+.jtable div[data-section="footer"] div[data-section="pagination"] a {
+	display: inline;
+	font: 15px Roboto;
+	text-decoration: none;
+	color: #E6A759;
+	margin: 0 2px;
+}
+
+.jtable div[data-section="footer"] div[data-section="pagination"] a:hover
+	{
+	text-decoration: underline
+}

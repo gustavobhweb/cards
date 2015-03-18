@@ -1,0 +1,184 @@
+*{margin:0;padding:0}
+
+html{
+	height: 100%;
+}
+
+body{
+	background: url(../img/bg.png) #444444;
+	width: 100%;
+	height: 100%;
+}
+
+.main-wrap{
+	width: 90%;
+	margin: 0 auto;
+	position: relative;
+	height: 100%;
+}
+
+.clear{
+	clear: both;
+}
+
+.logo{
+	float: left;
+	margin: 30px 0 0 0;
+}
+
+.header{
+	width: 100%;
+}
+
+.login{
+	width: 370px;
+	height: 175px;
+	background: #CCCCCC;
+	float: left;
+	margin: 100px 0 0 0;
+	border-radius: 6px;
+}
+
+.error{
+	font: 12px Roboto;
+	color: #333333;
+	font-weight: 300;
+	margin: 5px 0 0 0;
+}
+
+.login img{
+	float:left;
+	margin: 16px 0 0 25px;
+	width: 12.16216216216216%;
+	margin: 4.324324324324324% 0 0 6.756756756756757%
+}
+
+.login .right{
+	float: left;
+	margin: 4.324324324324324% 0 0 6.756756756756757%;
+	width:67.56756756756757%;
+}
+
+.login .right h1{
+	font: 30px Roboto;
+	font-weight: lighter;
+	color: #444444;
+}
+
+.input{
+	float: left;
+	width: 100%;
+	height: 30px;
+	border: 1px solid #AAAAAA;
+	background: #DDDDDD;
+	margin: 7px 0 0 0;
+	border-radius: 5px;
+	font: 15px Calibri;
+	color: #444444;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+	outline: none;
+	padding: 0 10px;
+	font: 15px Calibri;
+	box-sizing: border-box;
+}
+
+.input:focus{
+	border-color: #999999;
+	background: #EEEEEE;
+}
+
+.input.input-password{
+	width: 75%;
+	border-radius: 5px 0 0 5px;
+}
+
+.login .right a{
+	float: left;
+	font: 15px Calibri;
+	color: #777777;
+	margin: 5px 0 0 0;
+	text-decoration: none;
+}
+
+.login .right a:hover{
+	text-decoration: underline;
+}
+
+.btn-login{
+	float: left;
+	width: 25%;
+	background: #E6A759;
+	color: white;
+	margin: 7px 0 0 0;
+	height: 30px;
+	border: none;
+	border-radius: 0 5px 5px 0;
+	box-sizing: border-box;
+	font: 15px Calibri;
+	font-weight: lighter;
+	cursor: pointer;
+	outline: none;
+}
+
+.btn-login:hover{
+	background: #E9B06B;
+}
+
+.btn-login:active{
+	background: #E6A759;
+}
+
+.data-info{
+	float: right;
+	margin: 100px 0 0 0;
+}
+
+.data-info h2{
+	font: 30px Roboto;
+	font-weight: lighter;
+	color: #999999;
+}
+
+.data-info h1{
+	font: 50px Roboto;
+	font-weight: lighter;
+	color: #999999;
+}
+
+.footer{
+	position: absolute;
+	bottom: 30px;
+	right: 0;
+}
+
+.footer p{
+	font: 15px Calibri;
+	color: #777777;
+}
+
+@media screen and (max-width: 700px){
+	.login{
+		margin-top: 40px;
+	}
+	.data-info{
+		margin-top: 50px;
+	}
+}
+
+@media screen and (max-width: 420px){
+	.login{
+		width:100%;
+	}
+	.login .right h1{
+		font: 18px Roboto;
+	}
+	.data-info{
+		margin-top: 50px;
+	}
+}
+
+@media screen and (max-width: 320px){
+	.data-info{
+		margin-top: 50px;
+	}
+}

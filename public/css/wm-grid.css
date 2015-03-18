@@ -1,0 +1,136 @@
+.wm-grid{
+    display:block; float:left;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -ms-box-sizing:border-box;
+    -o-box-sizing:border-box;
+}
+.wm-grid.wm-grid-12
+{
+    width:100%; 
+    width: calc(100% / 12 * 12 )
+}
+.wm-grid.wm-grid-11
+{
+    width:91.66666666666667%; 
+    width: calc(100% / 12 * 11 )
+}
+.wm-grid.wm-grid-10
+{
+    width:83.33333333333334%; 
+    width: calc(100% / 12 * 10 )
+}
+.wm-grid.wm-grid-9
+{
+    width:75%; 
+    width: calc(100% / 12 * 9 )
+}
+.wm-grid.wm-grid-8
+{
+    width:66.66666666666667%; 
+    width: calc(100% / 12 * 8 )
+}
+.wm-grid.wm-grid-7
+{
+    width:58.333333333333336%; 
+    width: calc(100% / 12 * 7 )
+}
+.wm-grid.wm-grid-6
+{
+    width:50%; 
+    width: calc(100% / 12 * 6 )
+}
+.wm-grid.wm-grid-5
+{
+    width:41.66666666666667%; 
+    width: calc(100% / 12 * 5 )
+}
+.wm-grid.wm-grid-4
+{
+    width:33.333333333333336%; 
+    width: calc(100% / 12 * 4 )
+}
+.wm-grid.wm-grid-3
+{
+    width:25%; 
+    width: calc(100% / 12 * 3 )
+}
+.wm-grid.wm-grid-2
+{
+    width:16.666666666666668%; 
+    width: calc(100% / 12 * 2 )
+}
+.wm-grid.wm-grid-1
+{
+    width:8.333333333333334%; 
+    width: calc(100% / 12 * 1 )
+}
+.wm-grid{
+    display:block; float:left;
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -ms-box-sizing:border-box;
+    -o-box-sizing:border-box;
+}
+.wm-grid.wm-grid-12
+{
+    width:100%; 
+    width: calc(100% / 12 * 12 )
+}
+.wm-grid.wm-grid-11
+{
+    width:91.66666666666667%; 
+    width: calc(100% / 12 * 11 )
+}
+.wm-grid.wm-grid-10
+{
+    width:83.33333333333334%; 
+    width: calc(100% / 12 * 10 )
+}
+.wm-grid.wm-grid-9
+{
+    width:75%; 
+    width: calc(100% / 12 * 9 )
+}
+.wm-grid.wm-grid-8
+{
+    width:66.66666666666667%; 
+    width: calc(100% / 12 * 8 )
+}
+.wm-grid.wm-grid-7
+{
+    width:58.333333333333336%; 
+    width: calc(100% / 12 * 7 )
+}
+.wm-grid.wm-grid-6
+{
+    width:50%; 
+    width: calc(100% / 12 * 6 )
+}
+.wm-grid.wm-grid-5
+{
+    width:41.66666666666667%; 
+    width: calc(100% / 12 * 5 )
+}
+.wm-grid.wm-grid-4
+{
+    width:33.333333333333336%; 
+    width: calc(100% / 12 * 4 )
+}
+.wm-grid.wm-grid-3
+{
+    width:25%; 
+    width: calc(100% / 12 * 3 )
+}
+.wm-grid.wm-grid-2
+{
+    width:16.666666666666668%; 
+    width: calc(100% / 12 * 2 )
+}
+.wm-grid.wm-grid-1
+{
+    width:8.333333333333334%; 
+    width: calc(100% / 12 * 1 )
+}

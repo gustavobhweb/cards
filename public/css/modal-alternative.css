@@ -1,0 +1,100 @@
+.modal-alternative{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: rgba(255,255,255,0.7);
+    display: none;
+    z-index: 2;
+}
+
+.modal-alternative .modal-box{
+    width: 40%;
+    background: white;
+    box-shadow: 0px 2px 9px 1px rgba(0,0,0,0.7);
+    border-radius: 4px;
+    margin: 10% auto 0 auto;
+}
+
+.modal-alternative .modal-box .modal-header{
+    padding: 10px 15px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #DDDDDD;
+}
+.modal-alternative .modal-box .modal-header p{
+    font: 16px Calibri;
+    color: #333333;
+    float: left;
+}
+.modal-alternative .modal-box .modal-header .close{
+    float: right;
+    background: transparent;
+    border: none;
+    margin: 4px 0 0 0;
+    cursor: pointer;
+    color: #CCCCCC;
+}
+.modal-alternative .modal-box .modal-header .close:hover{
+    opacity: 0.8;
+}
+.modal-alternative .modal-box .modal-header:after{
+    clear: both;
+    content: '';
+    display: block;
+}
+
+.modal-alternative .modal-box .modal-content{
+    padding: 15px;
+    box-sizing: border-box;
+}
+.modal-alternative .modal-box .modal-content{
+    clear: both;
+    content: '';
+    display: block;
+}
+.modal-alternative .modal-box .modal-content p{
+    font: 15px Calibri;
+    color: #333333;
+    margin: 5px 0 0 0;
+}
+
+.modal-alternative .modal-box .modal-footer{
+    padding: 10px;
+    box-sizing: border-box;
+    border-top: 1px solid #DDDDDD;
+    text-align: right;
+}
+
+.modal-alternative .modal-box .modal-footer:after{
+	content: '';
+	clear: both;
+	display: block;
+}
+
+.modal-alternative .modal-box .modal-footer button{
+    padding: 6px 8px;
+    font: 12px Arial;
+    border: none;
+    border-radius: 3px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.modal-alternative .modal-box .modal-footer button.cancel{
+    background: #DF5551;
+    box-shadow: inset 0 0 3px #942623;
+}
+.modal-alternative .modal-box .modal-footer button.cancel:hover{
+    background: #E1726F;
+    box-shadow: inset 0 0 3px #D1302C;
+}
+
+.modal-alternative .modal-box .modal-footer button.confirm{
+    background: #77BD74;
+    box-shadow: inset 0 0 3px #499245;
+}
+.modal-alternative .modal-box .modal-footer button.confirm:hover{
+    background: #79C67D;
+    box-shadow: inset 0 0 3px #499245;
+}

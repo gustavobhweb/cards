@@ -1,0 +1,13 @@
+.wm-btn.active {
+	background: linear-gradient(to bottom, #2965AF, #0965AF);
+	transition: background .4s linear;
+	color: white;
+}
+
+tr.tab-tarefas {
+	display: none;
+}
+
+#only-print-container {
+	display: none;
+}

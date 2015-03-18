@@ -1,0 +1,11 @@
+.img-ficha{
+	max-width: 100%;
+	max-height: 200px;
+}
+
+
+.gray-box{
+	background-color:#F4F4F4;
+	padding:1em 0.625em;
+	margin:5px 0;
+}

@@ -1,0 +1,95 @@
+.wm-modal {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	left: 0;
+	top: 0;
+	display: none;
+	z-index: 1000;
+}
+
+.wm-modal *{
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.wm-modal-box {
+	width: 80%;
+	height: 80%;
+	margin: 100px auto;
+	background-color: white;
+	padding: 15px;
+	border-radius: 10px;
+	position: relative;
+}
+
+.wm-modal-box:after, .wm-modal-box:before{
+	content: '';
+	clear: both;
+	display: block;
+}
+
+.wm-modal-box .relative-wrapper {
+	position:relative;
+	height:100%;
+}
+
+#wm-alert {
+	width: 500px;
+	height: 250px;
+}
+
+.wm-modal-box .wm-modal-head {
+	background: #049;
+	height: 50px;
+	cursor: move;
+}
+
+.wm-modal-box .wm-modal-head .wm-modal-title {
+	text-align: center;
+	padding: 10px;
+	color: gold;
+}
+
+#wm-alert .wm-modal-body {
+	min-height: 55%;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.wm-modal-body{
+	padding:10px 0;
+}
+
+.wm-modal-close {
+	float: right;
+	color: rgba(0, 0, 0, .5);
+	font-weight: bold;
+	font-size: 20px;
+	background: transparent;
+	border: none;
+	margin: 5px;
+	outline: none;
+	cursor: pointer;
+}
+
+.wm-modal-footer .wm-modal-inputs {
+	text-align: right;
+}
+
+#wm-alert-flash{
+	width: 45%;
+	height: 25%;
+	min-height: 300px;
+	margin:12.5% auto;
+	text-align: center;
+}
+
+#wm-alert-flash .wm-modal-footer{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}

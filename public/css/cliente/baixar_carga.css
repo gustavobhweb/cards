@@ -1,0 +1,19 @@
+a.not-downloaded {
+	font-size: 20px;
+	color: green;
+	text-shadow: 0 0 4px lightgreen;
+}
+
+a.downloaded {
+	font-size: 20px;
+	color: #555;
+}
+
+a.not-downloaded,a.downloaded {
+	-webkit-transition: text-shadow .3s linear;
+	transition: text-shadow .3s linear;
+}
+
+a.not-downloaded:hover,a.downloaded:hover {
+	text-shadow: 0 0 10px #ccc;
+}

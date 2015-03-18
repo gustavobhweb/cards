@@ -1,0 +1,6 @@
+Tipo do cartão (relacionamento tipos_cartao)
+Cartão com furo ou sem
+Gravação do código (relacionamento tipos_codigos)
+Tem cardvantagens
+Nome do modelo (relacionamento modelos_cartoes)
+

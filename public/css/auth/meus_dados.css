@@ -1,0 +1,21 @@
+.input-error {
+	box-shadow: #F99 0px 0px 4px 0px !important;
+	border: 1px solid #FF5959 !important;
+	background-image:url(/img/error.png);
+	background-repeat: no-repeat;
+	background-position: calc(100% - 0.625em);
+	background-size: 20px;
+}
+
+.input-valid {
+	box-shadow: #B3FF99 0px 0px 9px 0px !important;
+	border: 1px solid #2BA800 !important;
+	background-image:url(/img/check.png);
+	background-repeat: no-repeat;
+	background-position: calc(100% - 0.625em);
+	background-size: 20px;
+}
+
+.input-valid, .input-error{
+	padding-right:35px !important;
+}

@@ -1,0 +1,560 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+* {
+	outline: none;
+}
+
+@font-face {
+	font-family: 'square721';
+	src: url('../fonts/square721/sqr721dn-webfont.eot');
+	src: url('../fonts/square721/sqr721dn-webfont.eot?#iefix')
+		format('embedded-opentype'),
+		url('../fonts/square721/sqr721dn-webfont.woff2') format('woff2'),
+		url('../fonts/square721/sqr721dn-webfont.woff') format('woff'),
+		url('../fonts/square721/sqr721dn-webfont.ttf') format('truetype'),
+		url('../fonts/square721/sqr721dn-webfont.svg#square721_dmnormal')
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'ballon';
+	src: url('../fonts/bollon/mlsir-webfont.eot');
+	src: url('../fonts/bollon/mlsir-webfont.eot?#iefix')
+		format('embedded-opentype'),
+		url('../fonts/bollon/mlsir-webfont.woff2') format('woff2'),
+		url('../fonts/bollon/mlsir-webfont.woff') format('woff'),
+		url('../fonts/bollon/mlsir-webfont.ttf') format('truetype'),
+		url('../fonts/bollon/mlsir-webfont.svg#balloon_bd_btbold')
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	
+}
+
+#solicitacao-carteirinha {
+	width: 100%;
+	float: left;
+}
+
+#mensagem-confeccao {
+	background: #0061B2;
+	padding: 10px;
+	float: left;
+	width: 993px;
+	box-sizing: border-box;
+}
+
+.send-buttons {
+	float: left;
+	width: 466px;
+	margin: 20px 0 0 0;
+}
+
+#mensagem-confeccao img {
+	float: left;
+	width: 36px;
+}
+
+#mensagem-confeccao p {
+	float: left;
+	font: 12px Arial, Verdana, sans-serif;
+	font-weight: normal;
+	color: #FFF;
+	margin: 5px 0 0 5px;
+	width: 90%;
+}
+
+.passo {
+	float: left;
+	margin-bottom: 223px;
+	margin-top: 20px;
+	margin-left: 30px;
+}
+
+#conteudo-passos {
+	width: 179px;
+	height: 100%;
+	float: left;
+}
+
+.passo h3 {
+	float: left;
+	font-family: 'ballon';
+	font-size: 70px;
+	color: #C4C4C4;
+	border-radius: 100%;
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+	border: 10px solid #C4C4C4;
+	padding: 10px;
+	width: 67px;
+	height: 67px;
+	text-align: center;
+}
+
+.passo h4 {
+	float: left;
+	font-family: 'ballon';
+	font-size: 17px;
+	color: #C4C4C4;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+#foto {
+	float: left;
+	width: 198px;
+	height: 362px;
+	background: #EFEFEF;
+	border: 1px solid #B5B5B5;
+	text-align: center;
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-bottom: 10px;
+	position: relative;
+}
+
+#foto a {
+	background: url('../img/aluno/bt-enviar-foto.png') no-repeat;
+	width: 86px;
+	height: 36px;
+	float: left;
+	margin-left: 59px;
+	margin-top: -24px;
+	z-index: 2;
+	position: relative;
+}
+
+#foto p {
+	text-align: center;
+	font-family: Arial, Verdana, sans-serif;
+	font-style: italic;
+	font-weight: bold;
+	margin-top: 36px;
+	margin-bottom: 36px;
+	color: #005FB2;
+	font-size: 21px;
+}
+
+#especificacoes {
+	background: #EFEFEF;
+	border: 1px solid #B5B5B5;
+	float: left;
+	margin-top: 10px;
+	height: 362px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 10px;
+}
+
+#especificacoes p {
+	font-size: 26px;
+	font-family: Arial, Verdana, sans-serif;
+	color: #000;
+	font-weight: bold;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 0px;
+}
+
+#especificacoes img {
+	border: 1px solid #B5B5B5;
+	margin: 10px;
+}
+
+.conteudo-form {
+	width: 815px;
+	float: left;
+}
+
+.conteudo-form form {
+	float: left;
+	width: 812px;
+}
+
+.conteudo-form fieldset {
+	border: 1px solid #B5B5B5;
+	padding: 20px;
+	background: #EFEFEF;
+	margin-left: 5px;
+	margin-bottom: 10px;
+}
+
+.conteudo-form fieldset h5 {
+	float: left;
+	font-size: 24px;
+	font-family: Arial, Verdana, sans-serif;
+	color: #000;
+	font-weight: bold;
+	width: 100%;
+}
+
+.icon-status {
+	float: left;
+}
+
+.emailPrincipal {
+	float: left;
+	width: 382px;
+}
+
+.emailPrincipal span {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+.emailPrincipal input {
+	width: 325px;
+	padding-top: 17px;
+	padding-left: 25px;
+	padding-bottom: 14px;
+	padding-right: 14px;
+	background: url('../img/aluno/icon-email.png') no-repeat #FFF;
+	background-position: 5px;
+	border: 1px solid #B5B5B5;
+}
+
+#infoEmailPrincipal {
+	font-size: 12px;
+	font-family: Arial, Verdana, sans-serif;
+	color: #005FB2;
+	float: left;
+}
+
+#infoEmailPrincipal p {
+	padding-top: 3px;
+}
+
+.icon-status span {
+	font-size: 20px;
+	color: #0060B2;
+	float: left;
+	font-family: 'square721';
+	font-weight: bold;
+	display: block;
+}
+
+.icon-status input {
+	float: left;
+	display: block;
+}
+
+#titulo-endereco {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.dadosEndereco {
+	display: inline;
+	width: 30%;
+}
+
+.dadosEndereco span {
+	float: left;
+	margin-bottom: 5px;
+	width: 100%;
+	margin-top: 13px;
+}
+
+.dadosEndereco .btn_padrao {
+	font-size: 16px;
+	font-weight: bold;
+	color: #FFF;
+	font-family: Arial, Verdana, sans-serif;
+	background: #0061B2;
+	width: auto !important;
+	margin-left: 20px;
+	padding-top: 12px;
+	padding-left: 23px;
+	padding-right: 28px;
+	padding-bottom: 11px;
+	border-bottom: 5px solid #0A3D9B;
+	margin-top: 1px;
+	float: left;
+	cursor: pointer;
+}
+
+.dadosEndereco .btn_nao_sabe {
+	font-size: 12px;
+	font-weight: normal;
+	color: #0060B2;
+	font-family: Arial, Verdana, sans-serif;
+	background: #E2E2E2;
+	width: auto !important;
+	margin-left: 20px;
+	padding-top: 17px;
+	padding-left: 18px;
+	padding-right: 18px;
+	padding-bottom: 16px;
+	margin-top: 1px;
+	float: left;
+	cursor: pointer;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+.dadosEndereco .btn_nao_sabe:hover {
+	opacity: 0.7;
+	box-shadow: 0 0 4px #eeeeee;
+}
+
+.dadosEndereco input {
+	padding-top: 17px;
+	padding-left: 25px;
+	padding-bottom: 14px;
+	padding-right: 14px;
+	background: url('../img/aluno/icon-endereco.png') no-repeat #FFF;
+	background-position: 5px;
+	border: 1px solid #B5B5B5;
+}
+
+.dadosEndereco select {
+	padding-top: 17px;
+	padding-left: 25px;
+	padding-bottom: 15px;
+	padding-right: 14px;
+	background: url('../img/aluno/icon-endereco.png') no-repeat #FFF;
+	background-position: 5px;
+	border: 1px solid #B5B5B5;
+	font-size: 12px;
+	color: #B3B3B3;
+	width: 136px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.cep {
+	width: 100%;
+	float: left;
+}
+
+#cep {
+	float: left;
+	width: 135px !important;
+}
+
+.cidade {
+	width: 32.2%;
+}
+
+.uf {
+	width: 20%;
+}
+
+.endereco {
+	width: 213px;
+}
+
+.numero {
+	width: 10%;
+}
+
+.dadosEndereco #cidade {
+	float: left;
+	width: 231px;
+}
+
+.dadosEndereco #endereco {
+	float: left;
+	width: 157px;
+}
+
+.dadosEndereco #numero {
+	float: left;
+	width: 114px;
+}
+
+.bairro {
+	width: 32.2%;
+	float: left;
+}
+
+.bairro input {
+	float: left;
+	width: 189px;
+}
+
+.complemento {
+	width: 40%;
+	float: left;
+}
+
+.complemento input {
+	width: 348px;
+}
+
+.passo3 {
+	margin-top: 131px;
+}
+
+#localEntrega h5 {
+	margin-bottom: 10px;
+	float: left;
+}
+
+#localEntrega .icon-status {
+	float: left;
+	margin-bottom: 10px;
+}
+
+#localEntrega .icon-status span {
+	margin-bottom: 5px;
+	margin-top: 10px;
+	float: left;
+}
+
+#localEntrega .icon-status ul {
+	list-style: none;
+	background: #FFF;
+	padding-left: 10px;
+	border: 1px solid #B5B5B5;
+	width: 753px;
+	float: left;
+	padding-top: 23px;
+	padding-bottom: 10px;
+}
+
+#localEntrega .icon-status ul li {
+	display: inline;
+	float: left;
+	width: 230px;
+	font-size: 14px;
+	font-weight: normal;
+	color: #969696;
+	padding-bottom: 14px;
+	padding-left: 10px;
+}
+
+#localEntrega .icon-status ul li input[type="radio"] {
+	margin-right: 5px;
+}
+
+#privacidade {
+	float: left;
+	width: 470px;
+}
+
+#privacidade p {
+	font-size: 13px
+}
+
+#privacidade input[type="checkbox"] {
+	float: left;
+	width: 22px;
+	margin-bottom: 34px;
+}
+
+.btn_cancelar {
+	float: left;
+	font-size: 19px;
+	font-weight: bold;
+	color: #FFF;
+	background: #FF0000;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 5px solid #A40000;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.btn_cancelar:hover {
+	background: #FF2424;
+}
+
+.btn_padrao {
+	font-size: 16px;
+	font-weight: bold;
+	color: #FFF;
+	font-family: Arial, Verdana, sans-serif;
+	background: #0061B2;
+	width: auto !important;
+	margin-left: 20px;
+	padding-top: 12px;
+	padding-left: 23px;
+	padding-right: 28px;
+	padding-bottom: 11px;
+	border-bottom: 5px solid #0A3D9B;
+	margin-top: 1px;
+	float: left;
+	cursor: pointer;
+	border-left: none;
+	border-top: none;
+	border-right: none;
+}
+
+.btn_padrao:hover {
+	background: #0079DD;
+}
+
+.glifEmail {
+	margin-right: 0;
+	float: left;
+	margin-left: -20px;
+	margin-top: 14px;
+}
+
+.glyphicon-remove {
+	color: #D90000;
+	float: left;
+	margin-left: -26px;
+	margin-top: 17px;
+}
+
+.glyphicon-ok {
+	color: #238C00;
+	float: left;
+	margin-left: -26px;
+	margin-top: 18px;
+}
+
+.glifEmail {
+	margin-right: 0;
+	float: left;
+	margin-left: -24px;
+	margin-top: 17px;
+}
+
+.glifNumero {
+	float: left;
+	margin-left: 130px;
+	margin-top: -32px;
+}
+
+.glifComplemeno {
+	float: left;
+	margin-left: 360px;
+	margin-top: -32px;
+}
+
+.glifSelect {
+	float: left;
+	margin-left: 108px;
+	margin-top: 55px;
+	position: absolute;
+	display: block;
+}
+
+.icon-status {
+	position: relative;
+}
+
+.conteudo-form form fieldset input[type="email"]:required,.conteudo-form form fieldset input[type="text"]:required
+{
+	box-shadow: none;
+	border: 1px solid #B5B5B5;
+}
+
+.glif {
+	display: none;
+}

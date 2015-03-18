@@ -1,0 +1,33 @@
+#pieChartContainer{
+	max-width:400px;
+	height: 300px;
+}
+
+#chartContainer{
+	height:300px;
+	max-width:400px;
+}
+
+.dl-horizontal{
+	float:right;
+	width: 400px;
+	margin: 10px 0 0 0;
+}
+.dl-horizontal dt{ 
+	width: 48%;
+	float: left;
+	text-align: right;
+	color: #333333;
+}
+.dl-horizontal dd{ 
+	width: 50%;
+	float: right; 
+	color: #333333;
+}
+.dl-horizontal a:hover dt{
+	color: #006699;
+}
+.dl-horizontal a:hover dd{
+	color: #006699;
+	text-decoration: underline;
+}

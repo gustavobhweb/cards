@@ -1,0 +1,11 @@
+.status-indicator {
+	font-size: 20px;
+}
+
+.status-indicator.ok {
+	color: #add555;
+}
+
+.status-indicator.waiting {
+	color: #CFCBB3;
+}

@@ -1,0 +1,8 @@
+.frm-cadastro{
+	width: 350px;
+}
+
+.frm-cadastro input, .frm-cadastro select{
+	width:100%;
+	margin:0 0 10px 0;
+}

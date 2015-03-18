@@ -1,0 +1,155 @@
+.topo-mobile{
+	float: left;
+	width: 100%;
+	margin: 0;
+	padding:0;
+	position: relative;
+}
+.topo-mobile .line{
+	width: 96%;
+	margin: 0 auto;
+}
+.topo-mobile a {
+	float: left;
+	border: 0;
+	margin-top: 1%;
+    margin-left: 2%;
+    width: 40%;
+}
+.topo-mobile a img{
+	width: 59%;
+	float: left;
+	margin-bottom: 5px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+.container-menu-mobile{
+	width: 310px;
+    overflow-y: auto;
+    right: 0;
+    top: 68px;
+    float: right;
+    overflow: hidden;
+    position: absolute;
+    margin-bottom: 10px;
+    z-index: -1;
+}
+.menu-mobile{
+	float: left;
+	width: 45%;
+	margin-top: 1%;
+	background:#0965AF;
+	float: right;
+	height: 57px;
+    
+}
+.menu-mobile .dados-user{
+	float: left;
+	width: 80%;
+}
+.menu-mobile .dados-user p{
+	float: left;
+	color: #FFF;
+	font-size: 1em;
+	width: 100%;
+	margin-top: 5px;
+	margin-left: 5px;
+	font-weight: bold;
+	display: block;
+}
+.btn-menu-mobile{
+	float: right;
+	width: 32px;
+  	margin-top: 2.4%;
+	cursor: pointer;
+	margin-bottom: 6px;
+}
+.menu-opened-mobile{
+	width: 300px;
+	background:#FFF;
+	box-shadow: 0px 1px 4px 1px #CCC;
+	margin-top: 1px;
+	float: right;
+	margin-right: -311px;
+	margin-bottom: 10px;
+}
+.menu-opened-mobile img{
+	width: 80%;
+	background-size: 100%;
+	float: left;
+	margin-top: 10px;
+}
+.menu-opened-mobile ul{
+	list-style: none;
+	float: left;
+	width: 100%;
+}
+.menu-opened-mobile ul li{
+	float: left;
+	width: 100%;
+}
+
+.menu-opened-mobile ul li:hover{
+	background:#0965AF;
+}
+.menu-opened-mobile ul li a:hover{
+	color: #FFF;
+}
+.menu-opened-mobile ul li a{
+	text-decoration: none;
+	border-bottom: 1px dotted #aaa;
+	width: 98%;
+	float: left;
+	padding: 7px 0 7px 0;
+	text-decoration: none;
+	font: 13px arial;
+	color: #333333; 
+}
+
+@media screen and (max-width: 900px){
+	.menu-mobile .dados-user p{
+		font-size: 0.80em;
+	}
+	.menu-opened-mobile{
+		margin-top: 0px;
+	}
+}
+@media screen and (max-width: 650px){
+	.topo-mobile a{
+		width: 53%;
+	}
+	.menu-mobile .dados-user p{
+		font-size: 0.60em;
+	}
+	.menu-opened-mobile{
+		margin-top: -2px;
+	}
+}
+
+@media screen and (max-width: 480px){
+	.topo-mobile a img{
+		width: 76%;
+	}
+	.menu-mobile .dados-user{
+		padding: 5px; 
+		width: 68%;
+	}
+	.btn-menu-mobile{
+		margin-top: 10px;
+	}
+	.container-menu-mobile{
+		width: 100%;
+		top: 82%;
+	}
+	.menu-opened-mobile{
+		width: 100%;
+		margin-right: -100%;
+	}
+	.menu-opened-mobile img{
+		width: 215px;
+	}
+	.menu-opened-mobile{
+		margin-top: 1px;
+		top: 81%;
+	}
+}
