@@ -130,4 +130,63 @@ $(function(){
             }).show().data('open', true);
         }
     });
+
+    $(window).setContextMenu({
+        '<i class="halflings halflings-cog"></i> Minha conta': function()
+        {
+            $(location).attr('href', '/auth/meus-dados');
+        },
+        '<i class="halflings halflings-remove"></i> Sair': function()
+        {
+            $(location).attr('href', '/logout');
+        }
+    });
+
 });
+
+$.prototype.showModal = function()
+{
+    $(this).on('click', function()
+    {
+        var $modal = $("<div></div>");
+        $modal.css({
+            width: '50%',
+            height: '50%',
+            background: '#FFFFFF',
+            position: 'fixed',
+            left: '25%',
+            top: '25%',
+            zIndex: 1000,
+            opacity: 0
+        });
+
+        $('body').append($modal);
+
+        $modal.animate({
+            opacity: 0.7,
+            width: '100%',
+            height: '100%',
+            left: 0,
+            top: 0,
+            filter: 'blur(5px)'
+        });
+
+        $(window).on('keyup', function(event)
+        {
+            if (event.keyCode == 27) {
+                $modal.animate({
+                    width: '90%',
+                    height: '90%',
+                    left: '5%',
+                    top: '5%',
+                    opacity: 0
+                }, function()
+                {
+                    $(this).remove();
+                });
+            }
+        });
+    });
+
+    return $(this);
+}

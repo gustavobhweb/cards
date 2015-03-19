@@ -22,7 +22,6 @@
 	@yield('scripts')
 </head>
 <body>
-
 	<div class="header">
 		<div class="main">
 			<a href="{{ URL::to('/') }}"><img src="{{ URL::to('img/letscom.gif') }}" /></a>
