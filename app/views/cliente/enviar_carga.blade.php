@@ -16,7 +16,7 @@
     <div class="pull-left total">
     {{ Form::open(['files' => true]) }}
 
-        <div class="wt-section">
+        <div class="fc-section">
             <div class="title">
                 <span>1</span>
                 <h4>Download do arquivo XLS modelo</h4>
@@ -27,7 +27,7 @@
             </div>
         </div>
 
-        <div class="wt-section">
+        <div class="fc-section">
             <div class="title">
                 <span>2</span>
                 <h4>Enviar dados</h4>

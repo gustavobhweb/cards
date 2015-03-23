@@ -1,6 +1,8 @@
 @extends('layouts.default') 
 
-@section('title') <i class="glyphicon glyphicon-arrow-up"></i> Expedição @endsection
+@section('topbar') 
+	<h4><i class="halflings halflings-arrow-up"></i> Expedição</h4>
+@endsection
 
 @section('content')
 
@@ -44,7 +46,7 @@
 	</div><!-- section="footer" -->
 </div><!-- .jtable -->
 @else
-    <div class='j-alert-error'>Nenhuma remessa foi encontrada.</div>
+    <div class='alert warning'>Nenhuma remessa foi encontrada.</div>
 @endif
 <!-- .jtable -->
 

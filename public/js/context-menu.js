@@ -1,19 +1,25 @@
 $.prototype.setContextMenu = function(items)
 {
-	var $contextMenu = $('<div></div>');
-	$contextMenu.attr('id', '#context-menu').addClass('context-menu');
-	$contextMenu.html('<ul></ul>');
-	$('body').append($contextMenu);
-	
-	var html = '';
-	for (key in items) {
-		html += '<li class="clickable-item" onclick="(' + items[key]+ ')()">' + key + '</li>';			
+	var $contextMenu = '';
+	if (!$('.context-menu').length) {
+		$contextMenu = $('<div></div>');
+		$contextMenu.addClass('context-menu');
+		$contextMenu.html('<ul></ul>');
+		$('body').append($contextMenu);
+	} else {
+		$contextMenu = $('.context-menu');
 	}
-	$contextMenu.find('ul').html(html);
-	
+		
 	$(this).on('contextmenu', function(event)
 	{
 		event.preventDefault();
+		event.stopPropagation();
+		var html = '';
+		console.log(items);
+		for (key in items) {
+			html += '<li class="clickable-item" onclick="(' + items[key]+ ')()">' + key + '</li>';			
+		}
+		$contextMenu.find('ul').html(html);
 		var left = event.clientX,
 			top = event.clientY;
 		

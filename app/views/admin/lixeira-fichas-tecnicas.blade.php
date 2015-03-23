@@ -13,7 +13,8 @@
 @stop
 
 @section('content')
-
+	
+	@if($fichas_tecnicas->count())
 	<div class="jtable">
 		<table>
 			<thead>
@@ -29,13 +30,8 @@
 					<td class="center">{{ $ficha_tecnica->nome }}</td>
 					<td class="center">{{ $ficha_tecnica->camposVariaveis->count() }}</td>
 					<td class="center">
-
 						<button type="button" class="btn medium blue btn-restaurar" data-id="{{ $ficha_tecnica->id }}">
 							<i class="halflings halflings-hand-left"></i> Restaurar
-						</button>
-
-						<button type="button" class="btn medium btn-info" data-id="{{ $ficha_tecnica->id }}">
-							<i class="halflings halflings-eye-open"></i> Ver dados
 						</button>
 					</td>
 				</tr>
@@ -43,6 +39,9 @@
 			</tbody>
 		</table>
 	</div><!-- .jtable -->
+	 @else
+    <div class="alert warning">A lixeira de fichas técnicas está vazia</div>
+    @endif
 
 @include('elements.common-alert')
 

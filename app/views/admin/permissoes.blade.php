@@ -15,7 +15,7 @@
 @section('content')
 
 @if(isset($message))
-	<div class="j-alert-error">{{ $message }}</div>
+	<div class="alert success">{{ $message }}</div>
 @endif
 
 {{ Form::hidden('nivel_id', $nivel->id) }}
@@ -58,12 +58,6 @@
 				</td>
 				<td style="text-align:center">
 					<form method="post">
-						<input type="hidden" name="permissao_id_del" value="{{ $permissao->id }}" />
-						<button type="submit" class="wm-btn wm-btn-red"><i class="glyphicon glyphicon-trash"></i></button>
-					</form>
-				</td>
-				<td style="text-align:center">
-					<form method="post">
 						<input type="hidden" name="permissao_define_home_id" value="{{ $permissao->id }}" />
 						@if($paginaInicialId == $permissao->id)
 							<button type="button" class="btn medium blue">
@@ -74,6 +68,12 @@
 								<i class="halflings halflings-home"></i>
 							</button>
 						@endif
+					</form>
+				</td>
+				<td style="text-align:center">
+					<form method="post">
+						<input type="hidden" name="permissao_id_del" value="{{ $permissao->id }}" />
+						<button type="submit" class="btn medium red"><i class="halflings halflings-trash"></i></button>
 					</form>
 				</td>
 			</tr>

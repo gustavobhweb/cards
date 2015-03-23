@@ -249,6 +249,10 @@ class ClienteController extends BaseController
                                 ->wherestatus(1)
                                 ->firstOrFail();
 
+            if ($ficha->cliente_id != Auth::user()->cliente_id) {
+                return Redirect::to('/');
+            }
+
         } catch(Exception $e) {
 
             /*
@@ -643,7 +647,7 @@ class ClienteController extends BaseController
     {
         $remessa_id = Input::get('remessa_id');
         $auth = Auth::user();
-        $next_status = 2;
+        $next_status = 3;
         try {
             DB::transaction(function() use($remessa_id, $auth, $next_status){
                 Remessa::find($remessa_id)
@@ -700,6 +704,11 @@ class ClienteController extends BaseController
 
     public function getRemessasEnviarFoto($ficha_tecnica_id)
     {
+        $ficha = FichaTecnica::whereId($ficha_tecnica_id)->first();
+        if ($ficha->cliente_id != Auth::user()->cliente_id || !($ficha instanceof FichaTecnica)) {
+            return Redirect::to('/');
+        }
+
         $remessas = Remessa::with('solicitacoes')
         ->whereFichaTecnicaId($ficha_tecnica_id)
         ->whereStatusAtualId(1)
@@ -719,6 +728,10 @@ class ClienteController extends BaseController
 
     public function getRemessasSolicitarImpressao($ficha_tecnica_id)
     {
+        $ficha = FichaTecnica::whereId($ficha_tecnica_id)->first();
+        if ($ficha->cliente_id != Auth::user()->cliente_id || !($ficha instanceof FichaTecnica)) {
+            return Redirect::to('/');
+        }
         $remessas = Remessa::with('solicitacoes')
                             ->whereFichaTecnicaId($ficha_tecnica_id)
                             ->whereStatusAtualId(1)
@@ -733,23 +746,35 @@ class ClienteController extends BaseController
 
     public function getRemessasHistorico()
     {
+        $auth = Auth::user();
 
-        $remessas = Remessa::with('solicitacoes', 'statusAtual');
+        $remessas = Remessa::with('solicitacoes')
+                            ->where('status_atual_id', '<>', 1)
+                            ->whereHas('fichaTecnica', function($query) use($auth)
+                            {
+                                $query->whereClienteId($auth->cliente_id);
+                            });
 
-        if (Input::get('remessa_id')) {
-            $remessas = $remessas->whereId(Input::get('remessa_id'));
-        }
+        if (Input::has('search')) {
+            $remessas = $remessas->whereId(Input::get('search'));
+        }                            
 
-        $remessas = $remessas->where('status_atual_id', '<>', 1)
-                             ->paginate(15);
+        $remessas = $remessas->paginate(15);
 
         return View::make('cliente.remessas_historico', get_defined_vars());
     }
 
     public function anyRelatorios()
     {
+        $auth = Auth::user();
+
     	$remessas = Remessa::with('solicitacoes')
-    						->with('fichaTecnica');
+                            ->with('fichaTecnica')
+                            ->where('status_atual_id', '<>', 1)
+                            ->whereHas('fichaTecnica', function($query) use($auth)
+                            {
+                                $query->whereClienteId($auth->cliente_id);
+                            });
 
     	if (Input::has('search')) {
 	    	$remessas->whereId(Input::get('search'));
@@ -851,6 +876,7 @@ class ClienteController extends BaseController
     {
     	$fichas_tecnicas = FichaTecnica::whereStatus(1)
     									->whereAprovado(1)
+                                        ->whereClienteId(Auth::user()->cliente_id)
                                         ->orderBy('aprovado', 'DESC')
                                         ->with('solicitacoes')
                                         ->get();

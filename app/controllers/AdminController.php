@@ -38,6 +38,7 @@ class AdminController extends BaseController
             }
         }
         $vars['niveis'] = Nivel::whereStatus(1)->get();
+        $vars['clientes'] = Cliente::whereStatus(1)->get();
         return View::make('admin.cadastrar-usuarios', $vars);
     }
 
@@ -63,7 +64,7 @@ class AdminController extends BaseController
 
     public function anyAcl()
     {
-        $vars['niveis'] = Nivel::all();
+        $vars['niveis'] = Nivel::whereStatus(1)->get();
         $vars['permissoes'] = Permissao::all();
 
         if (Request::isMethod('post')) {
@@ -464,7 +465,8 @@ class AdminController extends BaseController
                     'tipo_entrega_id',
                     'tipo',
                     'campo_chave',
-                    'tem_furo'
+                    'tem_furo',
+                    'cliente_id'
                 );
 
                 $files = [];
@@ -895,7 +897,32 @@ class AdminController extends BaseController
             $clientes->where('nome', 'LIKE', '%' . Input::get('search') . '%');
         }
 
-        $clientes = $clientes->get();
+        if (Request::isMethod('post')) {
+            $data = Input::all();
+            if (Usuario::whereUsername($data['username'])->count()) {
+                $vars['alert'] = [
+                    'status' => false,
+                    'message' => 'Este usuário já existe no banco de dados.'
+                ];
+            } elseif ($data['password'] == null || $data['password'] == '') {
+                $vars['message'] = 'Digite a senha do usuário.';
+            } elseif ($data['nome'] == null || $data['nome'] == '') {
+                $vars['alert'] = [
+                    'status' => false,
+                    'message' => 'Digite o nome do usuário.'
+                ];
+            } else {
+                $data['password'] = Hash::make($data['password']);
+                $data['nivel_id'] = 16;
+                Usuario::create($data);
+                $vars['alert'] = [
+                    'status' => true,
+                    'message' => 'Usuário cadastrado com sucesso.'
+                ];
+            }
+        }
+
+        $clientes = $clientes->paginate(15);
 
         return View::make('admin.gerenciar-clientes', get_defined_vars());
     }

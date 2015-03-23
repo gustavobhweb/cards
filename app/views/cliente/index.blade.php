@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-
+    @if($fichas_tecnicas->count())
     <div class="jtable">
         <table>
             <thead>
@@ -51,12 +51,13 @@
                         @endif
                     </td>
                 </tr>
-                <tr class="normalize">
-                </tr>
                 @endforeach
             </tbody>
         </table>
     </div><!-- .gerenciamento-table -->
+    @else
+    <div class="alert warning">Ainda não existem fichas técnicas cadastradas. Entre em contato conosco e solicite uma proposta.</div>
+    @endif
 @stop
 
 @section('styles')

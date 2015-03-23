@@ -24,7 +24,9 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface
         'nome_completo',
         'password',
         'registro_geral',
-        'username'
+        'username',
+        'cliente_id',
+        'primeiro_acesso'
     ];
 
     public function nivel()

@@ -1,6 +1,8 @@
 @extends('layouts.default')
 
-@section('title') Histórico de solicitação @stop
+@section('topbar') 
+<h4><i class="halflings halflings-dashboard"></i> Linha do tempo da remessa {{ $remessa->id }}</h4>
+@stop
 
 @section('content')
 

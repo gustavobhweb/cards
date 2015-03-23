@@ -149,6 +149,22 @@ body{
 	position: absolute;
 	bottom: 30px;
 	right: 0;
+	width: 100%;
+	text-align: right;
+}
+
+.footer .dev{
+	float: left;
+}
+
+.footer .dev p{
+	float: left;
+	margin:6px 0 0 0;
+}
+
+.footer .dev img{
+	float: left;
+	margin: 0 0 0 10px;
 }
 
 .footer p{

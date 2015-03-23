@@ -172,8 +172,7 @@ class ProducaoController extends BaseController
 
 
                     $camposFixos = [
-                        $remessa->fichaTecnica->campo_chave,
-                        'foto'
+                        $remessa->fichaTecnica->campo_chave
                     ];
 
                     $camposCabecalho = array_merge($camposFixos, $camposCabecalho);
@@ -183,8 +182,7 @@ class ProducaoController extends BaseController
                     foreach ($remessa->solicitacoes as $solicitacao) {
 
                         $camposValores = [
-                            $solicitacao->codigo,
-                            $solicitacao->foto
+                            $solicitacao->codigo
                         ];
 
                         foreach($solicitacao->camposVariaveis as $campo) {
@@ -234,15 +232,13 @@ class ProducaoController extends BaseController
 
                 $filesWithProblems = [];
 
-                $dir = public_path('solicitacoes/');
-
                 $remessaId = zero_fill($id, 4);
 
                 foreach ($solicitacoes as $solicitacao) {
 
-                    $filename = $dir . "{$id}/{$solicitacao->foto}";
+                    $filename = $solicitacao->foto_fullpath;
 
-                    $filenameInZip = "{$id}/{$solicitacao->foto}";
+                    $filenameInZip = "{$id}/{$solicitacao->codigo}.jpg";
 
                     if (File::exists($filename)) {
 

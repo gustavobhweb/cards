@@ -35,6 +35,12 @@
 			<option value="{{ $nivel->id }}">{{ $nivel->titulo }}</option>
 		@endforeach
 	</select>
+	<select name="cliente_id" class="medium">
+		<option value="">Selecione o cliente</option>
+		@foreach($clientes as $cliente)
+			<option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+		@endforeach
+	</select>
 	<br>
 	<button type="submit" class="btn medium green right">
 		<i class="halflings halflings-ok"></i> Salvar
