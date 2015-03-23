@@ -20,7 +20,6 @@
             <span>1</span>
             <h4>Cliente</h4>
         </div>
-
         <div class="content-section" style="margin:10px 0 0 0">
         <select name="cliente_id" class="medium total">
             <option>Selecione o cliente</option>
