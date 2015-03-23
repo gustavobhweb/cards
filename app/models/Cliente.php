@@ -15,4 +15,9 @@ class Cliente extends Eloquent
 	{
 		return $this->hasMany('FichaTecnica');
 	}
+
+	public function usuarios()
+	{
+		return $this->hasMany('Usuario');
+	}
 }

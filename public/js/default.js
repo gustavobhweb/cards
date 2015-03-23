@@ -144,11 +144,13 @@ $(function(){
 
 });
 
-$.prototype.showModal = function()
+$.prototype.showModal = function(data)
 {
+    var $this = this;
+
     $(this).on('click', function()
     {
-        var $modal = $("<div></div>");
+        var $modal = $('<div></div>');
         $modal.css({
             width: '50%',
             height: '50%',
@@ -157,13 +159,15 @@ $.prototype.showModal = function()
             left: '25%',
             top: '25%',
             zIndex: 1000,
-            opacity: 0
+            opacity: 0,
+            padding: '20px',
+            boxSizing: 'border-box'
         });
 
         $('body').append($modal);
 
         $modal.animate({
-            opacity: 0.7,
+            opacity: 1,
             width: '100%',
             height: '100%',
             left: 0,
@@ -171,21 +175,49 @@ $.prototype.showModal = function()
             filter: 'blur(5px)'
         });
 
+        // set title
+        if (typeof(data.title) != 'undefined') {
+            var $title = $('<h1></h1>');
+            $title.html(data.title);
+            $modal.append($title);
+        }
+
+        // set content
+        var $content = $('<div></div>');
+        $content.addClass('content-modal');
+        $modal.append($content);
+
+        if (typeof(data.template) != 'undefined') {
+            dataFinal = $.extend(data.data, {
+                id: $(this).data('id')
+            });
+
+            var htmlTpl = _.template($(data.template).html())(dataFinal);
+            $modal.find('.content-modal').html(htmlTpl);
+        }
+
         $(window).on('keyup', function(event)
         {
             if (event.keyCode == 27) {
-                $modal.animate({
-                    width: '90%',
-                    height: '90%',
-                    left: '5%',
-                    top: '5%',
-                    opacity: 0
-                }, function()
-                {
-                    $(this).remove();
-                });
+                $this.close();
             }
         });
+
+        $this.close = function()
+        {
+            $modal.animate({
+                width: '90%',
+                height: '90%',
+                left: '5%',
+                top: '5%',
+                opacity: 0
+            }, function()
+            {
+                $(this).remove();
+            });
+        }
+
+        $modal.find('.close').on('click', $this.close);
     });
 
     return $(this);

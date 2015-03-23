@@ -19,6 +19,7 @@
 	{{ HTML::script('js/list-menu.js') }}
 	{{ HTML::script('js/context-menu.js') }}
 	{{ HTML::script('js/jquery.mask.min.js') }}
+	{{ HTML::script('js/underscore-min.js') }}
 	@yield('scripts')
 </head>
 <body>
