@@ -1,7 +1,5 @@
 @extends('layouts.default')
 
-@section('title') ACL @stop
-
 @section('topbar')
 <h4><i class="halflings halflings-glyph-lock"></i> Access Control List</h4>
 <div class="list-menu right small">
@@ -12,6 +10,18 @@
 				<a href="{{ URL::to('admin/cadastrar-permissoes') }}">
 					<i class="halflings halflings-plus"></i>
 					Nova permissão
+				</a>
+			</li>
+			<li>
+				<a href="{{ URL::to('admin/salvar-configuracao-acl') }}">
+					<i class="halflings halflings-glyph-lock"></i>
+					Exportar ACL
+				</a>
+			</li>
+			<li>
+				<a href="{{ URL::to('admin/importar-configuracao-acl') }}">
+					<i class="halflings halflings-arrow-down"></i>
+					Importar ACL
 				</a>
 			</li>
 		</ul>

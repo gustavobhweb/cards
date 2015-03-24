@@ -8,7 +8,9 @@ class Cliente extends Eloquent
 		'nome',
 		'email',
 		'telefone',
-		'status'
+		'status',
+		'pessoa_contato',
+		'cnpj'
 	];
 
 	public function fichas()

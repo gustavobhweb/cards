@@ -24,7 +24,7 @@
 	{{ Form::text('search', Input::old('search'), [
 		'class' => 'medium',
 		'style' => 'width:300px',
-		'placeholder' => 'Pesquise pelo nome da empresa'
+		'placeholder' => 'Cliente / CNPJ / Telefone / Contato / E-mail'
 	]) }}
 
 	@if(Input::has('search'))
@@ -42,23 +42,30 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Nome</th>
-				<th>E-mail</th>
+				<th>Cliente</th>
+				<th>CNPJ</th>
 				<th>Telefone</th>
-				<th>Cadastrado em</th>
-				<th colspan="2">Ações</th>
+				<th>Contato</th>
+				<th>E-mail</th>
+				<th colspan="4" width="17%">Ações</th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach($clientes as $cliente)
 			<tr>
-				<td class="nome-cliente">{{{ $cliente->nome }}}</td>
-				<td class="center">{{{ $cliente->email }}}</td>
-				<td class="center">{{{ $cliente->telefone }}}</td>
-				<td class="center">{{{ $cliente->created_at->format('d/m/Y \à\s H:i:s') }}}</td>
+				<td class="nome-cliente mark-search">{{{ $cliente->nome }}}</td>
+				<td class="cnpj-cliente mark-search center">{{{ $cliente->cnpj }}}</td>
+				<td class="telefone-cliente mark-search center">{{{ $cliente->telefone }}}</td>
+				<td class="contato-cliente mark-search center">{{{ $cliente->pessoa_contato }}}</td>
+				<td class="email-cliente mark-search center">{{{ $cliente->email }}}</td>
 				<td class="center">
-					<button class="btn medium blue">
+					<a href="{{ URL::to('admin/clientes-operacao', $cliente->id) }}" class="btn medium blue">
 						<i class="halflings halflings-edit"></i>
+					</a>
+				</td>
+				<td class="center">
+					<button class="btn medium red" onclick="alert('Em desenvolvimento...')" title="Funcionalidade em desenvolviemnto...">
+						<i class="halflings halflings-trash"></i>
 					</button>
 				</td>
 				<td class="center">
@@ -68,9 +75,17 @@
 					</button>
 					@else
 					<button class="btn medium red btn-usuarios" data-id="{{ $cliente->id }}">
-						<i class="halflings halflings-user"></i> Cadastrar
+						<i class="halflings halflings-user"></i> 0
 					</button>
 					@endif
+				</td>
+				<td class="center">
+					<!-- <a href="{{ URL::to('admin/produtos') }}" class="btn medium green">
+						<i class="halflings halflings-shopping-cart"></i>
+					</a> -->
+					<a href="#" onclick="alert('Em desenvolvimento...')" class="btn medium green" title="Funcionalidade em desenvolviemnto...">
+						<i class="halflings halflings-shopping-cart"></i>
+					</a>
 				</td>
 			</tr>
 			@endforeach
@@ -107,6 +122,34 @@ $(function()
 			var nome = $(this).html().toLowerCase();
 			nome = nome.replace(search, search.bold());
 			$(this).html(nome.toUpperCase());
+		});
+
+		$('.cnpj-cliente').each(function()
+		{
+			var cnpj = $(this).html().toLowerCase();
+			cnpj = cnpj.replace(search, search.bold());
+			$(this).html(cnpj.toUpperCase());
+		});
+
+		$('.telefone-cliente').each(function()
+		{
+			var telefone = $(this).html().toLowerCase();
+			telefone = telefone.replace(search, search.bold());
+			$(this).html(telefone.toUpperCase());
+		});
+
+		$('.contato-cliente').each(function()
+		{
+			var contato = $(this).html().toLowerCase();
+			contato = contato.replace(search, search.bold());
+			$(this).html(contato.toUpperCase());
+		});
+
+		$('.email-cliente').each(function()
+		{
+			var email = $(this).html().toLowerCase();
+			email = email.replace(search, search.bold());
+			$(this).html(email.toUpperCase());
 		});
 	@endif
 

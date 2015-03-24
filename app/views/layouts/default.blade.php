@@ -12,14 +12,17 @@
 	{{ HTML::style('css/list-menu.css') }}
 	{{ HTML::style('css/context-menu.css') }}
 	{{ HTML::style('css/modal-alternative.css') }}
+	{{ HTML::style('css/modal.css') }}
 	@yield('styles')
 
 	{{ HTML::script('js/jquery-1.11.0.min.js') }}
+	{{ HTML::script('js/jquery-ui.min.js') }}
 	{{ HTML::script('js/default.js') }}
 	{{ HTML::script('js/list-menu.js') }}
 	{{ HTML::script('js/context-menu.js') }}
 	{{ HTML::script('js/jquery.mask.min.js') }}
 	{{ HTML::script('js/underscore-min.js') }}
+	{{ HTML::script('js/modal.js') }}
 	@yield('scripts')
 </head>
 <body>

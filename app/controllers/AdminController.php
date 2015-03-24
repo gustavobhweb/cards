@@ -892,7 +892,11 @@ class AdminController extends BaseController
         $clientes = Cliente::whereStatus(1);
 
         if (Input::has('search')) {
-            $clientes->where('nome', 'LIKE', '%' . Input::get('search') . '%');
+            $clientes->where('nome', 'LIKE', '%' . Input::get('search') . '%')
+                     ->orWhere('cnpj', 'LIKE', '%' . Input::get('search') . '%')
+                     ->orWhere('telefone', 'LIKE', '%' . Input::get('search') . '%')
+                     ->orWhere('pessoa_contato', 'LIKE', '%' . Input::get('search') . '%')
+                     ->orWhere('email', 'LIKE', '%' . Input::get('search') . '%');
         }
 
         if (Request::isMethod('post')) {
@@ -934,10 +938,10 @@ class AdminController extends BaseController
 
     public function anyClientesOperacao($id = null)
     {
+        $cliente = Cliente::whereId($id)->first();
         if (Request::isMethod('post')) {
             $input = Input::all();
             if (!is_null($id)) {
-                $cliente = Cliente::whereId($id);
                 $cliente->update($input);
             } else {
                 $cliente = Cliente::create($input);
@@ -945,6 +949,52 @@ class AdminController extends BaseController
         }
 
         return View::make('admin.clientes-operacao', get_defined_vars());
+    }
+
+    public function anySalvarConfiguracaoAcl()
+    {
+        if (Request::isMethod('post')) {
+
+            $json = [];
+
+            if (Input::get('niveis')) {
+                $json['niveis'] = Nivel::all()->toArray();
+            }
+
+            if (Input::get('permissoes')) {
+                $json['permissoes'] = Permissao::all()->toArray();
+            }
+
+            if (Input::get('niveis_permissoes')) {
+                $json['niveis_permissoes'] = NiveisPermissao::all()->toArray();
+            }
+
+            if (Input::get('usuarios')) {
+                $json['usuarios'] = Usuario::all()->toArray();
+            }
+
+            if (!is_dir(public_path('config_files'))) mkdir(public_path('config_files'), 0777);
+            if (!is_dir(public_path('config_files/acl'))) mkdir(public_path('config_files/acl'), 0777);
+
+            $filename = time() . '.cfw';
+
+            header("Content-Type: text/cfw");
+            header("Content-Type: application/force-download");
+            header("Content-disposition: attachment; filename=config_acl_" . date('Y-m-d_H-i-s').".cfw");
+
+            echo base64_encode(json_encode($json));
+            exit;
+        }
+
+        return View::make('admin.salvar-configuracao-acl', get_defined_vars());
+    }
+
+    public function anyImportarConfiguracaoAcl()
+    {
+        if (Request::isMethod('post')) {
+            
+        }
+        return View::make('admin.importar-configuracao-acl', get_defined_vars());
     }
 
 }

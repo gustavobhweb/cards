@@ -34,7 +34,7 @@ select.large{
 	font-size: 14px;
 }
 
-input[type=text],input[type=password]{
+input[type=text],input[type=password],input[type=email]{
 	padding: 3px;
 	outline: none;
 	box-sizing: border-box;
@@ -43,14 +43,14 @@ input[type=text],input[type=password]{
 	font: 12px Roboto;
 	color: #555555;
 }
-input[type=text]:focus,input[type=password]:focus,select:focus,button:focus{
+input[type=text]:focus,input[type=password]:focus,input[type=email]:focus,select:focus,button:focus{
 	border: 1px solid #E2A458;
 }
-input[type=text].medium,input[type=password].medium{
+input[type=text].medium,input[type=password].medium,input[type=email].medium{
 	padding: 7px;
 	font: 13px Roboto;
 }
-input[type=text].large,input[type=password].large{
+input[type=text].large,input[type=password].large,input[type=email].large{
 	padding: 9px;
 	font: 14px Roboto;
 }
