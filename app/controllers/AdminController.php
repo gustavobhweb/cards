@@ -129,8 +129,6 @@ class AdminController extends BaseController
 
         $vars['permissoes'] = $nivel->permissoes;
 
-        //$vars['permissoesAll'] = Permissao::all();
-
         $vars['paginaInicialId'] = $nivel->paginaInicial()->pluck('id');
 
         return View::make('admin.permissoes', $vars);
@@ -925,6 +923,28 @@ class AdminController extends BaseController
         $clientes = $clientes->paginate(15);
 
         return View::make('admin.gerenciar-clientes', get_defined_vars());
+    }
+
+    public function getAjaxUsuariosCliente($id)
+    {
+        $clientes = Cliente::findOrFail($id)->usuarios;
+
+        return Response::json($clientes);
+    }
+
+    public function anyClientesOperacao($id = null)
+    {
+        if (Request::isMethod('post')) {
+            $input = Input::all();
+            if (!is_null($id)) {
+                $cliente = Cliente::whereId($id);
+                $cliente->update($input);
+            } else {
+                $cliente = Cliente::create($input);
+            }
+        }
+
+        return View::make('admin.clientes-operacao', get_defined_vars());
     }
 
 }

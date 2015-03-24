@@ -150,6 +150,7 @@ $.prototype.showModal = function(data)
 
     $(this).on('click', function()
     {
+        var $thisBtn = $(this);
         var $modal = $('<div></div>');
         $modal.css({
             width: '50%',
@@ -162,7 +163,7 @@ $.prototype.showModal = function(data)
             opacity: 0,
             padding: '20px',
             boxSizing: 'border-box'
-        });
+        }).addClass('default-modal');
 
         $('body').append($modal);
 
@@ -173,18 +174,27 @@ $.prototype.showModal = function(data)
             left: 0,
             top: 0,
             filter: 'blur(5px)'
+        }, function()
+        {
+            console.log($thisBtn.data('id'));
+            if (typeof(data.open) == 'function') data.open($thisBtn.data('id'));
         });
 
         // set title
         if (typeof(data.title) != 'undefined') {
-            var $title = $('<h1></h1>');
-            $title.html(data.title);
+            var $title = $('<div></div>');
+            $title.append('<button class="btn transparent right close"><i class="halflings halflings-remove"></i></button>')
+            .append('<h1>' + data.title + '</h1>').css({
+                width: '100%'
+            });
             $modal.append($title);
         }
 
         // set content
         var $content = $('<div></div>');
-        $content.addClass('content-modal');
+        $content.addClass('content-modal').css({
+            margin: '10px 0 0 0'
+        });
         $modal.append($content);
 
         if (typeof(data.template) != 'undefined') {

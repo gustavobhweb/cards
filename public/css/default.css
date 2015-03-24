@@ -453,6 +453,14 @@ input[type=text].large,input[type=password].large{
 	border:none;
 	color: white;
 }
+.btn.transparent{
+	background: transparent;
+	border: none;
+	color: #333333;
+}
+.btn.transparent:hover{
+	color: #666666;
+}
 
 /**
 * Alerts and errors

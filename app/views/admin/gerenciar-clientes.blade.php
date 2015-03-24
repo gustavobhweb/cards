@@ -100,25 +100,52 @@
 $(function()
 {
 	@if(Input::has('search'))
-	var search = "{{{ Input::get('search') }}}".toLowerCase();
-	
-	$('.nome-cliente').each(function()
-	{
-		var nome = $(this).html().toLowerCase();
-		nome = nome.replace(search, search.bold());
-		$(this).html(nome.toUpperCase());
-	});
+		var search = "{{{ Input::get('search') }}}".toLowerCase();
+		
+		$('.nome-cliente').each(function()
+		{
+			var nome = $(this).html().toLowerCase();
+			nome = nome.replace(search, search.bold());
+			$(this).html(nome.toUpperCase());
+		});
 	@endif
 
 	$('.btn-usuarios').showModal({
 		title: 'Gerenciar usuários do cliente',
-		template: '#cadastrar-usuarios'
+		template: '#cadastrar-usuarios',
+		open: function(id)
+		{
+			$.ajax({
+				url: '/admin/ajax-usuarios-cliente/' + id,
+				type: 'GET',
+				dataType: 'json',
+				success: function(response)
+				{
+					if (response.length) {
+						var htmlUsers = '';
+						for (key in response) {
+							htmlUsers += '<tr>';
+								htmlUsers += '<td>' + response[key].nome + '</td>';
+								htmlUsers += '<td class="center">' + response[key].username + '</td>';
+							htmlUsers += '</tr>';
+						}
+						$('.default-modal').find('.jtable').find('tbody').html(htmlUsers);
+					} else {
+						$('.default-modal').find('.jtable').html('<div class="alert warning">Nenhum usuário cadastrado para esta empresa.</div>');
+					}
+				},
+				error: function()
+				{
+					alert('Problemas na conexão! Atualize a página e tente novamente.');
+				}
+			});
+		}
 	});
 });
 </script>
 
 <script type="text/template" id="cadastrar-usuarios">
-	<form method="post" style="width:50%;margin: 0 auto">
+	<form method="post" style="width:45%" class="left">
 		<input type="hidden" name="cliente_id" value="<%= id %>" />
 
 		<div class="fc-section">
@@ -169,6 +196,19 @@ $(function()
 			<i class="halflings halflings-remove"></i> Cancelar
 		</button>
 	</form>
+	<div class="jtable right" style="width:50%;margin:15px 0 0 0">
+		<table>
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Usuário</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	</div><!-- .jtable -->
 </script>
 
 @append
