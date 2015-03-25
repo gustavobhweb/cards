@@ -55,6 +55,10 @@ input[type=text].large,input[type=password].large,input[type=email].large{
 	font: 14px Roboto;
 }
 
+.responsive-items{
+	display:none;
+}
+
 .form label{
 	font: 12px Roboto;
 	color: #333333;
@@ -324,17 +328,24 @@ input[type=text].large,input[type=password].large,input[type=email].large{
 	width: 0;
 	background: #FFFFFF;
 	position:absolute;
-	z-index: 1;
+	z-index: 1001;
 	right:20px;
 	top:55px;
 	overflow: hidden;
 	box-shadow: 0 0 4px rgba(0,0,0,0.5);
 	border-radius: 5px;
-	display: none;
+	transition: 0.5s;
+}
+#right-top-menu[data-open="true"]{
+	width: 180px;
+}
+#right-top-menu[data-open="false"]{
+	width: 0;
 }
 #right-top-menu ul{
 	list-style: none;
-	width:180px;
+	min-width: 180px;
+	width:100%;
 }
 #right-top-menu ul li a{
 	width: 100%;
@@ -601,4 +612,24 @@ input[type=text].large,input[type=password].large,input[type=email].large{
 .footer .desenvolvido a{
 	float: left;
 	margin: 0 0 0 10px;
+}
+
+@media screen and (max-width: 850px){
+	.menu{
+		display: none;
+	}
+	.responsive-items{
+		display: block;
+	}
+	.topbar, .content{
+		width: 100%;
+	}
+	#right-top-menu[data-open="true"]{
+		width: 100%;
+		right: 0;
+		top: 50px;
+	}
+	#right-top-menu ul li a{
+		padding: 10px 7px;
+	}
 }

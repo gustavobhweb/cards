@@ -35,6 +35,16 @@
 
 	<div data-open="false" id="right-top-menu">
 		<ul>
+			<div class="responsive-items">
+				@foreach($permissoesMenu as $permissao)
+					<li>
+						<a href="{{ URL::to($permissao->url) }}">
+							<i class="halflings halflings-{{ $permissao->glyphicon }}"></i>
+							{{{ $permissao->name }}}
+						</a>
+					</li>
+				@endforeach
+			</div><!-- .responsive-items -->
 			<li><a href="{{ URL::to('auth/meus-dados') }}"><i class="halflings halflings-cog"></i> Minha conta</a></li>
 			<li><a href="{{ URL::to('logout') }}"><i class="halflings halflings-remove"></i> Sair</a></li>
 		</ul>
@@ -55,39 +65,16 @@
 			<div class="clear"></div>
 		</form>
 		<ul>
-		    @foreach($user->nivel->permissoes as $permissao)
-		    	@if($permissao->in_menu)
+		    @foreach($permissoesMenu as $permissao)
 			    <li>
 			        <a href='{{ URL::to($permissao->url) }}' {{ (Request::is($permissao->url)) ? 'class="on"' : '' }} >
 			            <span class="halflings halflings-{{ $permissao->glyphicon }}"></span>
 			            {{ $permissao->name }}
 			        </a>
 			    </li>
-			    @endif
 		    @endforeach
 		</ul>
 	</div><!-- .menu -->
-
-	@if(Session::has('submenu') && count(Session::get('submenu')))
-	<div class="submenu">
-		<ul>
-			@foreach(Session::get('submenu') as $k => $v)
-				@if(Request::is($v['newUrl']))
-				<li class="on" data-id="$k">
-					<a href="{{ $v['url'] }}">{{ $v['name'] }}</a>
-					<a class="close" href="{{ URL::to('close-tab/' . $k) }}"><i class="glyphicon glyphicon-remove"></i>
-				</a>
-				</li>
-				@else
-				<li data-id="$k">
-					<a href="{{ $v['url'] }}">{{ $v['name'] }}</a>
-					<a class="close" href="{{ URL::to('close-tab/' . $k) }}"><i class="glyphicon glyphicon-remove"></i></a>
-				</li>
-				@endif
-			@endforeach
-		</ul>
-	</div><!-- .submenu -->
-	@endif
 
 	<div class="topbar">
 		@yield('topbar')

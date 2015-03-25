@@ -3,11 +3,14 @@
 App::before(function ($request)
 {
     View::share('user', Auth::user());
-
-    
+        
     View::composer('layouts.default', function ($view)
     {
-        $view['PERMISSOES'] = Auth::user()->nivel->permissoes;
+        $view['permissoesMenu'] = Auth::user()
+                                        ->nivel
+                                        ->permissoes()
+                                        ->where('in_menu', '=', 1)
+                                        ->get();
     });
 
     View::composer('elements.cliente.submenu-remessas', function($view)
