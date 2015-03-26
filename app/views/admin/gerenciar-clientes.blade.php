@@ -69,9 +69,9 @@
 					</button>
 				</td>
 				<td class="center">
-					@if($cliente->usuarios->count())
+					@if($cliente->usuarios()->whereStatus(1)->count())
 					<button class="btn medium blue btn-usuarios" data-id="{{ $cliente->id }}">
-						<i class="halflings halflings-user"></i> {{ $cliente->usuarios->count() }}
+						<i class="halflings halflings-user"></i> {{ $cliente->usuarios()->whereStatus(1)->count() }}
 					</button>
 					@else
 					<button class="btn medium red btn-usuarios" data-id="{{ $cliente->id }}">
@@ -158,36 +158,14 @@ $(function()
 		template: '#cadastrar-usuarios',
 		open: function(id)
 		{
-			$.ajax({
-				url: '/admin/ajax-usuarios-cliente/' + id,
-				type: 'GET',
-				dataType: 'json',
-				success: function(response)
-				{
-					if (response.length) {
-						var htmlUsers = '';
-						for (key in response) {
-							htmlUsers += '<tr>';
-								htmlUsers += '<td>' + response[key].nome + '</td>';
-								htmlUsers += '<td class="center">' + response[key].username + '</td>';
-							htmlUsers += '</tr>';
-						}
-						$('.default-modal').find('.jtable').find('tbody').html(htmlUsers);
-					} else {
-						$('.default-modal').find('.jtable').html('<div class="alert warning">Nenhum usuário cadastrado para esta empresa.</div>');
-					}
-				},
-				error: function()
-				{
-					alert('Problemas na conexão! Atualize a página e tente novamente.');
-				}
-			});
+			getUsuariosCliente(id);
+
 			var inputs, data;
 			$('#submit-cliente-usuario').on('click', function()
 			{
 				inputs = {
-					usuario: $('#usuario'),
-					senha: $('#senha'),
+					username: $('#usuario'),
+					password: $('#senha'),
 					conf_senha: $('#conf-senha'),
 					nome: $('#nome'),
 					cliente_id: $('#cliente_id')
@@ -198,28 +176,50 @@ $(function()
 					data[key] = inputs[key].val()
 				}
 
-				if (!data.usuario.length) {
-					inputs.usuario.attr({
+				if (!data.username.length) {
+					inputs.username.attr({
 						'placeholder': 'O nome é obrigatório'
 					}).focus();
-				} else if (!data.senha.length) {
-					inputs.senha.attr({
+				} else if (!data.password.length) {
+					inputs.password.attr({
 						'placeholder': 'A senha é obrigatória'
 					}).focus();
-				} else if (data.senha != data.conf_senha) {
+				} else if (data.password != data.conf_senha) {
 					inputs.conf_senha.attr({
 						'placeholder': 'Senhas não conferem'
 					}).val('');
-					inputs.senha.val('').focus();
+					inputs.password.val('').focus();
 				} else if (!data.nome.length) {
 					inputs.nome.attr({
 						'placeholder': 'O nome é obrigatório'
 					}).focus();
 				} else {
+					var $alertClienteUsuario = $('#alert-cliente-usuario');
 					$.ajax({
-						url: '/admin/ajax-cadastrar-usuario-cliente'
+						url: '/admin/ajax-cadastrar-usuario-cliente',
+						type: 'POST',
+						dataType: 'json',
+						data: data,
+						beforeSend: function()
+						{
+							$('.loading-form').fadeIn();
+						},
+						success: function(response)
+						{
+							$('.loading-form').fadeOut();
+							getUsuariosCliente(data.cliente_id);
+							if (response.status) {
+								$alertClienteUsuario.html('Usuário cadastrado com sucesso!').addClass('success').fadeOut().fadeIn();
+							} else {
+								$alertClienteUsuario.html(response.message).removeClass('success').fadeOut().fadeIn();
+							}
+						},
+						error: function()
+						{
+							$('.loading-form').fadeIn();
+							$alertClienteUsuario.html('Ocorreu um erro de conexão!').removeClass('success').fadeOut().fadeIn();
+						}
 					});
-					$('.loading-form').fadeIn();
 				}
 			});
 		}
@@ -253,12 +253,65 @@ $(function()
 		});
 	});
 });
+function getUsuariosCliente(id)
+{
+	$.ajax({
+		url: '/admin/ajax-usuarios-cliente/' + id,
+		type: 'GET',
+		dataType: 'json',
+		success: function(response)
+		{
+			if (response.length) {
+				var htmlUsers = '';
+				for (key in response) {
+					htmlUsers += '<tr>';
+						htmlUsers += '<td>' + response[key].nome + '</td>';
+						htmlUsers += '<td class="center">' + response[key].username + '</td>';
+						htmlUsers += '<td class="center"><button class="btn medium red del-usuario-cliente" data-id="'+response[key].id+'"><i class="halflings halflings-trash"></i></button></td>';
+					htmlUsers += '</tr>';
+				}
+				$('.default-modal').find('.jtable').find('tbody').html(htmlUsers);
+
+				$('.del-usuario-cliente').on('click', function()
+				{
+					var $btn = $(this);
+					$.ajax({
+						url: '/admin/ajax-deletar-usuario-cliente',
+						type: 'DELETE',
+						data: {
+							usuario_id: $btn.data('id')
+						},
+						success: function()
+						{
+							$btn.closest('tr').fadeOut('slow', function()
+							{
+								$(this).remove();
+							})
+						},
+						error: function()
+						{
+							alert('Problemas na conexão!');
+						}
+					});
+				});
+			} else {
+				$('.default-modal').find('.jtable').html('<div class="alert warning">Nenhum usuário cadastrado para esta empresa.</div>');
+			}
+		},
+		error: function()
+		{
+			alert('Problemas na conexão! Atualize a página e tente novamente.');
+		}
+	});
+}
 </script>
 
 <script type="text/template" id="cadastrar-usuarios">
 	<form style="width:45%;position:relative" class="left">
 		<div class="loading-form"></div>
 		<input type="hidden" id="cliente_id" name="cliente_id" value="<%= id %>" />
+
+		<div id="alert-cliente-usuario" class="alert" style="display:none"></div>
 
 		<div class="fc-section">
 			<div class="title">
@@ -314,6 +367,7 @@ $(function()
 				<tr>
 					<th>Nome</th>
 					<th>Usuário</th>
+					<th>Ações</th>
 				</tr>
 			</thead>
 			<tbody>

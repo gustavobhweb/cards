@@ -931,7 +931,7 @@ class AdminController extends BaseController
 
     public function getAjaxUsuariosCliente($id)
     {
-        $clientes = Cliente::findOrFail($id)->usuarios;
+        $clientes = Cliente::findOrFail($id)->usuarios()->whereStatus(1)->get();
 
         return Response::json($clientes);
     }
@@ -941,10 +941,29 @@ class AdminController extends BaseController
         $cliente = Cliente::whereId($id)->first();
         if (Request::isMethod('post')) {
             $input = Input::all();
-            if (!is_null($id)) {
-                $cliente->update($input);
+            $clienteConferir = Cliente::whereNome($input['nome'])
+                                       ->whereStatus(1)
+                                       ->first();
+
+            if ($clienteConferir && $clienteConferir->id != $cliente->id) {
+                $message = [
+                    'status' => false,
+                    'message' => 'Já existe um cliente com o mesmo nome!'
+                ];
             } else {
-                $cliente = Cliente::create($input);
+                if (!is_null($id)) {
+                    $cliente->update($input);
+                    $message = [
+                        'status' => true,
+                        'message' => 'Os dados foram salvos com sucesso!'
+                    ];
+                } else {
+                    $cliente = Cliente::create($input);
+                    $message = [
+                        'status' => true,
+                        'message' => 'Os dados foram cadastrados com sucesso!'
+                    ];
+                }
             }
         }
 
@@ -1018,11 +1037,30 @@ class AdminController extends BaseController
         }
     }
 
+    public function deleteAjaxDeletarUsuarioCliente()
+    {
+        $id = Input::get('usuario_id');
+
+        Usuario::whereId($id)->update([
+            'status' => 0
+        ]);
+    }
+
     public function postAjaxCadastrarUsuarioCliente()
     {
         $inputs = Input::all();
-        
+
+        if (Usuario::whereUsername($inputs['username'])->whereStatus(1)->count()) {
+            return Response::json([
+                'status' => false,
+                'message' => "O usuário <b>" . $inputs['username'] . "</b> já foi cadastrado no sistema"
+            ]);
+        }
+
+        $inputs['password'] = Hash::make($inputs['password']);
+        $inputs['nivel_id'] = 16;
         $usuarios = Usuario::create($inputs);
+
 
         if ($usuarios) {
             return Response::json([
@@ -1030,8 +1068,9 @@ class AdminController extends BaseController
             ]);
         } else {
             return Response::json([
-                'status' => false
-            ])
+                'status' => false,
+                'message' => 'Usuário não cadastrado. Erro desconhecido.'
+            ]);
         }
     }
 

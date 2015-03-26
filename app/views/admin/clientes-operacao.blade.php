@@ -9,6 +9,9 @@
 
 @section('content')
 	{{ Form::open() }}
+		@if(isset($message))
+		<div class="alert {{ $message['status'] ? 'success' : '' }}">{{ $message['message'] }}</div>
+		@endif
 		<div class="fc-section">
 			<div class="title">
 				<span>1</span>
