@@ -997,4 +997,42 @@ class AdminController extends BaseController
         return View::make('admin.importar-configuracao-acl', get_defined_vars());
     }
 
+    public function deleteAjaxDeletarCliente()
+    {
+        $id = Input::get('cliente_id');
+
+        $clientes = Cliente::whereId($id);
+
+        $update = $clientes->update([
+                                'status' => 0
+                            ]);
+
+        if ($update) {
+            return Response::json([
+                'status' => true
+            ]);
+        } else {
+            return Response::json([
+                'status' => false
+            ]);
+        }
+    }
+
+    public function postAjaxCadastrarUsuarioCliente()
+    {
+        $inputs = Input::all();
+        
+        $usuarios = Usuario::create($inputs);
+
+        if ($usuarios) {
+            return Response::json([
+                'status' => true
+            ]);
+        } else {
+            return Response::json([
+                'status' => false
+            ])
+        }
+    }
+
 }

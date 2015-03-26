@@ -64,7 +64,7 @@
 					</a>
 				</td>
 				<td class="center">
-					<button class="btn medium red" onclick="alert('Em desenvolvimento...')" title="Funcionalidade em desenvolviemnto...">
+					<button class="btn medium red btn-delete" data-id="{{ $cliente->id }}">
 						<i class="halflings halflings-trash"></i>
 					</button>
 				</td>
@@ -182,14 +182,83 @@ $(function()
 					alert('Problemas na conexão! Atualize a página e tente novamente.');
 				}
 			});
+			var inputs, data;
+			$('#submit-cliente-usuario').on('click', function()
+			{
+				inputs = {
+					usuario: $('#usuario'),
+					senha: $('#senha'),
+					conf_senha: $('#conf-senha'),
+					nome: $('#nome'),
+					cliente_id: $('#cliente_id')
+				}
+
+				data = {}
+				for (key in inputs) {
+					data[key] = inputs[key].val()
+				}
+
+				if (!data.usuario.length) {
+					inputs.usuario.attr({
+						'placeholder': 'O nome é obrigatório'
+					}).focus();
+				} else if (!data.senha.length) {
+					inputs.senha.attr({
+						'placeholder': 'A senha é obrigatória'
+					}).focus();
+				} else if (data.senha != data.conf_senha) {
+					inputs.conf_senha.attr({
+						'placeholder': 'Senhas não conferem'
+					}).val('');
+					inputs.senha.val('').focus();
+				} else if (!data.nome.length) {
+					inputs.nome.attr({
+						'placeholder': 'O nome é obrigatório'
+					}).focus();
+				} else {
+					$.ajax({
+						url: '/admin/ajax-cadastrar-usuario-cliente'
+					});
+					$('.loading-form').fadeIn();
+				}
+			});
 		}
+	});
+
+	$('.btn-delete').on('click', function()
+	{
+		var data = {
+			cliente_id: $(this).data('id')
+		}
+
+		var $btn = $(this);
+
+		$.ajax({
+			url: '/admin/ajax-deletar-cliente',
+			type: 'DELETE',
+			dataType: 'json',
+			data: data,
+			success: function(response)
+			{
+				if (response.status) {
+					$btn.closest('tr').fadeOut();
+				} else {
+					alert(response.message);
+				}
+			},
+			error: function()
+			{
+				alert('Problemas na conexão!');
+			}
+		});
 	});
 });
 </script>
 
 <script type="text/template" id="cadastrar-usuarios">
-	<form method="post" style="width:45%" class="left">
-		<input type="hidden" name="cliente_id" value="<%= id %>" />
+	<form style="width:45%;position:relative" class="left">
+		<div class="loading-form"></div>
+		<input type="hidden" id="cliente_id" name="cliente_id" value="<%= id %>" />
 
 		<div class="fc-section">
 			<div class="title">
@@ -231,7 +300,7 @@ $(function()
 			</div>
 		</div>
 
-		<button type="submit" class="btn medium green right" style="margin: 10px 0 0 5px">
+		<button type="button" id="submit-cliente-usuario" class="btn medium green right" style="margin: 10px 0 0 5px">
 			<i class="halflings halflings-ok"></i> Salvar
 		</button>
 
