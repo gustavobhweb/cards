@@ -1,27 +1,12 @@
 <div class="form-total-fc">
-    {{ 
-        Form::text(
-            'nome',
-            null,
-            [
-                'placeholder'  => 'Nome do Modelo',
-                'class'        => 'input-titulo total',
-                'autofocus'    => 'autofocus',
-                'required'     => 'required',
-                'id'           => 'nome',
-                'autocomplete' => 'off',
-                'autofocus'    => 'autofocus'
-            ]
-        ) 
-    }}
-
+    
     <div class="fc-section">
         <div class="title">
             <span>1</span>
             <h4>Cliente</h4>
         </div>
         <div class="content-section" style="margin:10px 0 0 0">
-        <select name="cliente_id" class="medium total">
+        <select autofocus name="cliente_id" class="medium total">
             <option>Selecione o cliente</option>
             @foreach($clientes as $cliente)
             <option {{ (isset($ficha) && $cliente->id == $ficha->cliente_id) ? 'selected' : '' }} value="{{ $cliente->id }}">{{{  $cliente->nome }}}</option>
@@ -33,22 +18,41 @@
     <div class="fc-section">
         <div class="title">
             <span>2</span>
-            <h4>Campo chave</h4>
+            <h4>Nome do modelo</h4>
         </div>
+        <div class="content-section" style="margin:10px 0 0 0">
+            {{ 
+                Form::text(
+                    'nome',
+                    null,
+                    [
+                        'placeholder'  => 'Nome do Modelo',
+                        'class'        => 'medium total',
+                        'required'     => 'required',
+                        'id'           => 'nome'
+                    ]
+                ) 
+            }}
+        </div>
+    </div><!-- .fc-section -->
 
-        <div class="content-section">
-        {{ 
-            Form::text(
-                'campo_chave',
-                null,
-                [
-                    'required' => 'required',
-                    'class' => 'medium total',
-                    'placeholder' => 'Digite aqui o nome do campo chave',
-                    'style' => 'margin: 10px 0 0 0'
-                ]
-            ) 
-        }}
+    <div class="fc-section">
+        <div class="title">
+            <span>3</span>
+            <h4>Tipo</h4>
+        </div>
+        <div class="content-section" style="margin:10px 0 0 0">
+            @foreach($tiposSolicitacoes as $tipoSolicitacao)
+            {{ 
+                Form::radio(
+                    'tipo_solicitacao',
+                    $tipoSolicitacao->id,
+                    false,
+                    ['id' => 'tipo-solicitacao-' . $tipoSolicitacao->id, 'required' => 'required']
+                )
+            }}
+            <label for="tipo-solicitacao-{{ $tipoSolicitacao->id }}">{{{ $tipoSolicitacao->nome }}}</label>
+            @endforeach
         </div>
     </div><!-- .fc-section -->
 
@@ -57,7 +61,7 @@
             <span>3</span>
             <h4>Envio de fotos</h4>
         </div><!-- .title -->
-
+        
         <div class="content-section">
 
             @if(isset($ficha) && $ficha->foto_frente)
@@ -127,6 +131,28 @@
             @endif
 
         </div><!-- .content-section -->
+    </div><!-- .fc-section -->
+
+    <div class="fc-section">
+        <div class="title">
+            <span>2</span>
+            <h4>Campo chave</h4>
+        </div>
+
+        <div class="content-section">
+        {{ 
+            Form::text(
+                'campo_chave',
+                null,
+                [
+                    'required' => 'required',
+                    'class' => 'medium total',
+                    'placeholder' => 'Digite aqui o nome do campo chave',
+                    'style' => 'margin: 10px 0 0 0'
+                ]
+            ) 
+        }}
+        </div>
     </div><!-- .fc-section -->
 
     <div class="fc-section">

@@ -97,8 +97,6 @@ $(function(){
         });
     });
 
-
-    
     var $triggerImageFront = $('#trigger-foto-frente'),
         $triggerImageBack  = $("#trigger-foto-verso");
     
