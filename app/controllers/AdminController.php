@@ -302,6 +302,8 @@ class AdminController extends BaseController
 
         $clientes = Cliente::whereStatus(1)->get();
 
+        $tiposSolicitacoes = TipoSolicitacao::whereStatus(1)->get();
+
         return View::make('admin.cadastrar-ficha-tecnica', get_defined_vars());
     }
 
@@ -324,6 +326,8 @@ class AdminController extends BaseController
         $tiposEntrega = TipoEntrega::whereStatus(1)->lists('nome', 'id');
 
         $clientes = Cliente::whereStatus(1)->get();
+
+        $tiposSolicitacoes = TipoSolicitacao::whereStatus(1)->get();
 
         return View::make('admin.editar-ficha-tecnica', get_defined_vars());
     }
