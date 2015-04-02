@@ -21,18 +21,27 @@
             <h4>Nome do modelo</h4>
         </div>
         <div class="content-section" style="margin:10px 0 0 0">
+<<<<<<< HEAD
             {{ 
+=======
+           {{ 
+>>>>>>> d799c4744d8778996ecf1e5bac6f658b4bcdd226
                 Form::text(
                     'nome',
                     null,
                     [
+<<<<<<< HEAD
                         'placeholder'  => 'Nome do Modelo',
+=======
+                        'placeholder'  => 'Digite aqui o nome deste modelo',
+>>>>>>> d799c4744d8778996ecf1e5bac6f658b4bcdd226
                         'class'        => 'medium total',
                         'required'     => 'required',
                         'id'           => 'nome'
                     ]
                 ) 
             }}
+<<<<<<< HEAD
         </div>
     </div><!-- .fc-section -->
 
@@ -53,13 +62,36 @@
             }}
             <label for="tipo-solicitacao-{{ $tipoSolicitacao->id }}">{{{ $tipoSolicitacao->nome }}}</label>
             @endforeach
+=======
+>>>>>>> d799c4744d8778996ecf1e5bac6f658b4bcdd226
         </div>
     </div><!-- .fc-section -->
 
     <div class="fc-section">
-        <div class='title'>
+        <div class="title">
             <span>3</span>
-            <h4>Envio de fotos</h4>
+            <h4>Tipo</h4>
+        </div>
+
+        <div class="content-section" style="margin: 10px 0 0 0">
+            @foreach($tiposSolicitacoes as $tipoSolicitacao)
+            {{ 
+                Form::radio(
+                    'tipo_solicitacao_id',
+                    $tipoSolicitacao->id,
+                    false,
+                    ['id' => 'tipo_solicitacao_' . $tipoSolicitacao->id, 'required' => 'required']
+                )
+            }}
+            <label for="tipo_solicitacao_{{ $tipoSolicitacao->id }}">{{{ $tipoSolicitacao->nome }}}</label>
+            @endforeach
+        </div>
+    </div><!-- .fc-section -->    
+
+    <div class="fc-section">
+        <div class='title'>
+            <span>4</span>
+            <h4>Envio de fotos do modelo</h4>
         </div><!-- .title -->
         
         <div class="content-section">
@@ -157,8 +189,8 @@
 
     <div class="fc-section">
         <div class='title'>
-            <span>4</span>
-            <h4>Especificações do Cartão</h4>
+            <span>5</span>
+            <h4>Tecnologia</h4>
             <a 
                 href="{{ URL::to('admin/tipos-cartao') }}" 
                 class="btn blue btn-gerenciar-tipos-cartao">
@@ -189,33 +221,6 @@
     </div><!-- .fc-section -->
 
     <div class="fc-section">
-        <div class="title">
-            <span>5</span>
-            <h4>Tipo de entrega</h4>
-            <a 
-                href="{{ URL::to('admin/tipos-entrega') }}" 
-                class="btn blue btn-gerenciar-tipos-cartao">
-                <i class="halflings halflings-cog"></i>
-                Gerenciar
-            </a>
-        </div>
-        
-        <div class="content-section" style="margin:10px 0 0 0">
-        {{ 
-            Form::select(
-                'tipo_entrega_id',
-                ['' => '(Selecionar)'] + $tiposEntrega,
-                null,
-                [
-                    'required' => 'required',
-                    'class' => 'medium total'
-                ]
-            ) 
-        }}
-        </div>
-    </div><!-- .fc-section -->
-
-    <div class="fc-section">
 
         <div class="title">
             <span>6</span>
@@ -242,6 +247,55 @@
                 )
             }}
             <label for="tem-furo-sim">Não</label>
+        </div>
+    </div><!-- .fc-section -->
+    
+    <div class="fc-section">
+        <div class="title">
+            <span>2</span>
+            <h4>Campo chave</h4>
+        </div>
+
+        <div class="content-section">
+        {{ 
+            Form::text(
+                'campo_chave',
+                null,
+                [
+                    'required' => 'required',
+                    'class' => 'medium total',
+                    'placeholder' => 'Digite aqui o nome do campo chave',
+                    'style' => 'margin: 10px 0 0 0'
+                ]
+            ) 
+        }}
+        </div>
+    </div><!-- .fc-section -->
+
+    <div class="fc-section">
+        <div class="title">
+            <span>5</span>
+            <h4>Tipo de entrega</h4>
+            <a 
+                href="{{ URL::to('admin/tipos-entrega') }}" 
+                class="btn blue btn-gerenciar-tipos-cartao">
+                <i class="halflings halflings-cog"></i>
+                Gerenciar
+            </a>
+        </div>
+        
+        <div class="content-section" style="margin:10px 0 0 0">
+        {{ 
+            Form::select(
+                'tipo_entrega_id',
+                ['' => '(Selecionar)'] + $tiposEntrega,
+                null,
+                [
+                    'required' => 'required',
+                    'class' => 'medium total'
+                ]
+            ) 
+        }}
         </div>
     </div><!-- .fc-section -->
 
