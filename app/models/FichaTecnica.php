@@ -15,7 +15,8 @@ class FichaTecnica extends Eloquent
         'campo_chave',
         'tem_furo',
         'cliente_id',
-        'tipo_solicitacao_id'
+        'tipo_solicitacao_id',
+        'posicionamento'
     ];
 
     protected $appends = [

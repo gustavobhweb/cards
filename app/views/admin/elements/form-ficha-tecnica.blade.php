@@ -21,49 +21,18 @@
             <h4>Nome do modelo</h4>
         </div>
         <div class="content-section" style="margin:10px 0 0 0">
-<<<<<<< HEAD
-            {{ 
-=======
            {{ 
->>>>>>> d799c4744d8778996ecf1e5bac6f658b4bcdd226
                 Form::text(
                     'nome',
                     null,
                     [
-<<<<<<< HEAD
-                        'placeholder'  => 'Nome do Modelo',
-=======
                         'placeholder'  => 'Digite aqui o nome deste modelo',
->>>>>>> d799c4744d8778996ecf1e5bac6f658b4bcdd226
                         'class'        => 'medium total',
                         'required'     => 'required',
                         'id'           => 'nome'
                     ]
                 ) 
             }}
-<<<<<<< HEAD
-        </div>
-    </div><!-- .fc-section -->
-
-    <div class="fc-section">
-        <div class="title">
-            <span>3</span>
-            <h4>Tipo</h4>
-        </div>
-        <div class="content-section" style="margin:10px 0 0 0">
-            @foreach($tiposSolicitacoes as $tipoSolicitacao)
-            {{ 
-                Form::radio(
-                    'tipo_solicitacao',
-                    $tipoSolicitacao->id,
-                    false,
-                    ['id' => 'tipo-solicitacao-' . $tipoSolicitacao->id, 'required' => 'required']
-                )
-            }}
-            <label for="tipo-solicitacao-{{ $tipoSolicitacao->id }}">{{{ $tipoSolicitacao->nome }}}</label>
-            @endforeach
-=======
->>>>>>> d799c4744d8778996ecf1e5bac6f658b4bcdd226
         </div>
     </div><!-- .fc-section -->
 
@@ -166,28 +135,6 @@
     </div><!-- .fc-section -->
 
     <div class="fc-section">
-        <div class="title">
-            <span>2</span>
-            <h4>Campo chave</h4>
-        </div>
-
-        <div class="content-section">
-        {{ 
-            Form::text(
-                'campo_chave',
-                null,
-                [
-                    'required' => 'required',
-                    'class' => 'medium total',
-                    'placeholder' => 'Digite aqui o nome do campo chave',
-                    'style' => 'margin: 10px 0 0 0'
-                ]
-            ) 
-        }}
-        </div>
-    </div><!-- .fc-section -->
-
-    <div class="fc-section">
         <div class='title'>
             <span>5</span>
             <h4>Tecnologia</h4>
@@ -221,12 +168,10 @@
     </div><!-- .fc-section -->
 
     <div class="fc-section">
-
         <div class="title">
             <span>6</span>
             <h4>Tem furo?</h4>
         </div>
-        
         <div class="content-section" style="margin:10px 0 0 0"> 
             {{ 
                 Form::radio(
@@ -249,10 +194,38 @@
             <label for="tem-furo-sim">Não</label>
         </div>
     </div><!-- .fc-section -->
+
+    <div class="fc-section">
+        <div class="title">
+            <span>7</span>
+            <h4>Posicionamento</h4>
+        </div>
+        <div class="content-section" style="margin:10px 0 0 0"> 
+            {{ 
+                Form::radio(
+                    'posicionamento',
+                    'h',
+                    false,
+                    ['id' => 'posicionamento-h', 'required' => 'required']
+                )
+            }}
+            <label for="posicionamento-h">Horizontal</label>
+
+            {{ 
+                Form::radio(
+                    'posicionamento',
+                    'v',
+                    false,
+                    ['id' => 'posicionamento-v', 'required' => 'required']
+                )
+            }}
+            <label for="posicionamento-v">Vertical</label>
+        </div>
+    </div><!-- .fc-section -->
     
     <div class="fc-section">
         <div class="title">
-            <span>2</span>
+            <span>8</span>
             <h4>Campo chave</h4>
         </div>
 
@@ -274,34 +247,7 @@
 
     <div class="fc-section">
         <div class="title">
-            <span>5</span>
-            <h4>Tipo de entrega</h4>
-            <a 
-                href="{{ URL::to('admin/tipos-entrega') }}" 
-                class="btn blue btn-gerenciar-tipos-cartao">
-                <i class="halflings halflings-cog"></i>
-                Gerenciar
-            </a>
-        </div>
-        
-        <div class="content-section" style="margin:10px 0 0 0">
-        {{ 
-            Form::select(
-                'tipo_entrega_id',
-                ['' => '(Selecionar)'] + $tiposEntrega,
-                null,
-                [
-                    'required' => 'required',
-                    'class' => 'medium total'
-                ]
-            ) 
-        }}
-        </div>
-    </div><!-- .fc-section -->
-
-    <div class="fc-section">
-        <div class="title">
-            <span>7</span>
+            <span>9</span>
             <h4>Campos variáveis</h4>
         </div>
 
@@ -341,6 +287,33 @@
             </div><!-- .jtable -->
         </div>
     </div>
+
+    <div class="fc-section">
+        <div class="title">
+            <span>10</span>
+            <h4>Tipo de entrega</h4>
+            <a 
+                href="{{ URL::to('admin/tipos-entrega') }}" 
+                class="btn blue btn-gerenciar-tipos-cartao">
+                <i class="halflings halflings-cog"></i>
+                Gerenciar
+            </a>
+        </div>
+        
+        <div class="content-section" style="margin:10px 0 0 0">
+        {{ 
+            Form::select(
+                'tipo_entrega_id',
+                ['' => '(Selecionar)'] + $tiposEntrega,
+                null,
+                [
+                    'required' => 'required',
+                    'class' => 'medium total'
+                ]
+            ) 
+        }}
+        </div>
+    </div><!-- .fc-section -->
 
     <div id="box-submit">
         <a href="{{ URL::previous() }}" type="button" class="btn medium">

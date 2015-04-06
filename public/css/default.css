@@ -558,15 +558,16 @@ input[type=text].large,input[type=password].large,input[type=email].large{
 	clear: both;
 }
 .fc-section .title span{
-	border: 1px solid #333;
-	width: 25px;
-	height: 25px;
-	box-sizing: border-box;
-	padding: 2px 6px;
-	border-radius: 100%;
-	display: inline-block;
-	float: left;
-	font-size: 20px;
+	  border: 1px solid #333;
+	  width: 25px;
+	  height: 25px;
+	  box-sizing: border-box;
+	  padding: 5px 0;
+	  border-radius: 100%;
+	  text-align: center;
+	  display: inline-block;
+	  float: left;
+	  font-size: 15px;
 }
 .fc-section .title h4{
 	float: left;
