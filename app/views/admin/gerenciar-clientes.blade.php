@@ -80,11 +80,9 @@
 					@endif
 				</td>
 				<td class="center">
-					<!-- <a href="{{ URL::to('admin/produtos') }}" class="btn medium green">
+					<a href="{{ URL::to('admin/gerenciar-fichas-tecnicas', [$cliente->id]) }}" class="btn medium green">
 						<i class="halflings halflings-shopping-cart"></i>
-					</a> -->
-					<a href="#" onclick="alert('Em desenvolvimento...')" class="btn medium green" title="Funcionalidade em desenvolviemnto...">
-						<i class="halflings halflings-shopping-cart"></i>
+						{{ $cliente->fichas->count() }}
 					</a>
 				</td>
 			</tr>

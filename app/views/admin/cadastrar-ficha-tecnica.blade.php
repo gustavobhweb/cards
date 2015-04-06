@@ -15,17 +15,6 @@
     
     @include('admin.elements.form-ficha-tecnica')
 
-    <!-- <div id="box-submit">
-
-        <a href="{{ URL::previous() }}" type="button" class="btn medium">
-            <i class="halflings halflings-remove"></i> Cancelar
-        </a>
-        
-        <button type="submit" class="btn medium green" id="btn-send">
-            <i class="halflings halflings-ok"></i> Salvar
-        </button>
-    </div> -->
-
 {{ Form::close() }}
 
 @include('elements.common-alert')

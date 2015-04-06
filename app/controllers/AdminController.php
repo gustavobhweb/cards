@@ -285,22 +285,29 @@ class AdminController extends BaseController
     }
 
 
-    public function anyGerenciarFichasTecnicas()
+    public function anyGerenciarFichasTecnicas($cliente_id)
     {
-        $vars['fichas_tecnicas'] = FichaTecnica::whereStatus(1)->get();
-        $vars['fichas_tecnicas_lixeira_num'] = FichaTecnica::whereStatus(0)->count();
+        $cliente = Cliente::whereId($cliente_id)->first();
+        $fichas_tecnicas = $cliente->fichas()
+                                   ->whereStatus(1)
+                                   ->get();
+        $fichas_tecnicas_lixeira_num = FichaTecnica::whereStatus(0)->count();
 
-        return View::make('admin.gerenciar-fichas-tecnicas', $vars);
+        return View::make('admin.gerenciar-fichas-tecnicas', get_defined_vars());
     }
 
-    public function anyCadastrarFichaTecnica()
+    public function anyCadastrarFichaTecnica($cliente_id = false)
     {
 
         $tiposCartoes = TipoCartao::whereStatus(1)->get();
 
         $tiposEntrega = TipoEntrega::whereStatus(1)->lists('nome', 'id');
 
-        $clientes = Cliente::whereStatus(1)->get();
+        $clientes = Cliente::whereStatus(1);
+
+        if ($cliente_id) $clientes->whereId($cliente_id);
+
+        $clientes = $clientes->get();
 
         $tiposSolicitacoes = TipoSolicitacao::whereStatus(1)->get();
 

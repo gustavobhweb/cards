@@ -7,7 +7,9 @@
         </div>
         <div class="content-section" style="margin:10px 0 0 0">
         <select autofocus name="cliente_id" class="medium total">
-            <option>Selecione o cliente</option>
+            @if($clientes->count() > 1)
+                <option>Selecione o cliente</option>
+            @endif
             @foreach($clientes as $cliente)
             <option {{ (isset($ficha) && $cliente->id == $ficha->cliente_id) ? 'selected' : '' }} value="{{ $cliente->id }}">{{{  $cliente->nome }}}</option>
             @endforeach
@@ -222,34 +224,6 @@
     		<label for="posicionamento-v">Vertical</label>
         </div>
     </div><!-- .fc-section -->
-
-    <div class="fc-section">
-        <div class="title">
-            <span>7</span>
-            <h4>Posicionamento</h4>
-        </div>
-        <div class="content-section" style="margin:10px 0 0 0"> 
-            {{ 
-                Form::radio(
-                    'posicionamento',
-                    'h',
-                    false,
-                    ['id' => 'posicionamento-h', 'required' => 'required']
-                )
-            }}
-            <label for="posicionamento-h">Horizontal</label>
-
-            {{ 
-                Form::radio(
-                    'posicionamento',
-                    'v',
-                    false,
-                    ['id' => 'posicionamento-v', 'required' => 'required']
-                )
-            }}
-            <label for="posicionamento-v">Vertical</label>
-        </div>
-    </div><!-- .fc-section -->
     
     <div class="fc-section">
         <div class="content-section">
@@ -364,33 +338,6 @@
         </div>
     </div>
 	
-	<div class="fc-section">
-        <div class="title">
-            <span>10</span>
-            <h4>Tipo de entrega</h4>
-            <a 
-                href="{{ URL::to('admin/tipos-entrega') }}" 
-                class="btn blue btn-gerenciar-tipos-cartao">
-                <i class="halflings halflings-cog"></i>
-                Gerenciar
-            </a>
-        </div>
-        
-        <div class="content-section" style="margin:10px 0 0 0">
-        {{ 
-            Form::select(
-                'tipo_entrega_id',
-                ['' => '(Selecionar)'] + $tiposEntrega,
-                null,
-                [
-                    'required' => 'required',
-                    'class' => 'medium total'
-                ]
-            ) 
-        }}
-        </div>
-    </div><!-- .fc-section -->
-
     <div class="fc-section">
         <div class="title">
             <span>10</span>

@@ -3,13 +3,13 @@
 @section('title') Gerenciar fichas técnicas @stop
 
 @section('topbar')
-<h4><i class="halflings halflings-list-alt"></i> Gerenciar fichas técnicas</h4>
+<h4><i class="halflings halflings-list-alt"></i> {{ $cliente->nome }}</h4>
 <div class="list-menu right small">
     <button class="btn medium orange"><i class="halflings halflings-cog"></i> Gerenciar <span class="caret"></span></button>
     <div class="box">
         <ul>
             <li>
-                <a href="{{ URL::to('admin/cadastrar-ficha-tecnica') }}">
+                <a href="{{ URL::to('admin/cadastrar-ficha-tecnica', [$cliente_id]) }}">
                     <i class="halflings halflings-plus"></i>
                     Nova ficha técnica
                 </a>
@@ -47,10 +47,10 @@
                 <tr>
                     <td class="center">{{{ $ficha_tecnica->nome }}}</td>
                     <td class="center">
-                        <img src="{{ $ficha_tecnica->foto_frente_link }}" height="50" width="50" />
+                        <img src="{{ $ficha_tecnica->foto_frente_link }}" class="foto-modelo" />
                     </td>
                     <td class="center">
-                        <img src="{{ $ficha_tecnica->foto_verso_link }}" height="50" width="50" />
+                        <img src="{{ $ficha_tecnica->foto_verso_link }}" class="foto-modelo" />
                     </td>
                     <td class="center">{{{ $ficha_tecnica->camposVariaveis->count() }}}</td>
                     <td class="center">
@@ -81,7 +81,8 @@
 
 @section('styles')
 {{
-    HTML::style('css/jtable.css')
+    HTML::style('css/jtable.css'),
+    HTML::style('css/admin/gerenciar-fichas-tecnicas.css')
 }}
 @append
 
