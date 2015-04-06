@@ -44,7 +44,13 @@
                             <td class="center">{{ zero_fill($remessa->id, 4) }}</td>
                             <td class="center">{{ $remessa->created_at->format('d/m/Y H:i') }}</td>
                             <td class="center">{{{ $remessa->usuario->nome }}}</td>
-                            <td class="center">{{ $remessa->solicitacoes->count() }}</td>
+                            <td class="center">
+                            @if(!$remessa->fichaTecnica->tem_dados)
+                            {{ $remessa->qtd }}
+                            @else
+                            {{ $remessa->solicitacoes->count() }}
+                            @endif
+                            </td>
                             <td class='responsavel-producao center'>
                                 {{ $remessa->protocolo->usuario->nome or '--' }}
                             </td>
@@ -56,13 +62,17 @@
                                         <span class="halflings halflings-print"></span>
                                     </a>
 
+                                    @if($remessa->fichaTecnica->tem_dados)
                                     <a  class="{{ !$temProtocolo ?  'disabled' : ''  }} download-xls btn medium" href="{{ URL::to('producao/download-excel-remessa', $remessa->id) }}">
                                         <span class="halflings halflings-download-alt"></span>
                                     </a>
+                                    @endif
 
+                                    @if($remessa->fichaTecnica->tem_foto)
                                     <a class="{{ !$temProtocolo ? 'disabled' : ''  }} download-zip btn medium" href="{{ URL::to('producao/download-fotos-remessa', $remessa->id) }}">
                                         <span class="halflings halflings-picture"></span>
                                     </a>
+                                    @endif
 
                                     <button data-id="{{ $remessa->id }}" class="{{ !$temProtocolo ? 'disabled' : '' }} btn medium green btn-enviar-conferencia ">
                                         <span class="halflings halflings-ok"></span>

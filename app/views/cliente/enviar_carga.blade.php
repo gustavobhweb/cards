@@ -1,6 +1,5 @@
 @extends('layouts.default')
 
-
 @section('topbar')
 <h4><i class="halflings halflings-glyph-briefcase"></i> Enviar carga</h4>
 @stop

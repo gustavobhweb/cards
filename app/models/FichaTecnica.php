@@ -13,10 +13,11 @@ class FichaTecnica extends Eloquent
         'tipo_entrega_id',
         'aprovado',
         'campo_chave',
-        'tem_furo',
         'cliente_id',
         'tipo_solicitacao_id',
-        'posicionamento'
+        'posicionamento',
+        'tem_dados',
+        'tem_foto'
     ];
 
     protected $appends = [

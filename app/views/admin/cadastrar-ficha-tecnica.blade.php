@@ -35,4 +35,3 @@
 @section('scripts')
 {{ HTML::script('js/admin/cadastrar-ficha-tecnica.js') }}
 @append
-

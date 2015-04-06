@@ -21,7 +21,7 @@
             <h4>Nome do modelo</h4>
         </div>
         <div class="content-section" style="margin:10px 0 0 0">
-           {{ 
+			{{ 
                 Form::text(
                     'nome',
                     null,
@@ -55,9 +55,9 @@
             <label for="tipo_solicitacao_{{ $tipoSolicitacao->id }}">{{{ $tipoSolicitacao->nome }}}</label>
             @endforeach
         </div>
-    </div><!-- .fc-section -->    
+    </div><!-- .fc-section -->
 
-    <div class="fc-section">
+    <div class="fc-section" id="envio-fotos">
         <div class='title'>
             <span>4</span>
             <h4>Envio de fotos do modelo</h4>
@@ -191,7 +191,35 @@
                     ['id' => 'tem-furo-nao', 'required' => 'required']
                 )
             }}
-            <label for="tem-furo-sim">Não</label>
+            <label for="tem-furo-nao">Não</label>
+        </div>
+    </div><!-- .fc-section -->
+	
+	<div class="fc-section">
+        <div class="title">
+            <span>7</span>
+            <h4>Posicionamento</h4>
+        </div>
+        
+        <div class="content-section" style="margin:10px 0 0 0">
+            {{ 
+                Form::radio(
+                    'posicionamento',
+                    'h',
+                    false,
+                    ['id' => 'posicionamento-h', 'required' => 'required']
+                )
+            }}
+            <label for="posicionamento-h">Horizontal</label>
+            {{ 
+    			Form::radio(
+    				'posicionamento',
+    				'v',
+    				false,
+    				['id' => 'posicionamento-v', 'required' => 'required']
+    			)
+    		}}
+    		<label for="posicionamento-v">Vertical</label>
         </div>
     </div><!-- .fc-section -->
 
@@ -224,6 +252,54 @@
     </div><!-- .fc-section -->
     
     <div class="fc-section">
+        <div class="content-section">
+            <p>Tem carga de fotos?</p><br>
+            {{ 
+                Form::radio(
+                    'tem_foto',
+                    1,
+                    false,
+                    ['id' => 'tem-foto-s', 'required' => 'required']
+                )
+            }}
+            <label for="tem-foto-s">Sim</label>
+            {{ 
+                Form::radio(
+                    'tem_foto',
+                    0,  
+                    false,
+                    ['id' => 'tem-foto-n', 'required' => 'required']
+                )
+            }}
+            <label for="tem-foto-n">Não</label>
+        </div>
+    </div><!-- .fc-section -->
+
+    <div class="fc-section">
+        <div class="content-section">
+            <p>Tem dados variáveis?</p><br>
+            {{ 
+                Form::radio(
+                    'tem_dados',
+                    1,
+                    false,
+                    ['id' => 'tem-dados-s', 'required' => 'required']
+                )
+            }}
+            <label for="tem-dados-s">Sim</label>
+            {{ 
+                Form::radio(
+                    'tem_dados',
+                    0,
+                    false,
+                    ['id' => 'tem-dados-n', 'required' => 'required']
+                )
+            }}
+            <label for="tem-dados-n">Não</label>
+        </div>
+    </div><!-- .fc-section -->
+
+    <div class="fc-section dados-section">
         <div class="title">
             <span>8</span>
             <h4>Campo chave</h4>
@@ -236,7 +312,7 @@
                 null,
                 [
                     'required' => 'required',
-                    'class' => 'medium total',
+                    'class' => 'medium total campo-chave',
                     'placeholder' => 'Digite aqui o nome do campo chave',
                     'style' => 'margin: 10px 0 0 0'
                 ]
@@ -245,7 +321,7 @@
         </div>
     </div><!-- .fc-section -->
 
-    <div class="fc-section">
+    <div class="fc-section dados-section">
         <div class="title">
             <span>9</span>
             <h4>Campos variáveis</h4>
@@ -287,6 +363,33 @@
             </div><!-- .jtable -->
         </div>
     </div>
+	
+	<div class="fc-section">
+        <div class="title">
+            <span>10</span>
+            <h4>Tipo de entrega</h4>
+            <a 
+                href="{{ URL::to('admin/tipos-entrega') }}" 
+                class="btn blue btn-gerenciar-tipos-cartao">
+                <i class="halflings halflings-cog"></i>
+                Gerenciar
+            </a>
+        </div>
+        
+        <div class="content-section" style="margin:10px 0 0 0">
+        {{ 
+            Form::select(
+                'tipo_entrega_id',
+                ['' => '(Selecionar)'] + $tiposEntrega,
+                null,
+                [
+                    'required' => 'required',
+                    'class' => 'medium total'
+                ]
+            ) 
+        }}
+        </div>
+    </div><!-- .fc-section -->
 
     <div class="fc-section">
         <div class="title">

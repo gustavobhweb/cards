@@ -9,6 +9,7 @@ class Remessa extends Eloquent
         'ficha_tecnica_id',
         'status_atual_id',
         'usuario_id',
+        'qtd'
     ];
 
     public function solicitacoes()

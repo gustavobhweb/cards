@@ -28,7 +28,6 @@ App::before(function ($request)
                                             ->whereDoesntHave('solicitacoes', function($query)
                                             {
                                                 $query->whereCargaEnviada(0);
-
                                             })->count();
 
         $view['historicoCount'] =  Remessa::with('solicitacoes')

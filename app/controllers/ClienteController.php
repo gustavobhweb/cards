@@ -231,8 +231,62 @@ class ClienteController extends BaseController
         return View::make('cliente.pesquisar_solicitacao', get_defined_vars());
     }
 
-    public function postAjaxPesquisarSolicitacao()
+    public function anyEnviarRemessaNumero($ficha_tecnica_id)
     {
+        try{
+
+            /*
+                Se não hover resultado, lança a exceção
+            */
+
+            $ficha = FichaTecnica::with('camposVariaveis')
+                                ->whereId($ficha_tecnica_id)
+                                ->whereAprovado(1)
+                                ->wherestatus(1)
+                                ->firstOrFail();
+
+            if ($ficha->tem_dados) {
+                return Redirect::to('cliente/enviar-remessa/' . $ficha->id);
+            }
+
+            if ($ficha->cliente_id != Auth::user()->cliente_id) {
+                return Redirect::to('/');
+            }
+
+        } catch(Exception $e) {
+
+            /*
+                caso precise debugar ou retornar numa página com uma mensagem de erro global
+            */
+
+            $errors = ['error' => 'A ficha técnica é inexistente ou não foi aprovada'];
+
+            return Redirect::back()->withErrors($errors);
+        }
+
+        if (Request::isMethod('post')) {
+            try {
+                DB::transaction(function() use($ficha) {
+                    $remessa = Remessa::create([
+                        'baixado'          => 0,
+                        'deletado'         => 0,
+                        'usuario_id'       => Auth::user()->id,
+                        'ficha_tecnica_id' => $ficha->id,
+                        'status_atual_id'  => 1,
+                        'qtd'              => Input::get('qtd')
+                    ]);
+
+                    $remessa->status()->attach(1, [
+                        'usuario_id' => Auth::user()->id
+                    ]);
+                });
+                return Redirect::to('cliente/remessas-solicitar-impressao/' . $ficha->id);
+            } catch (Exception $ex) {
+                $error = $ex->getMessage();
+            }
+        }
+
+        return View::make('cliente.enviar-remessa-numero', get_defined_vars());
     }
 
     public function anyEnviarRemessa($ficha_tecnica_id)
@@ -248,6 +302,10 @@ class ClienteController extends BaseController
                                 ->whereAprovado(1)
                                 ->wherestatus(1)
                                 ->firstOrFail();
+
+            if (!$ficha->tem_dados) {
+                return Redirect::to('cliente/enviar-remessa-numero/' . $ficha->id);
+            }
 
             if ($ficha->cliente_id != Auth::user()->cliente_id) {
                 return Redirect::to('/');
@@ -399,6 +457,12 @@ class ClienteController extends BaseController
                         }
 
                         $remessa->solicitacoes()->saveMany($solicitacoesCriadas);
+
+                        if (!$ficha->tem_foto) {
+                            $remessa->solicitacoes()->update([
+                                'carga_enviada' => 1
+                            ]);   
+                        }
 
                         if (count($separated['hasEmpty'])) {
 
@@ -705,7 +769,8 @@ class ClienteController extends BaseController
     public function getRemessasEnviarFoto($ficha_tecnica_id)
     {
         $ficha = FichaTecnica::whereId($ficha_tecnica_id)->first();
-        if ($ficha->cliente_id != Auth::user()->cliente_id || !($ficha instanceof FichaTecnica)) {
+
+        if ($ficha->cliente_id != Auth::user()->cliente_id || !($ficha instanceof FichaTecnica) || !$ficha->tem_foto) {
             return Redirect::to('/');
         }
 
@@ -738,7 +803,6 @@ class ClienteController extends BaseController
                             ->whereDoesntHave('solicitacoes', function($query)
                             {
                                 $query->whereCargaEnviada(0);
-
                             })->paginate(15);
 
         return View::make('cliente.remessas_solicitar_impressao', get_defined_vars());

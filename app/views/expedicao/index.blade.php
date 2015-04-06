@@ -14,7 +14,6 @@
 			<tr>
 				<th>Nº da remessa</th>
 				<th>Qtd. de cartões</th>
-				<th>Responsável</th>
 				<th>Data da remessa</th>
 				<th>Mais informações</th>
 				<th>Liberação</th>
@@ -23,19 +22,30 @@
 		<tbody>
 			@foreach($entregas as $entrega)
 			<tr>
-				<td>{{ zero_fill($entrega->id, 4) }}</td>
-				<td>{{ $entrega->solicitacoes->count() }}</td>
-				<td>{{ $entrega->nome }}</td>
-				<td>{{ (new Datetime($entrega->data_criacao))->format('d/m/Y') }}</td>
-				<td style='text-align: center'><a
-					href='{{ URL::to("expedicao/info-remessa/$entrega->id/") }}'
-					class='wm-btn wm-btn-blue'><i class='glyphicon glyphicon-plus'></i>
-						Informações</a></td>
-				<td style='text-align: center'><button
-						data-remessa='{{ $entrega->id }}'
-						class='wm-btn wm-btn-green btn-liberar-remessa'>
-						<i class='glyphicon glyphicon-share-alt'></i> Sair para entrega
-					</button></td>
+				<td class='center'>{{ zero_fill($entrega->id, 4) }}</td>
+				<td class='center'>
+				@if(!$entrega->fichaTecnica->tem_dados)
+				{{ $entrega->qtd }}
+				@else
+				{{ $entrega->solicitacoes->count() }}
+				@endif
+				</td>
+				<td class='center' class='center'>{{ (new Datetime($entrega->data_criacao))->format('d/m/Y') }}</td>
+				<td class='center'>
+					@if(!$entrega->fichaTecnica->tem_dados)
+					Não possui dados
+					@else
+					<a href='{{ URL::to("expedicao/info-remessa/$entrega->id/") }}'
+					class='btn blue'><i class='glyphicon glyphicon-plus'></i>
+						Informações</a>
+					@endif
+				</td>
+				<td class='center'>
+					<button data-remessa='{{ $entrega->id }}'
+						class='btn green btn-liberar-remessa'>
+						<i class='halflings halflings-share-alt'></i> Sair para entrega
+					</button>
+				</td>
 			</tr>
 			@endforeach
 		</tbody>

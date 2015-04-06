@@ -43,7 +43,13 @@
 				<td>{{ zero_fill($remessa->id, 4) }}</td>
 				<td>{{ $remessa->created_at->format('d/m/Y') }}</td>
 				<td>{{ $remessa->usuario->nome }}</td>
-				<td>{{ $remessa->solicitacoes->count() }}</td>
+				<td>
+					@if(!$remessa->fichaTecnica->tem_dados)
+					{{ $remessa->qtd }}
+					@else
+					{{ $remessa->solicitacoes->count() }}
+					@endif
+				</td>
 				<td>
                     @if(!$remessa->baixado) 
                     <a class="link not-downloaded" hef='{{ URL::to("cliente/download-carga-remessa/{$remessa->id}") }}'>
