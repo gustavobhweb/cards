@@ -78,5 +78,33 @@ $(function(){
         });
     });
 
+    $('#tem-foto-s').click(function()
+    {
+        $('#tem-dados-s').click();
+        verificarChecked();
+    });
+
+    $('#tem-dados-s').click(function()
+    {
+        verificarChecked();   
+        $('.campo-chave').attr('required', 'required');
+    });
+
+    $('#tem-dados-n').click(function()
+    {
+        verificarChecked();
+        $('.campo-chave').removeAttr('required');
+    });
+
+    verificarChecked();
     
 });
+
+function verificarChecked()
+{
+    if ($('#tem-dados-s:checked').length) {
+        $('.dados-section').fadeIn();
+    } else if ($('#tem-dados-n:checked').length) {
+        $('.dados-section').fadeOut();
+    }
+}

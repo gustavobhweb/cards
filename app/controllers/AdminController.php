@@ -361,7 +361,10 @@ class AdminController extends BaseController
                     'tipo',
                     'campo_chave',
                     'tem_furo',
-                    'cliente_id'
+                    'cliente_id',
+                    'posicionamento',
+                    'tem_foto',
+                    'tem_dados'
                 );
 
                 $dir = public_path("fichas_tecnicas/{$ficha->id}");
@@ -468,7 +471,10 @@ class AdminController extends BaseController
                     'tipo',
                     'campo_chave',
                     'tem_furo',
-                    'cliente_id'
+                    'cliente_id',
+                    'posicionamento',
+                    'tem_foto',
+                    'tem_dados'
                 );
 
                 $files = [];
@@ -546,10 +552,6 @@ class AdminController extends BaseController
 
                     $ficha->tiposCartao()->attach($tiposCartao);
 
-
-                } else {
-
-                    throw new Exception('Nenhum campo foi inserido');
                 }
 
             });

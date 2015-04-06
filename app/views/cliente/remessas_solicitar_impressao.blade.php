@@ -24,9 +24,17 @@
 			@foreach($remessas as $remessa)
 			<tr class="text-center">
 				<td class="center">{{ $remessa->id }}</td>
-				<td class="count-total center">{{ $remessa->solicitacoes->count() }}</td>
+				<td class="count-total center">
+					@if(!$remessa->fichaTecnica->tem_dados)
+					{{ $remessa->qtd }}
+					@else
+					{{ $remessa->solicitacoes->count() }}
+					@endif
+				</td>
 				<td class="center">
-					
+					@if(!$remessa->fichaTecnica->tem_dados)
+					Não possui dados
+					@else					
 					{{
 						HTML::link(
 							URL::to('cliente/linha-tempo-remessa', [$remessa->id]),
@@ -35,6 +43,7 @@
 						)
 
 					}}
+					@endif
 				</td>
 				<td class="center container-input-file" data-id="{{ $remessa->id }}">
 					{{
