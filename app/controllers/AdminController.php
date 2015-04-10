@@ -371,7 +371,8 @@ class AdminController extends BaseController
                     'cliente_id',
                     'posicionamento',
                     'tem_foto',
-                    'tem_dados'
+                    'tem_dados',
+                    'tipo_solicitacao_id'
                 );
 
                 $dir = public_path("fichas_tecnicas/{$ficha->id}");
@@ -481,7 +482,8 @@ class AdminController extends BaseController
                     'cliente_id',
                     'posicionamento',
                     'tem_foto',
-                    'tem_dados'
+                    'tem_dados',
+                    'tipo_solicitacao_id'
                 );
 
                 $files = [];

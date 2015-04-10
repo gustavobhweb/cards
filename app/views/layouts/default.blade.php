@@ -4,7 +4,7 @@
 	<title>Let´scom</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0, user-scalable=no">
-	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+	<link href='{{ URL::to('css/fonts.css') }}' rel='stylesheet' type='text/css'>
 	<link rel="icon" type="image/png" href="{{ URL::to('img/favicon_lets.png') }}" />
 	{{ HTML::style('css/glyphicons.css') }}
 	{{ HTML::style('css/default.css') }}

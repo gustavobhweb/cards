@@ -15,7 +15,7 @@ class Cliente extends Eloquent
 
 	public function fichas()
 	{
-		return $this->hasMany('FichaTecnica');
+		return $this->hasMany('FichaTecnica')->whereStatus(1);
 	}
 
 	public function usuarios()
