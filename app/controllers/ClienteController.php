@@ -276,6 +276,12 @@ class ClienteController extends BaseController
                         'qtd'              => Input::get('qtd')
                     ]);
 
+                    $cliente = Auth::user()->cliente();
+
+                    $cliente->update([
+                        'creditos_utilizados' => $cliente->creditos_utilizados + Input::get('qtd')
+                    ]);
+
                     $remessa->status()->attach(1, [
                         'usuario_id' => Auth::user()->id
                     ]);
@@ -400,6 +406,12 @@ class ClienteController extends BaseController
                         $remessa->status()->attach(1, [
                             'usuario_id' => $auth->id
                         ]);
+
+                        $cliente = $auth->cliente();
+
+                        $cliente->update([
+	                        'creditos_utilizados' => $cliente->creditos_utilizados + count($data)
+	                    ]);
 
                         $solicitacoesCriadas = [];
                         

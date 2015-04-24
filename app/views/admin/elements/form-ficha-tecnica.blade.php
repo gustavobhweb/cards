@@ -226,8 +226,12 @@
     </div><!-- .fc-section -->
     
     <div class="fc-section">
-        <div class="content-section">
-            <p>Tem carga de fotos?</p><br>
+    	<div class="title">
+            <span>8</span>
+            <h4>Tem carga de fotos?</h4>
+        </div>
+
+        <div class="content-section" style="margin: 10px 0 0 0">
             {{ 
                 Form::radio(
                     'tem_foto',
@@ -250,8 +254,12 @@
     </div><!-- .fc-section -->
 
     <div class="fc-section">
-        <div class="content-section">
-            <p>Tem dados variáveis?</p><br>
+    	<div class="title">
+            <span>9</span>
+            <h4>Tem dados variáveis?</h4>
+        </div>
+
+        <div class="content-section" style="margin: 10px 0 0 0">
             {{ 
                 Form::radio(
                     'tem_dados',
@@ -275,7 +283,7 @@
 
     <div class="fc-section dados-section">
         <div class="title">
-            <span>8</span>
+            <span>10</span>
             <h4>Campo chave</h4>
         </div>
 
@@ -297,7 +305,7 @@
 
     <div class="fc-section dados-section">
         <div class="title">
-            <span>9</span>
+            <span>11</span>
             <h4>Campos variáveis</h4>
         </div>
 
@@ -340,7 +348,7 @@
 	
     <div class="fc-section">
         <div class="title">
-            <span>10</span>
+            <span>12</span>
             <h4>Tipo de entrega</h4>
             <a 
                 href="{{ URL::to('admin/tipos-entrega') }}" 

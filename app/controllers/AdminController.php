@@ -951,6 +951,31 @@ class AdminController extends BaseController
         return Response::json($clientes);
     }
 
+    public function postAjaxAdicionarCreditos()
+    {
+        $creditos = Input::get('creditos');
+        $cliente_id = Input::get('cliente_id');
+
+        $cliente = Cliente::whereId($cliente_id)->first();
+        if ($creditos > 0) {
+            $cliente->update([
+                'creditos' => $cliente->creditos + $creditos
+            ]);
+            $clienteFinal = Cliente::whereId($cliente_id)->first();
+            return Response::json([
+                'status' => true,
+                'creditos' => $clienteFinal->creditos - $clienteFinal->creditos_utilizados
+            ]);
+        } else {
+            $clienteFinal = Cliente::whereId($cliente_id)->first();
+            return Response::json([
+                'status' => false,
+                'message' => 'Adicione pelo menos 1 crédito!',
+                'creditos' => $clienteFinal->creditos - $clienteFinal->creditos_utilizados
+            ]);
+        }
+    }
+
     public function anyClientesOperacao($id = null)
     {
         $cliente = Cliente::whereId($id)->first();

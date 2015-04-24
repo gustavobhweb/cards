@@ -44,4 +44,9 @@ class Usuario extends Eloquent implements UserInterface, RemindableInterface
         return $this->hasOne('Solicitacao', 'usuario_id')->orderBy('created_at', 'desc');
     }
 
+    public function cliente()
+    {
+        return $this->belongsTo('Cliente', 'cliente_id');
+    }
+
 }

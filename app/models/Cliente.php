@@ -10,7 +10,9 @@ class Cliente extends Eloquent
 		'telefone',
 		'status',
 		'pessoa_contato',
-		'cnpj'
+		'cnpj',
+		'creditos',
+		'creditos_utilizados'
 	];
 
 	public function fichas()

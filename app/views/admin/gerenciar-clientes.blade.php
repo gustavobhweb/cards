@@ -47,6 +47,7 @@
 				<th>Telefone</th>
 				<th>Contato</th>
 				<th>E-mail</th>
+				<th>Créditos</th>
 				<th colspan="4" width="17%">Ações</th>
 			</tr>
 		</thead>
@@ -58,6 +59,15 @@
 				<td class="telefone-cliente mark-search center">{{{ $cliente->telefone }}}</td>
 				<td class="contato-cliente mark-search center">{{{ $cliente->pessoa_contato }}}</td>
 				<td class="email-cliente mark-search center">{{{ $cliente->email }}}</td>
+				<td>
+					<div class="creditos-gerenciar">
+						<p class="qtd-creditos">{{ $cliente->creditos - $cliente->creditos_utilizados }}</p>
+						<button class="btn orange more-credits" data-id="{{ $cliente->id }}">
+							<i class="halflings halflings-plus"></i>
+						</button>
+					</div>
+					<div class="creditos-form"></div>
+				</td>
 				<td class="center">
 					<a href="{{ URL::to('admin/clientes-operacao', $cliente->id) }}" class="btn medium blue">
 						<i class="halflings halflings-edit"></i>
@@ -150,6 +160,52 @@ $(function()
 			$(this).html(email.toUpperCase());
 		});
 	@endif
+
+	$('.more-credits').on('click', function()
+	{
+		var $btnAction = $(this);
+		var cliente_id = $(this).data('id');
+		$(this).attr('disabled', 'disabled');
+		$(this).closest('td').find('.creditos-form').html('<input type="text" id="credits" />');
+		$(this).closest('td').find('.creditos-gerenciar').hide();
+		var $credits = $('#credits');
+		$credits.focus().on('blur', function()
+		{
+			var creditos = $(this).val();
+			$.ajax({
+				url: '/admin/ajax-adicionar-creditos',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					creditos: creditos,
+					cliente_id: cliente_id
+				},
+				success: function(response)
+				{
+					if (!response.status) {
+						alert(response.message);
+					}
+					$btnAction.closest('td').find('.creditos-form').html('');
+					$btnAction.closest('td').find('.creditos-gerenciar').find('.qtd-creditos').html(response.creditos);
+					$btnAction.closest('td').find('.creditos-gerenciar').show();
+					$btnAction.removeAttr('disabled');
+				},
+				error: function()
+				{
+					//alert('Verifique sua conexão com a internet!');
+					$btnAction.closest('td').find('.creditos-form').html('');
+					$btnAction.closest('td').find('.creditos-gerenciar').show();
+					$btnAction.removeAttr('disabled');
+				}
+			});
+		});
+		$credits.on('keyup', function(event)
+		{
+			if (event.keyCode == 13 || event.keyCode == 27) {
+				$(this).blur()
+			}
+		});
+	});
 
 	$('.btn-usuarios').showModal({
 		title: 'Gerenciar usuários do cliente',
