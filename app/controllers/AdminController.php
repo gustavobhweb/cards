@@ -612,26 +612,11 @@ class AdminController extends BaseController
         return Response::json($remessa);
     }
 
-
-
     public function getTiposEntrega()
     {   
+        $tiposEntrega = TipoEntrega::whereStatus(1)->get();
 
-        $callbackSearch = function($query)
-        {
-            if (Input::has('nome')) {
-
-                $nome = filter_var(Input::get('nome'));
-
-                $query->where('nome', 'LIKE', "%{$nome}%");
-            }
-        };
-        $tiposEntrega = TipoEntrega::where($callbackSearch)
-                                    ->paginate(15)
-                                    ->appends(Input::except('page'));
-
-
-        return View::make('admin.tipos-entrega', get_defined_vars());
+        return Response::json($tiposEntrega);
     }
 
     public function anyCadastrarTipoEntrega()
@@ -737,15 +722,12 @@ class AdminController extends BaseController
         ]);
     }
 
-
     public function getTiposCartao()
     {
-        $tiposCartao = TipoCartao::all();
+        $tiposCartao = TipoCartao::whereStatus(1)->get();
 
         return Response::json($tiposCartao);
     }
-
-
 
     public function anyEditarTipoCartao($id)
     {
@@ -1130,6 +1112,30 @@ class AdminController extends BaseController
                 'message' => 'Usuário não cadastrado. Erro desconhecido.'
             ]);
         }
+    }
+
+    public function putAjaxCadastrarTipoCartao()
+    {
+        $data = Input::all();
+        $data['status'] = 1;
+        $tipoCartao = TipoCartao::create($data);
+
+        return Response::json([
+            'status' => true,
+            'tipoCartao' => $tipoCartao
+        ]);
+    }
+
+    public function putAjaxCadastrarTipoEntrega()
+    {
+        $data = Input::all();
+        $data['status'] = 1;
+        $tipoEntrega = TipoEntrega::create($data);
+
+        return Response::json([
+            'status' => true,
+            'tipoEntrega' => $tipoEntrega
+        ]);
     }
 
 }

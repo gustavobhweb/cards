@@ -118,7 +118,7 @@
 			<p style='font: 13px arial; color: #888888'>Termos de Uso | Política
 				de Privacidade</p>
 			<b style='font: 11px arial; color: #888888; font-weight: bold'>© 2014
-				GrupoTMT.com.br. Todos os direitos reservados.</b>
+				letscom.com.br. Todos os direitos reservados.</b>
 		</div>
 		<img id='img-navegadores' src='{{ URL::to("img/footer-login.png") }}'/>
 		<a href="https://cardvantagens.com.br" target="_blank">
@@ -131,7 +131,7 @@
 			<div class='creditos'>
 			    <p class='p-termos'>Termos de Uso | Política de Privacidade</p>
 			    <p class='p-empresa'>
-			    	<b>© 2014 GrupoTMT.com.br. Todos os direitos reservados.</b>
+			    	<b>© 2014 letscom.com.br. Todos os direitos reservados.</b>
 			    </p>
 			</div>
 			<img src='{{ URL::to("img/site-seguro.png") }}' class='footer-site-seguro-img'/>

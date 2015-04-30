@@ -65,6 +65,9 @@
 						<button class="btn orange more-credits" data-id="{{ $cliente->id }}">
 							<i class="halflings halflings-plus"></i>
 						</button>
+						<button class="btn orange less-credits" data-id="{{ $cliente->id }}">
+							<b>-</b>
+						</button>
 					</div>
 					<div class="creditos-form"></div>
 				</td>
@@ -199,6 +202,54 @@ $(function()
 				}
 			});
 		});
+
+		$credits.on('keyup', function(event)
+		{
+			if (event.keyCode == 13 || event.keyCode == 27) {
+				$(this).blur()
+			}
+		});
+	});
+
+	$('.less-credits').on('click', function(){
+		var $btnAction = $(this);
+		var cliente_id = $(this).data('id');
+		$(this).attr('disabled', 'disabled');
+		$(this).closest('td').find('.creditos-form').html('<input type="text" id="credits" />');
+		$(this).closest('td').find('.creditos-gerenciar').hide();
+		var $credits = $('#credits');
+		$credits.focus().on('blur', function()
+		{
+			var creditos = $(this).val();
+			$.ajax({
+				url: '/admin/ajax-adicionar-creditos',
+				type: 'POST',
+				dataType: 'json',
+				data: {
+					creditos: creditos,
+					cliente_id: cliente_id,
+					less:true
+				},
+				success: function(response)
+				{
+					if (!response.status) {
+						alert(response.message);
+					}
+					$btnAction.closest('td').find('.creditos-form').html('');
+					$btnAction.closest('td').find('.creditos-gerenciar').find('.qtd-creditos').html(response.creditos);
+					$btnAction.closest('td').find('.creditos-gerenciar').show();
+					$btnAction.removeAttr('disabled');
+				},
+				error: function()
+				{
+					//alert('Verifique sua conexão com a internet!');
+					$btnAction.closest('td').find('.creditos-form').html('');
+					$btnAction.closest('td').find('.creditos-gerenciar').show();
+					$btnAction.removeAttr('disabled');
+				}
+			});
+		});
+
 		$credits.on('keyup', function(event)
 		{
 			if (event.keyCode == 13 || event.keyCode == 27) {

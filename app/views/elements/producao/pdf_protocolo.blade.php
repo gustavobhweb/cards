@@ -140,9 +140,8 @@ table {
 	<section id="protocolo-interno" class="print-page-break">
 		<header class="page-header">
 			<div class="pull-right text-right">
-				<p>GRUPO TMT SOLUÇÕES EM TECNOLOGIA</p>
-				<p>www.grupotmt.com.br</p>
-				<p>(31) 2511-7275</p>
+				<p>Let´scom</p>
+				<p>www.letscom.com.br</p>
 			</div>
 			<img src="{{ URL::to('img/logo-tmt.png') }}" />
 		</header>
@@ -244,9 +243,8 @@ table {
 
 		<header class="page-header">
 			<div class="pull-right text-right">
-				<p>GRUPO TMT SOLUÇÕES EM TECNOLOGIA</p>
-				<p>www.grupotmt.com.br</p>
-				<p>(31) 2511-7275</p>
+				<p>Let´scom</p>
+				<p>www.letscom.com.br</p>
 			</div>
 			<img src="{{ URL::to('img/logo-tmt.png') }}" />
 		</header>
@@ -363,7 +361,7 @@ table {
 		</div>
 
 		<div class="footer-print">
-			Grupo TMT Soluções Tecnológicas &copy; {{(new Datetime)->format('Y') }}
+			Let´scom &copy; {{(new Datetime)->format('Y') }}
 		</div>
 	</section>
 

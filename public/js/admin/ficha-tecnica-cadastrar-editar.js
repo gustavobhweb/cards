@@ -264,9 +264,7 @@ $(function(){
     });
 
     $('#delete-image-front').click(function(e) {
-        
         e.preventDefault();
-
 
         ajaxRemoveImage({
             data: {foto_frente: true},
@@ -277,5 +275,183 @@ $(function(){
             }
         });
     });
-    
+
+    $('.btn-gerenciar-tecnologias').on('click', function()
+    {
+        var modal = new wmDialog({
+            title: 'Gerenciar Tecnologias',
+            btnOkEnabled: false,
+            height: 500,
+            width: 500
+        });
+
+        var tplGerenciarTecnologias = $('#tpl-gerenciar-tecnologias').html();
+
+        modal.html('<img src="/img/loading.gif" width="25" height="25" />', {isHtml: true}).open();
+
+        $.ajax({
+            url: '/admin/tipos-cartao',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data)
+            {
+                var html = _.template(tplGerenciarTecnologias)({tipos: data});
+                modal.html(html, {isHtml: true});
+                btnDesativar(modal);
+                $('#novo-tipo-cartao').on('submit', function(event)
+                {
+                    var $txtNomeTipo = $('#txt-nome-tipo');
+                    var $txtAbreviaturaTipo = $('#txt-abreviatura-tipo');
+                    $.ajax({
+                        url: '/admin/ajax-cadastrar-tipo-cartao',
+                        type: 'PUT',
+                        dataType: 'json',
+                        data: {
+                            nome: $txtNomeTipo.val(),
+                            abreviatura: $txtAbreviaturaTipo.val()
+                        },
+                        success: function(response)
+                        {
+                            if (response.status) {
+                                var tr = _.template($('#tpl-tipo-cadastrado').html())({tipo: response.tipoCartao});
+                                $('#tipos-cartao').find('tbody').append(tr);
+                            } else {
+                                alert(response.error);
+                            }
+                            btnDesativar(modal);
+                        },
+                        error: function()
+                        {
+                            alert('Erro ao processar os dados!')
+                        }
+                    });
+                    return false;
+                })
+            },
+            error: function()
+            {
+                modal.html('Erro ao processar os dados!')
+            }
+        });
+    });
+
+    $('.btn-gerenciar-entregas').on('click', function()
+    {
+        var modal = new wmDialog({
+            title: 'Gerenciar Entregas',
+            btnOkEnabled: false,
+            height: 500,
+            width: 500
+        });
+
+        var tplGerenciarEntregas = $('#tpl-gerenciar-entregas').html();
+
+        modal.html('<img src="/img/loading.gif" width="25" height="25" />', {isHtml: true}).open();
+
+        $.ajax({
+            url: '/admin/tipos-entrega',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data)
+            {
+                var html = _.template(tplGerenciarEntregas)({tipos: data});
+                modal.html(html, {isHtml: true});
+                btnDesativarEntrega(modal);
+                $('#novo-tipo-entrega').on('submit', function(event)
+                {
+                    var $txtNomeTipo = $('#txt-nome-tipo');
+                    $.ajax({
+                        url: '/admin/ajax-cadastrar-tipo-entrega',
+                        type: 'PUT',
+                        dataType: 'json',
+                        data: {
+                            nome: $txtNomeTipo.val()
+                        },
+                        success: function(response)
+                        {
+                            if (response.status) {
+                                var tr = _.template($('#tpl-tipo-entrega-cadastrado').html())({tipo: response.tipoEntrega});
+                                $('#tipos-entrega').find('tbody').append(tr);
+                            } else {
+                                alert(response.error);
+                            }
+                            btnDesativarEntrega(modal);
+                        },
+                        error: function()
+                        {
+                            alert('Erro ao processar os dados!')
+                        }
+                    });
+                    return false;
+                })
+            },
+            error: function()
+            {
+                modal.html('Erro ao processar os dados!')
+            }
+        });
+    });
+
+    function btnDesativar(modal)
+    {
+        $('.desativar-tipo').on('click', function()
+        {
+            var $this = $(this);
+            $.ajax({
+                url: '/admin/ajax-alterar-status-tipo-cartao/' + $this.data('id'),
+                type: 'PUT',
+                dataType: 'json',
+                data: {
+                    status: 0
+                },
+                success: function(response)
+                {
+                    if (response.error) {
+                        modal.html(response.error);
+                    } else {
+                        $this.closest('tr').fadeOut('slow', function()
+                        {
+                            $(this).remove();
+                        });
+                    }
+                },
+                error: function()
+                {
+                    modal.html('Erro ao processar.');
+                }
+            });
+        });
+    }
+
+    function btnDesativarEntrega(modal)
+    {
+        $('.desativar-tipo-entrega').on('click', function()
+        {
+            var $this = $(this);
+            $.ajax({
+                url: '/admin/ajax-alterar-status-tipo-entrega/' + $this.data('id'),
+                type: 'PUT',
+                dataType: 'json',
+                data: {
+                    status: 0
+                },
+                success: function(response)
+                {
+                    if (response.error) {
+                        modal.html(response.error);
+                    } else {
+                        $this.closest('tr').fadeOut('slow', function()
+                        {
+                            $(this).remove();
+                        });
+                    }
+                },
+                error: function()
+                {
+                    modal.html('Erro ao processar.');
+                }
+            });
+        });
+    }
+
 });

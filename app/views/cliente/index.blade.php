@@ -5,6 +5,8 @@
 @stop
 
 @section('content')
+    <div class="alert">Você possui um total de {{ $creditos }} créditos.</div>
+
     @if($fichas_tecnicas->count())
     <div class="jtable">
         <table>

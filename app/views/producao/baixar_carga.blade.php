@@ -38,11 +38,11 @@
             <tbody>
                 @foreach($remessas as $remessa)
 
-                    @if( !($temProtocolo = ! is_null($remessa->protocolo)) || $remessa->protocolo->usuario_id == $user->id) 
+                    @if(!($temProtocolo = ! is_null($remessa->protocolo)) || $remessa->protocolo->usuario_id == $user->id)
 
                         <tr class="{{ $temProtocolo ? 'tab-tarefas' : 'tab-remessas' }}">
                             <td class="center">{{ zero_fill($remessa->id, 4) }}</td>
-                            <td class="center">{{ $remessa->created_at->format('d/m/Y H:i') }}</td>
+                            <td class="center"></td>
                             <td class="center">{{{ $remessa->usuario->nome }}}</td>
                             <td class="center">
                             @if(!$remessa->fichaTecnica->tem_dados)

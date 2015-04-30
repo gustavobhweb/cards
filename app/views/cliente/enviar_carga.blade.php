@@ -170,8 +170,8 @@
             <button type="button" class="close"><i class="halflings halflings-remove"></i></button>
         </div><!-- .modal-header -->
         <div class="modal-content">
-            <p>1ª Cláusula - Todos os dados enviados são de responsabilidade do cliente, tal como qualquer incorreção dos dados, serão produzidos sem responsabilidade do Grupo TMT.</p>
-            <p>2ª Cláusula - Todas as fotos enviadas são de responsabilidade do cliente, devendo ser enviadas com a resolução mínima de 300dpi, foto proporcional e com tamanho mínimo de 225px x 300px, juntamente com contraste, brilho e enquadramento corretos. O Grupo TMT não trata ou altera as fotos.</p>
+            <p>1ª Cláusula - Todos os dados enviados são de responsabilidade do cliente, tal como qualquer incorreção dos dados, serão produzidos sem responsabilidade da Let´scom.</p>
+            <p>2ª Cláusula - Todas as fotos enviadas são de responsabilidade do cliente, devendo ser enviadas com a resolução mínima de 300dpi, foto proporcional e com tamanho mínimo de 225px x 300px, juntamente com contraste, brilho e enquadramento corretos. A Let´scom não trata ou altera as fotos.</p>
         </div><!-- .modal-content -->
         <div class="modal-footer">
                 <input type="text" id="nome" class="medium total" placeholder="Seu nome completo" />

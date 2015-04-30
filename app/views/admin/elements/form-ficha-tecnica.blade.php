@@ -140,18 +140,15 @@
         <div class='title'>
             <span>5</span>
             <h4>Tecnologia</h4>
-            <a 
-                href="{{ URL::to('admin/tipos-cartao') }}" 
-                class="btn blue btn-gerenciar-tipos-cartao">
-                <i class="halflings halflings-cog"></i>
-                Gerenciar
-            </a>
+            <button type="button" class="btn blue btn-gerenciar-tecnologias" style="float:left;margin:4px">
+                <i class="halflings halflings-cog"></i> Gerenciar
+            </button>
         </div><!-- .title -->
 
         <div class="content-section" style="margin: 10px 0 0 0">
             @foreach($tiposCartoes as $tipoCartao)
                     
-                <div class='' style='float:left;width:50%;margin: 3px 0 2px 0'>
+                <div class='tipo-item' data-id="{{ $tipoCartao->id }}" style='float:left;width:50%;margin: 3px 0 2px 0'>
                     {{
                         Form::checkbox(
                             "tipo_cartao_id[{$tipoCartao->id}]",
@@ -350,11 +347,8 @@
         <div class="title">
             <span>12</span>
             <h4>Tipo de entrega</h4>
-            <a 
-                href="{{ URL::to('admin/tipos-entrega') }}" 
-                class="btn blue btn-gerenciar-tipos-cartao">
-                <i class="halflings halflings-cog"></i>
-                Gerenciar
+            <button type="button" class="btn blue btn-gerenciar-entregas">
+                <i class="halflings halflings-cog"></i> Gerenciar
             </a>
         </div>
         
@@ -398,6 +392,96 @@
 
         </td>
     </tr>
+</script>
+
+<script type="text/template" id="tpl-gerenciar-tecnologias">
+    <form method="post" id="novo-tipo-cartao">
+        <input type="text" required id="txt-abreviatura-tipo" class="medium left" placeholder="Abreviação" />
+        <input type="text" required id="txt-nome-tipo" class="medium left" placeholder="Nome do tipo" />
+        <button type="submit" class="btn medium blue left btn-novo-tipo">
+            <i class="halflings halflings-plus"></i> Adicionar
+        </button>
+    </form>
+    <div id="tipos-cartao" class="jtable" style="height:360px;overflow-y:auto;float:left;width:100%">
+        <table>
+            <thead>
+                <tr>
+                    <th>Abreviação</th>
+                    <th>Nome</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each(tipos, function(tipo){ %>
+                <tr>
+                    <td><%= tipo.abreviatura %></td>
+                    <td><%= tipo.nome %></td>
+                    <td><%= (tipo.status) ? 'Ativo' : 'Inativo'  %></td>
+                    <td>
+                        <% if (tipo.status) { %>
+                        <button data-id="<%= tipo.id %>" class="btn small desativar-tipo"><i class="halflings halflings-remove"></i></button>
+                        <% } %>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</script>
+
+<script type="text/template" id="tpl-gerenciar-entregas">
+    <form method="post" id="novo-tipo-entrega">
+        <input type="text" required id="txt-nome-tipo" class="medium left" placeholder="Nome do tipo" />
+        <button type="submit" class="btn medium blue left btn-novo-tipo">
+            <i class="halflings halflings-plus"></i> Adicionar
+        </button>
+    </form>
+    <div id="tipos-entrega" class="jtable" style="height:360px;overflow-y:auto;float:left;width:100%">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each(tipos, function(tipo){ %>
+                <tr>
+                    <td><%= tipo.nome %></td>
+                    <td><%= (tipo.status) ? 'Ativo' : 'Inativo'  %></td>
+                    <td>
+                        <% if (tipo.status) { %>
+                        <button data-id="<%= tipo.id %>" class="btn small desativar-tipo-entrega"><i class="halflings halflings-remove"></i></button>
+                        <% } %>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</script>
+
+<script type="text/template" id="tpl-tipo-cadastrado">
+<tr>
+    <td><%= tipo.abreviatura %></td>
+    <td><%= tipo.nome %></td>
+    <td><%= (tipo.status) ? 'Ativo' : 'Inativo'  %></td>
+    <td>
+        <button data-id="<%= tipo.id %>" class="btn small desativar-tipo"><i class="halflings halflings-remove"></i></button>
+    </td>
+</tr>
+</script>
+
+<script type="text/template" id="tpl-tipo-entrega-cadastrado">
+<tr>
+    <td><%= tipo.nome %></td>
+    <td><%= (tipo.status) ? 'Ativo' : 'Inativo'  %></td>
+    <td>
+        <button data-id="<%= tipo.id %>" class="btn small desativar-tipo-entrega"><i class="halflings halflings-remove"></i></button>
+    </td>
+</tr>
 </script>
 
 {{-- Scripts e Estilos comuns entra as views "editar" e "cadastrar ficha técninca" --}}

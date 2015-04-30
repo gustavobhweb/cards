@@ -35,7 +35,7 @@
         <div class='footer-login-mobile'>
             <div class='creditos'>
                 <p class='p-termos'>Termos de Uso | Política de Privacidade</p>
-                <p class='p-empresa'><b>© 2014 GrupoTMT.com.br. Todos os direitos reservados.</b></p>
+                <p class='p-empresa'><b>© 2014 letscom.com.br. Todos os direitos reservados.</b></p>
             </div>
             <img src='{{ URL::to("img/site-seguro.png") }}' class='footer-site-seguro-img'/>
         </div>

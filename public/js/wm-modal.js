@@ -9,7 +9,6 @@ function wmDialog(text, options)
         delete text;
     }
 
-
     var $modal     = $('#wm-alert').closest('.wm-modal').clone();
     var $body      = $modal.find('.wm-modal-body');
     var $container = $modal.find('#wm-alert');
@@ -18,17 +17,11 @@ function wmDialog(text, options)
     var $close     = $modal.find('.wm-modal-close');
 
     var defaults = {
-
         title: 'Alerta',
         btnOkEnabled: true
-
     };
 
     var options = $.extend(defaults, options || {})
-
-    
-    
-
     // initalize data
     function init()
     {
