@@ -20,6 +20,8 @@ class ClienteController extends BaseController
                         ->take(3)
                         ->get();
 
+        $cliente = Cliente::whereId($auth->cliente_id)->first();
+        $creditos = $cliente->creditos - $cliente->creditos_utilizados;
 
         return View::make('cliente.index', get_defined_vars());
     }
@@ -278,8 +280,13 @@ class ClienteController extends BaseController
 
                     $cliente = Auth::user()->cliente();
 
+                    $creditos_disponiveis = $cliente->first()->creditos - $cliente->first()->creditos_utilizados;
+                    if (($creditos_disponiveis - Input::get('qtd')) < 0) {
+                        throw new Exception('Créditos insuficientes');
+                    }
+
                     $cliente->update([
-                        'creditos_utilizados' => $cliente->creditos_utilizados + Input::get('qtd')
+                        'creditos_utilizados' => $cliente->first()->creditos_utilizados + Input::get('qtd')
                     ]);
 
                     $remessa->status()->attach(1, [
@@ -350,6 +357,9 @@ class ClienteController extends BaseController
                     // campos variáveis
 
                     $listaCamposVariaveis = $ficha->camposVariaveis->lists('nome', 'id');
+                    foreach ($listaCamposVariaveis as $key => $value) {
+                        $listaCamposVariaveis[$key] = strtolower($value);
+                    }
 
                     /* campos fixos. Serão inseridos no model Solicitacao */
 
@@ -409,8 +419,13 @@ class ClienteController extends BaseController
 
                         $cliente = $auth->cliente();
 
+                        $creditos_disponiveis = $cliente->first()->creditos - $cliente->first()->creditos_utilizados;
+                        if (($creditos_disponiveis - Input::get('qtd')) < 0) {
+                            throw new Exception('Créditos insuficientes');
+                        }
+
                         $cliente->update([
-	                        'creditos_utilizados' => $cliente->creditos_utilizados + count($data)
+	                        'creditos_utilizados' => $cliente->first()->creditos_utilizados + count($data)
 	                    ]);
 
                         $solicitacoesCriadas = [];
@@ -780,6 +795,7 @@ class ClienteController extends BaseController
 
     public function getRemessasEnviarFoto($ficha_tecnica_id)
     {
+        set_time_limit(180);
         $ficha = FichaTecnica::whereId($ficha_tecnica_id)->first();
 
         if ($ficha->cliente_id != Auth::user()->cliente_id || !($ficha instanceof FichaTecnica) || !$ficha->tem_foto) {

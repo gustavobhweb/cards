@@ -740,9 +740,9 @@ class AdminController extends BaseController
 
     public function getTiposCartao()
     {
-        $tiposCartao = TipoCartao::paginate(30);
+        $tiposCartao = TipoCartao::all();
 
-        return View::make('admin.tipos-cartao', get_defined_vars());
+        return Response::json($tiposCartao);
     }
 
 
@@ -955,11 +955,13 @@ class AdminController extends BaseController
     {
         $creditos = Input::get('creditos');
         $cliente_id = Input::get('cliente_id');
+        $less = Input::get('less');
 
         $cliente = Cliente::whereId($cliente_id)->first();
-        if ($creditos > 0) {
+
+        if ($less) {
             $cliente->update([
-                'creditos' => $cliente->creditos + $creditos
+                'creditos' => $cliente->creditos - $creditos
             ]);
             $clienteFinal = Cliente::whereId($cliente_id)->first();
             return Response::json([
@@ -967,12 +969,23 @@ class AdminController extends BaseController
                 'creditos' => $clienteFinal->creditos - $clienteFinal->creditos_utilizados
             ]);
         } else {
-            $clienteFinal = Cliente::whereId($cliente_id)->first();
-            return Response::json([
-                'status' => false,
-                'message' => 'Adicione pelo menos 1 crédito!',
-                'creditos' => $clienteFinal->creditos - $clienteFinal->creditos_utilizados
-            ]);
+            if ($creditos > 0) {
+                $cliente->update([
+                    'creditos' => $cliente->creditos + $creditos
+                ]);
+                $clienteFinal = Cliente::whereId($cliente_id)->first();
+                return Response::json([
+                    'status' => true,
+                    'creditos' => $clienteFinal->creditos - $clienteFinal->creditos_utilizados
+                ]);
+            } else {
+                $clienteFinal = Cliente::whereId($cliente_id)->first();
+                return Response::json([
+                    'status' => false,
+                    'message' => 'Adicione pelo menos 1 crédito!',
+                    'creditos' => $clienteFinal->creditos - $clienteFinal->creditos_utilizados
+                ]);
+            }
         }
     }
 
