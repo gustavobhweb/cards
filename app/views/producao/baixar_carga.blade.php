@@ -27,8 +27,8 @@
             <thead>
                 <tr>
                     <th width="12%">Remessa</th>
-                    <th>Data de Criação</th>
-                    <th>Responsável financeiro</th>
+                    <th>Data de Solicitação</th>
+                    <th>Responsável</th>
                     <th width="10%">Nº de Solicitações</th>
                     <th>Iniciou a produção</th>
                     
@@ -42,7 +42,7 @@
 
                         <tr class="{{ $temProtocolo ? 'tab-tarefas' : 'tab-remessas' }}">
                             <td class="center">{{ zero_fill($remessa->id, 4) }}</td>
-                            <td class="center"></td>
+                            <td class="center">{{ date('d/m/Y \à\s H:i:s', strtotime($remessa->status[0]->pivot->created_at)) }}</td>
                             <td class="center">{{{ $remessa->usuario->nome }}}</td>
                             <td class="center">
                             @if(!$remessa->fichaTecnica->tem_dados)
@@ -90,6 +90,9 @@
                 </tr>
             </tbody>
         </table>
+        <div data-section="footer">
+            {{ $remessas->links() }}
+        </div>
     </div><!-- .jtable -->
 
     @else

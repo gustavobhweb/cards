@@ -42,7 +42,6 @@ class Remessa extends Eloquent
         return $this->belongsTo('Status', 'status_atual_id');
     }
 
-
     public function status()
     {
         return $this->belongsToMany('Status', 'remessas_status')->withPivot('created_at', 'usuario_id');
@@ -57,7 +56,9 @@ class Remessa extends Eloquent
         return PDF::loadView('elements.producao.pdf_protocolo', compact('remessa'))->setPaper('a4')->stream();
     }
 
+    public function cliente()
+    {
+        return $this->belongsTo('Cliente', 'cliente_id');
+    }
 
 }
-
-

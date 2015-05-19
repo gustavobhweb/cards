@@ -283,11 +283,11 @@ class ClienteController extends BaseController
                     $creditos_disponiveis = $cliente->first()->creditos - $cliente->first()->creditos_utilizados;
                     if (($creditos_disponiveis - Input::get('qtd')) < 0) {
                         throw new Exception('Créditos insuficientes');
+                    } else {
+                        $cliente->update([
+                            'creditos_utilizados' => $cliente->first()->creditos_utilizados + Input::get('qtd')
+                        ]);
                     }
-
-                    $cliente->update([
-                        'creditos_utilizados' => $cliente->first()->creditos_utilizados + Input::get('qtd')
-                    ]);
 
                     $remessa->status()->attach(1, [
                         'usuario_id' => Auth::user()->id
@@ -422,11 +422,11 @@ class ClienteController extends BaseController
                         $creditos_disponiveis = $cliente->first()->creditos - $cliente->first()->creditos_utilizados;
                         if (($creditos_disponiveis - Input::get('qtd')) < 0) {
                             throw new Exception('Créditos insuficientes');
+                        } else {
+                            $cliente->update([
+    	                        'creditos_utilizados' => $cliente->first()->creditos_utilizados + count($data)
+    	                    ]);
                         }
-
-                        $cliente->update([
-	                        'creditos_utilizados' => $cliente->first()->creditos_utilizados + count($data)
-	                    ]);
 
                         $solicitacoesCriadas = [];
                         
@@ -795,7 +795,7 @@ class ClienteController extends BaseController
 
     public function getRemessasEnviarFoto($ficha_tecnica_id)
     {
-        set_time_limit(180);
+        set_time_limit(0);
         $ficha = FichaTecnica::whereId($ficha_tecnica_id)->first();
 
         if ($ficha->cliente_id != Auth::user()->cliente_id || !($ficha instanceof FichaTecnica) || !$ficha->tem_foto) {

@@ -60,7 +60,11 @@ $(function(){
                         $inputCaptcha.focus().removeClass('input-error').addClass('input-valid');
                         $('#send-form-button').click();
                     } else {
-                        $inputCaptcha.focus().removeClass('input-valid').addClass('input-error');
+                        $inputCaptcha.focus()
+                                     .removeClass('input-valid')
+                                     .addClass('input-error')
+                                     .val('')
+                                     .attr('placeholder', 'Código incorreto');
                     }
                 }
             });

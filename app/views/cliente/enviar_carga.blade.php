@@ -174,20 +174,25 @@
             <p>2ª Cláusula - Todas as fotos enviadas são de responsabilidade do cliente, devendo ser enviadas com a resolução mínima de 300dpi, foto proporcional e com tamanho mínimo de 225px x 300px, juntamente com contraste, brilho e enquadramento corretos. A Let´scom não trata ou altera as fotos.</p>
         </div><!-- .modal-content -->
         <div class="modal-footer">
-                <input type="text" id="nome" class="medium total" placeholder="Seu nome completo" />
-                    <input type="text" id="cpf" class="medium total" placeholder="Seu CPF" />
+            <input type="text" id="nome" class="medium total" placeholder="Seu nome completo" />
+            <input type="text" id="cpf" class="medium total" placeholder="Seu CPF" style="margin:5px 0 0 0" />
+        </div>
+                
+                <div class="captcha left" style="margin:0 0 0 10px">
+                    <button class="btn medium blue" style="float:left;" onclick="atualizarCaptcha($(this), '{{ Captcha::img() }}')">
+                        <i class="halflings halflings-refresh"></i>
+                    </button>
+                    <img class="captcha-img left" src="{{ Captcha::img() }}" />
+                    <input class="medium left" type="text" id="captcha" autocomplete="off" placeholder="Digite o código" />
                 </div>
 
-                <img src="{{ Captcha::img() }}" />
-                <input type="text" id="captcha" autocomplete="off" />
-
-                <button type="button" class="btn medium close">
-                    <i class="halflings halflings-remove"></i> Cancelar
-                </button>
-                <button type="button" class="confirm btn medium green">
+                <button type="button" class="confirm btn medium green right" style="margin: 0 10px 10px 0">
                     <i class="halflings halflings-ok"></i> Concordar e Enviar
                 </button>
-            <div class='clearfix'></div>
+                <button type="button" class="btn medium close right" style="margin: 0 5px 0 0">
+                    <i class="halflings halflings-remove"></i> Cancelar
+                </button>
+            <div class='clear'></div>
         </div><!-- .modal-footer -->
     </div><!-- .modal-box -->
 </div><!-- .modal-alternative -->
@@ -195,7 +200,13 @@
 @stop 
 
 @section('scripts') 
-{{ HTML::script('js/cliente/enviar_carga.js') }} 
+{{ HTML::script('js/cliente/enviar_carga.js') }}
+<script type="text/javascript">
+function atualizarCaptcha($this, src)
+{
+    $('.captcha-img').attr('src', src);
+}
+</script>
 @stop
 
 @section('styles')

@@ -140,9 +140,16 @@ class ProducaoController extends BaseController
 
     public function anyBaixarCarga()
     {
-        $remessas = Remessa::with('protocolo')
-                            ->with('usuario')
-                            ->with('solicitacoes')
+        $with = [
+            'protocolo', 
+            'usuario', 
+            'solicitacoes',
+            'status' => function($query)
+            {
+                $query->where('status_id', '=', 3);
+            }
+        ];
+        $remessas = Remessa::with($with)
                             ->whereStatusAtualId(3)
                             ->paginate(15);
 
@@ -153,15 +160,17 @@ class ProducaoController extends BaseController
     {
         try { 
 
-            $with['solicitacoes'] = function ($query) {
-                $query->with('camposVariaveis');
-            };
+            $with = [
+                'solicitacoes' => function ($query) {
+                    $query->with('camposVariaveis');
+                },
+                'fichaTecnica',
+                'usuario'
+            ];
 
-            $remessa = Remessa::with($with)
-                                ->with('fichaTecnica')
-                                ->findOrFail($id);
+            $remessa = Remessa::with($with)->findOrFail($id);
 
-            $downloadName = sprintf('remessa_%04s', $id);
+            $downloadName = $remessa->usuario->cliente->nome . '_' . $remessa->fichaTecnica->nome . '_' . date('d-m-Y');
 
             Excel::create($downloadName, function ($excel) use($remessa) {
 
@@ -737,10 +746,10 @@ class ProducaoController extends BaseController
                                 $separated['yes'][] = $userData;
                             }
                             
-                            Credito::create([
-                                'usuario_id' => $user->id,
-                                'status' => '0'
-                            ]);
+                            // Credito::create([
+                            //     'usuario_id' => $user->id,
+                            //     'status' => '0'
+                            // ]);
                         }
                     });
                     
