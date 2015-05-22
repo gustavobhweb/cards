@@ -13,6 +13,7 @@
 	{{ HTML::style('css/context-menu.css') }}
 	{{ HTML::style('css/modal-alternative.css') }}
 	{{ HTML::style('css/modal.css') }}
+	{{ HTML::style('css/nprogress.css') }}
 	@yield('styles')
 
 	{{ HTML::script('js/jquery-1.11.0.min.js') }}
@@ -23,6 +24,7 @@
 	{{ HTML::script('js/jquery.mask.min.js') }}
 	{{ HTML::script('js/underscore-min.js') }}
 	{{ HTML::script('js/modal.js') }}
+	{{ HTML::script('js/nprogress.js') }}
 	@yield('scripts')
 </head>
 <body>

@@ -1,16 +1,13 @@
 $(function(){
 
 	var $btnZip = $('.fake-file-zip'),
-		$inputFile = $('.file-zip-upload');
+		$inputFile = $('#file-upload');
 
 	$btnZip.data('default_html', $btnZip.html());
 
 	$btnZip.click(function(){
-		var $self = $(this);
-		var $container = $self.closest('.container-input-file');
-		var $inputFile = $container.find('.file-zip-upload');
-
-		console.log($inputFile.length);
+		$('#remessa_id').val($(this).data('remessa'));
+		$('#send-photos').attr('action', '/cliente/ajax-upload-zip/' + $(this).data('remessa'))
 		$inputFile.trigger('click');
 	});
 
@@ -26,85 +23,87 @@ $(function(){
 
 		var $self = $(this);
 
-		var $container = $self.closest('.container-input-file');
+		$('#send-btn').click();
 
-		var $tr = $self.closest('tr');
+		// var $container = $self.closest('.container-input-file');
 
-		var countTotal = parseInt($tr.find('.count-total').html());
+		// var $tr = $self.closest('tr');
 
-		var $countIncompletes = $tr.find('.count-incompletes');
+		// var countTotal = parseInt($tr.find('.count-total').html());
 
-		var countIncompletes = parseInt($countIncompletes.html())
+		// var $countIncompletes = $tr.find('.count-incompletes');
 
-		var $btnZip = $container.find('.fake-file-zip');
+		// var countIncompletes = parseInt($countIncompletes.html())
 
-		var filename = $self.val().split('\\').pop();
+		// var $btnZip = $container.find('.fake-file-zip');
 
-		if (! filename.match(/\.zip$/gi)) {
+		// var filename = $self.val().split('\\').pop();
 
-			var message = "Extensão de arquivo inválida. Somente ZIP é aceito!";
+		// if (! filename.match(/\.zip\.rar\.mp4$/gi)) {
 
-			modal.html(message).open()
+		// 	var message = "Extensão de arquivo inválida. Somente ZIP é aceito!";
 
-			return false;
+		// 	modal.html(message).open()
 
-		}
+		// 	return false;
 
-		$btnZip.html(filename);
+		// }
 
-		var files = $self.prop('files')[0];
+		// $btnZip.html(filename);
 
-		var formData = new FormData;
+		// var files = $self.prop('files')[0];
 
-		formData.append('zip', files);
+		// var formData = new FormData;
 
-		var id = $container.data('id');
+		// formData.append('zip', files);
 
-		$.ajax({
-			url: '/cliente/ajax-upload-zip/' + id,
-			type: 'POST',
-			error: function(){
+		// var id = $container.data('id');
 
-				modal.html('Erro ao processar o pedido').open()
-			},
-			success: function(response) {
+		// $.ajax({
+		// 	url: '/cliente/ajax-upload-zip/' + id,
+		// 	type: 'POST',
+		// 	error: function(){
 
-				if (response.error) {
-					modal.html(response.error).open()
-				} else {
-					var message = _.template(tplMessage)({data: response});
-					if (!response.missing_photos) {
-						$tr.fadeOut('slow', function()
-						{
-							var countEnviarFoto = parseInt($('#enviar-foto-count').html());
-							var countImpressao = parseInt($('#impressao-count').html());
-							$('#enviar-foto-count').html(countEnviarFoto - 1);
-							$('#impressao-count').html(countImpressao + 1);
-							if (!(countEnviarFoto - 1)) {
-								var htmlContentRemessas = '<div class="j-alert-error">';
-								htmlContentRemessas += 'Não há remessas para o envio de fotos';
-								htmlContentRemessas += '</div>';
-								$('.content-remessas').html(htmlContentRemessas);
-							}
-							$(this).remove();
-						});
-						clickSendPrint();
-					}
-					$('.progress-desc[data-id="'+id+'"]').html((countTotal - response.missing_photos) + '/' + countTotal);
-					$('.progress-bar[data-id="'+id+'"]').attr('value', countTotal - response.missing_photos);
-					modal.html(message, true).open();
-				}
+		// 		modal.html('Erro ao processar o pedido').open()
+		// 	},
+		// 	success: function(response) {
 
-				$self.val('');
+		// 		if (response.error) {
+		// 			modal.html(response.error).open()
+		// 		} else {
+		// 			var message = _.template(tplMessage)({data: response});
+		// 			if (!response.missing_photos) {
+		// 				$tr.fadeOut('slow', function()
+		// 				{
+		// 					var countEnviarFoto = parseInt($('#enviar-foto-count').html());
+		// 					var countImpressao = parseInt($('#impressao-count').html());
+		// 					$('#enviar-foto-count').html(countEnviarFoto - 1);
+		// 					$('#impressao-count').html(countImpressao + 1);
+		// 					if (!(countEnviarFoto - 1)) {
+		// 						var htmlContentRemessas = '<div class="j-alert-error">';
+		// 						htmlContentRemessas += 'Não há remessas para o envio de fotos';
+		// 						htmlContentRemessas += '</div>';
+		// 						$('.content-remessas').html(htmlContentRemessas);
+		// 					}
+		// 					$(this).remove();
+		// 				});
+		// 				clickSendPrint();
+		// 			}
+		// 			$('.progress-desc[data-id="'+id+'"]').html((countTotal - response.missing_photos) + '/' + countTotal);
+		// 			$('.progress-bar[data-id="'+id+'"]').attr('value', countTotal - response.missing_photos);
+		// 			modal.html(message, true).open();
+		// 		}
+
+		// 		$self.val('');
 				
-				$btnZip.html($btnZip.data('default_html'));
+		// 		$btnZip.html($btnZip.data('default_html'));
 
-			},
-			processData: false,
-			cache: false,
-			contentType: false,
-			data: formData
-		})
+		// 	},
+		// 	processData: false,
+		// 	cache: false,
+		// 	contentType: false,
+		// 	data: formData
+		// })
 
 
 	});
@@ -137,6 +136,7 @@ $(function(){
 	});
 
 	clickSendPrint();
+	uploader();
 
 });
 function clickSendPrint()
@@ -181,4 +181,81 @@ function clickSendPrint()
 			}
 		});
 	});
+}
+
+function uploader(){
+        
+    var bar = $('.bar');
+    var percent = $('.percent');
+    var status = $('.status');
+    var loading = $('.loading');
+       
+    $('#send-photos').ajaxForm({
+        beforeSend: function() {
+            var remessa_id = $('#remessa_id').val();
+
+            status.filter('[data-remessa="'+remessa_id+'"]').empty();
+            var percentVal = '0%';
+            bar.filter('[data-remessa="'+remessa_id+'"]').width(percentVal)
+            percent.filter('[data-remessa="'+remessa_id+'"]').html(percentVal);
+            loading.filter('[data-remessa="'+remessa_id+'"]').show();
+        },
+        uploadProgress: function(event, position, total, percentComplete) {
+            var remessa_id = $('#remessa_id').val();
+
+            var percentVal = percentComplete + '%';
+            bar.filter('[data-remessa="'+remessa_id+'"]').width(percentVal)
+            percent.filter('[data-remessa="'+remessa_id+'"]').html(percentVal);
+        },
+        success: function() {
+            var remessa_id = $('#remessa_id').val();
+
+            var percentVal = '100%';
+            bar.filter('[data-remessa="'+remessa_id+'"]').width(percentVal)
+            percent.filter('[data-remessa="'+remessa_id+'"]').html(percentVal);
+        },
+        error: function(){
+        	var remessa_id = $('#remessa_id').val();
+
+        	status.filter('[data-remessa="'+remessa_id+'"]').fadeIn();
+			status.filter('[data-remessa="'+remessa_id+'"]').removeClass('success').html('Verifique sua conexão com a Internet!');
+        },
+        complete: function(xhr) {
+            var remessa_id = $('#remessa_id').val();
+        	var $tr = $('.container-input-file').filter('[data-id="'+remessa_id+'"]').closest('tr');
+            var countTotal = parseInt($tr.find('.count-total').html());
+            var $inputFile = $('#file-upload');
+            var $btnZip = $('.fake-file-zip')
+
+            loading.filter('[data-remessa="'+remessa_id+'"]').hide();
+            status.filter('[data-remessa="'+remessa_id+'"]').fadeIn();
+            
+            if (xhr.responseJSON.error) {
+				status.filter('[data-remessa="'+remessa_id+'"]').removeClass('success').html(xhr.responseJSON.error);
+			} else {
+				if (!xhr.responseJSON.missing_photos) {
+					$tr.fadeOut('slow', function()
+					{
+						var countEnviarFoto = $('tbody tr').length;
+						if (!(countEnviarFoto - 1)) {
+							var htmlContentRemessas = '<div class="j-alert-error">';
+							htmlContentRemessas += 'Não há remessas para o envio de fotos';
+							htmlContentRemessas += '</div>';
+							$('.content-remessas').html(htmlContentRemessas);
+						}
+						$(this).remove();
+					});
+					clickSendPrint();
+				}
+				$('.progress-desc[data-id="'+remessa_id+'"]').html((countTotal - xhr.responseJSON.missing_photos) + '/' + countTotal);
+				$('.progress-bar[data-id="'+remessa_id+'"]').attr('value', countTotal - xhr.responseJSON.missing_photos);
+				status.filter('[data-remessa="'+remessa_id+'"]').addClass('success').html();
+			}
+
+			$inputFile.val('');
+			
+			$btnZip.html($btnZip.data('default_html'));
+        }
+    }); 
+
 }

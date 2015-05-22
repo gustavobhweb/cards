@@ -1,4 +1,0 @@
-3 foto não foram encontrados no sistema:
-C:\xampp\htdocs\np\public/imagens/11410704/b97fbf6a93a82a64a4eeb15e4bc2f636.png
-C:\xampp\htdocs\np\public/imagens/11411545/05c13b85d851c6a26ca9b6eb5f1dc95f.png
-C:\xampp\htdocs\np\public/imagens/11412462/06a024ddbe5142c4461e97fd2b18d36d.png

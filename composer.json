@@ -12,7 +12,8 @@
 		"dinesh/barcode": "dev-master",
 		"barryvdh/laravel-dompdf": "0.4.*",
 		"mews/captcha": "1.0.1",
-		"gregwar/image": "dev-master"
+		"gregwar/image": "dev-master",
+		"Chumper/Zipper": "0.5.*"
 	},
 	"autoload": {
 		"classmap": [

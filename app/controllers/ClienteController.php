@@ -6,7 +6,6 @@ class ClienteController extends BaseController
 
     public function getIndex()
     {
-
         $auth = Auth::user();
 
         $fichas_tecnicas = FichaTecnica::whereStatus(1)
@@ -342,6 +341,10 @@ class ClienteController extends BaseController
             $extension = strtolower($fileInstance->getClientOriginalExtension());
             
             if (! preg_match('/\.(xls|xlsx|csv)$/i', $fileInstance->getClientOriginalName())) {
+                return Response::json([
+                    'status' => false,
+                    'message' => 'A extensão de arquivo é inválido'
+                ]);
                 return Redirect::back()->withErrors([
                     'message' => 'A extensão de arquivo é inválido'
                 ]);
@@ -417,16 +420,7 @@ class ClienteController extends BaseController
                             'usuario_id' => $auth->id
                         ]);
 
-                        $cliente = $auth->cliente();
-
-                        $creditos_disponiveis = $cliente->first()->creditos - $cliente->first()->creditos_utilizados;
-                        if (($creditos_disponiveis - Input::get('qtd')) < 0) {
-                            throw new Exception('Créditos insuficientes');
-                        } else {
-                            $cliente->update([
-    	                        'creditos_utilizados' => $cliente->first()->creditos_utilizados + count($data)
-    	                    ]);
-                        }
+                        $cliente = $auth->cliente;
 
                         $solicitacoesCriadas = [];
                         
@@ -483,6 +477,15 @@ class ClienteController extends BaseController
 
                         }
 
+                        $creditos_disponiveis = $cliente->creditos - $cliente->creditos_utilizados;
+                        if (($creditos_disponiveis - count($solicitacoesCriadas)) < 0) {
+                            throw new Exception('Créditos insuficientes');
+                        } else {
+                            $cliente->update([
+                                'creditos_utilizados' => $cliente->creditos_utilizados + count($solicitacoesCriadas)
+                            ]);
+                        }
+
                         $remessa->solicitacoes()->saveMany($solicitacoesCriadas);
 
                         if (!$ficha->tem_foto) {
@@ -520,6 +523,10 @@ class ClienteController extends BaseController
                         Session::flash('uploadedData', $separated);
 
                     });
+
+                    return Response::json([
+                        'status'  => true
+                    ]);
                     
                     return Redirect::back()->with([
                         'messageSuccess' => 'Os registros foram inseridos com successo',
@@ -529,10 +536,19 @@ class ClienteController extends BaseController
                 }, 'UTF-8');
 
             } catch (\Exception $e) {
+                return Response::json([
+                    'status'  => false,
+                    'message' => $e->getMessage()
+                ]);
+
                 return Redirect::back()->withInput()->withErrors([
                     'message' => $e->getMessage()
                 ]);
             }
+
+            return Response::json([
+                'status'  => true
+            ]);
         }
 
         $fichasTecnicas = FichaTecnica::whereStatus(1)->lists('nome', 'id');
@@ -542,10 +558,10 @@ class ClienteController extends BaseController
 
     public function postAjaxUploadZip($id)
     {   
-        $file = Input::file('zip');
+        $file = Input::file('archive');
 
         $rules = [
-            'zip' => 'required|mimes:zip'
+            'archive' => 'required|mimes:zip'
         ];
 
         $messages = [
@@ -559,7 +575,7 @@ class ClienteController extends BaseController
 
             try{
 
-                $zip = Input::file('zip')->getRealPath();
+                $zip = Input::file('archive')->getRealPath();
 
                 $zipObject =  new ZipArchive;
 
@@ -1022,6 +1038,39 @@ class ClienteController extends BaseController
         }
 
         return View::make('cliente.aprovar_ficha_tecnica', get_defined_vars());
+    }
+
+    public function postUploadArchives()
+    {
+        if (Input::hasFile('archive')) {
+            try {
+                $file = Input::file('archive');
+                $remessa_id = Input::get('remessa_id');
+
+                $ext = $file->getClientOriginalExtension();
+                if ($ext == 'zip') {
+
+                } elseif ($ext == 'rar') {
+                } elseif ($ext == 'jpg') {
+                } elseif ($ext == 'png') {
+                } else {
+                    throw new Exception("A extensão <b>{$ext}</b> não é aceita. Envie um arquivo <b>jpg</b>, <b>png</b>, <b>rar</b> ou <b>zip</b>");
+                }
+
+                $filename = $file->getClientOriginalName() . '.' . $ext;
+
+                $path = public_path('archives/' . $remessa_id);
+                $file->move($path, $filename);
+                return Response::json([
+                    'status' => true
+                ]);
+            } catch (Exception $ex) {
+                return Response::json([
+                    'status' => false,
+                    'message' => $ex->getMessage()
+                ]);
+            }
+        }
     }
 
 } 

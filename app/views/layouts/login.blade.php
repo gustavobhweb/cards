@@ -19,12 +19,12 @@
             <div>@yield('content')</div>
             
             <div class="footer">
-                <div class="dev">
+                <!-- <div class="dev">
                     <p>Desenvolvido por</p>
                     <a href="http://www.worktab.com.br" target="_blank">
                         <img src="{{ URL::to('img/worktab.png') }}" width="100" />
                     </a>
-                </div><!-- .dev -->
+                </div> -->
                 <p>Let´scom &copy; <?=date('Y');?> - Todos os direitos reservados</p>
             </div><!-- footer -->
         </div><!-- .main-wrap -->

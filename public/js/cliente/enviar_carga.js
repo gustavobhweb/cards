@@ -58,7 +58,10 @@ $(function(){
                         $inputNome.focus().removeClass('input-error').addClass('input-valid');
                         $inputCpf.focus().removeClass('input-error').addClass('input-valid');
                         $inputCaptcha.focus().removeClass('input-error').addClass('input-valid');
-                        $('#send-form-button').click();
+                        $modalAlternative.fadeOut(function()
+                        {
+                            $('#send-form-button').click();
+                        });
                     } else {
                         $inputCaptcha.focus()
                                      .removeClass('input-valid')
@@ -86,5 +89,46 @@ $(function(){
             $modalClose.click();
         }
     });
-    
+   
+    uploader();
+
 });
+
+function uploader(){
+        
+    var bar = $('.bar');
+    var percent = $('.percent');
+    var status = $('#status');
+    var loading = $('#loading');
+       
+    $('#frm-enviar-carga').ajaxForm({
+        beforeSend: function() {
+            status.empty();
+            var percentVal = '0%';
+            bar.width(percentVal)
+            percent.html(percentVal);
+            loading.show();
+        },
+        uploadProgress: function(event, position, total, percentComplete) {
+            var percentVal = percentComplete + '%';
+            bar.width(percentVal)
+            percent.html(percentVal);
+        },
+        success: function() {
+            var percentVal = '100%';
+            bar.width(percentVal)
+            percent.html(percentVal);
+        },
+        complete: function(xhr) {
+            loading.hide();
+            status.fadeIn();
+            console.log(xhr);
+            if (xhr.responseJSON.status) {
+                status.addClass('success').html('Carga realizada com sucesso! Agora vá em enviar fotos para continuar com o processo de solicitação. ');
+            } else {
+                status.removeClass('success').html(xhr.responseJSON.message);
+            }
+        }
+    }); 
+
+}

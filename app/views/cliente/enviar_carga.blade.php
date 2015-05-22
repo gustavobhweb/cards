@@ -13,7 +13,7 @@
     @endif 
 
     <div class="pull-left total">
-    {{ Form::open(['files' => true]) }}
+    {{ Form::open(['files' => true, 'id' => 'frm-enviar-carga']) }}
 
         <div class="fc-section">
             <div class="title">
@@ -53,6 +53,12 @@
                         ['id' => 'send-form-button', 'type' => 'submit', 'style' => 'display:none']
                     )
                 }}
+                <div class="progress">
+                    <div class="bar"></div >
+                    <div class="percent">0%</div >
+                </div>
+                <img id="loading" style="display:none" src="{{ URL::to('img/loading.gif') }}" width="15" height="15" style="margin: 10px 0 0 0" />
+                <div class="alert" id="status" style="display:none"></div>
             </div>
         </div>
         
@@ -201,6 +207,7 @@
 
 @section('scripts') 
 {{ HTML::script('js/cliente/enviar_carga.js') }}
+{{ HTML::script('js/jquery.form.js') }}
 <script type="text/javascript">
 function atualizarCaptcha($this, src)
 {

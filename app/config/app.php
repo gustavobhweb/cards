@@ -131,8 +131,7 @@ return array(
         'Maatwebsite\Excel\ExcelServiceProvider',
         'Way\Generators\GeneratorsServiceProvider',
         'Barryvdh\DomPDF\ServiceProvider',
-        'Mews\Captcha\CaptchaServiceProvider',
-
+        'Mews\Captcha\CaptchaServiceProvider'
     )
     ,
 

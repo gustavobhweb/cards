@@ -136,7 +136,16 @@ $(function(){
         }
     });
 
+    $('body').show();
+    $('.version').text(NProgress.version);
+    NProgress.start();
+
 });
+
+$(window).load(function()
+{
+    setTimeout(function() { NProgress.done(); $('.fade').removeClass('out'); }, 500);
+})
 
 $.prototype.showModal = function(data)
 {

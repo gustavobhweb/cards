@@ -8,6 +8,20 @@
 
 @include('elements.cliente.submenu-remessas')
 
+<form id="send-photos" enctype="multipart/form-data" method="POST" action="{{ URL::to('cliente/upload-archives') }}">
+    <input type="hidden" id="remessa_id" name="remessa_id" value="" />
+    {{ 
+        Form::file(
+            'archive',
+            [
+                'style' => 'display:none',
+                'id' => 'file-upload'
+            ]
+        )
+     }}
+     <button id="send-btn" type="submit" style="display:none"></button>
+ </form>
+
 <div class="content-remessas">
 @if(count($remessas))
 <div class="jtable">
@@ -47,18 +61,20 @@
                     {{
                         Form::button(
                             '<i class="halflings halflings-picture"></i> Selecionar arquivo ...',
-                            ['class' => 'btn medium fake-file-zip', 'style' => 'width:200px']
-                        )
-                    }}
-                    {{ 
-                        Form::file(
-                            'zip',
                             [
-                                'style' => 'display:none',
-                                'class' => 'file-zip-upload'
+                                'class' => 'btn medium fake-file-zip', 
+                                'style' => 'width:200px',
+                                'data-remessa' => $remessa->id
                             ]
                         )
-                     }}
+                    }}
+                    <div class="progress">
+                        <div class="bar" data-remessa="{{ $remessa->id }}"></div >
+                        <div class="percent" data-remessa="{{ $remessa->id }}">0%</div >
+                    </div>
+                    <img class="loading" data-remessa="{{ $remessa->id }}" style="display:none" src="{{ URL::to('img/loading.gif') }}" width="15" height="15" style="margin: 10px 0 0 0" />
+                    <div class="alert status" data-remessa="{{ $remessa->id }}" style="display:none"></div>
+
                 </td>
             </tr>
             @endforeach
@@ -91,7 +107,8 @@
 {{ 
     HTML::script('js/cliente/remessas.js'),
     HTML::script('js/jquery-ui.js'),
-    HTML::script('js/underscore-min.js')
+    HTML::script('js/underscore-min.js'),
+    HTML::script('js/jquery.form.js')
 }}
 
 <script type="text/template" id="tpl-msg">
