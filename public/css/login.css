@@ -5,7 +5,7 @@ html{
 }
 
 body{
-	background: url(../img/bg.png) #FFFFFF;
+	background: url(../img/bg.png) #E8E8E8;
 	width: 100%;
 	height: 100%;
 }
@@ -33,11 +33,10 @@ body{
 .login{
 	width: 370px;
 	height: 175px;
-	background: #447189;
 	float: left;
 	margin: 100px 0 0 0;
 	border-radius: 6px;
-	background: #447189;
+	background: #305367;
 }
 
 .error{
