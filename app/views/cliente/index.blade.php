@@ -32,23 +32,39 @@
 
                         @if($ficha->aprovado)
                         
-                        {{
-                            HTML::link(
-                                "cliente/enviar-remessa/{$ficha->id}",
-                                'Enviar carga',
-                                ['class' => 'btn large green continuar link-url']
-                            )
-                        }}
-                        
+                            {{
+                                HTML::link(
+                                    "cliente/enviar-remessa/{$ficha->id}",
+                                    'Enviar carga',
+                                    ['class' => 'btn large green continuar link-url']
+                                )
+                            }}
+                            
+                            {{
+                                HTML::link(
+                                    "cliente/remessas-solicitar-impressao/{$ficha->id}",
+                                    'Solicitar impressão',
+                                    ['class' => 'btn large green continuar link-url']
+                                )
+                            }}
+
+                            {{ 
+                                HTML::link(
+                                    "cliente/solicitar-segunda-via/{$ficha->id}",
+                                    "2ª via",
+                                    ['class' => 'btn large green continuar link-url']
+                                )
+                            }}
+
                         @else
                             
-                        {{
-                            HTML::link(
-                                "cliente/aprovar-ficha-tecnica/{$ficha->id}",
-                                'Analisar',
-                                ['class' => 'btn large orange link-url']
-                            )
-                        }}
+                            {{
+                                HTML::link(
+                                    "cliente/aprovar-ficha-tecnica/{$ficha->id}",
+                                    'Analisar',
+                                    ['class' => 'btn large orange link-url']
+                                )
+                            }}
                             
                         @endif
                     </td>

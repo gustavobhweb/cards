@@ -1073,4 +1073,160 @@ class ClienteController extends BaseController
         }
     }
 
-} 
+    public function anyCadastroUnitario($ficha_id)
+    {
+        $ficha = FichaTecnica::whereId($ficha_id)->first();
+        $campos = $ficha->camposVariaveis;
+
+        if (Request::isMethod('post')) {
+            $dados = Input::all();
+            $imagem = Input::file('imagem');
+
+            try {
+                DB::transaction(function () use($dados, $ficha, $imagem) {
+
+                    $auth = Auth::user();
+
+                    $remessa = Remessa::create([
+                        'baixado'          => 0,
+                        'deletado'         => 0,
+                        'usuario_id'       => $auth->id,
+                        'ficha_tecnica_id' => $ficha->id,
+                        'status_atual_id'  => 1
+                    ]);
+
+                    $remessa->status()->attach(1, [
+                        'usuario_id' => $auth->id
+                    ]);
+
+                    $solicitacao = Solicitacao::orderBy('via', 'DESC')
+                                                ->whereCodigo($dados['campo_chave'])
+                                                ->first();
+                
+                    $via = 1;
+
+                    if ($solicitacao instanceof Solicitacao) {
+                        $via += $solicitacao->via;
+                    }
+
+                    $novaSolicitacao = Solicitacao::create([
+                        'codigo'        => $dados['campo_chave'],
+                        'status_atual'  => 1,
+                        'deletado'      => 0,
+                        'remessa_id'    => $remessa->id,
+                        'via'           => $via,
+                        'carga_enviada' => 1
+                    ]);
+
+                    foreach ($dados as $k => $v) {
+                        $campo = CampoVariavel::whereNome($k)->first();
+
+                        if ($campo instanceof CampoVariavel) {
+                            $novaSolicitacao->camposVariaveis()->attach($campo->id, [
+                                'valor' => $v
+                            ]);
+                        }
+                    }
+
+                    if ($imagem) {
+                        $file = Input::file('imagem');
+                        $pathDestiny = public_path("solicitacoes/{$remessa->id}");
+                        $filename = $file->getClientOriginalName();
+
+                        if (! File::isDirectory($pathDestiny)) {
+                            File::makeDirectory($pathDestiny, 0755);
+                        }
+
+                        $file->move($pathDestiny, $filename);
+
+                        $fullpath = $pathDestiny.'/'.$filename;
+
+                        $filenameWithoutExtension = File::name($fullpath);
+
+                        $convertedImageName = $pathDestiny . '/' . $filenameWithoutExtension . '.jpg';
+
+                        $test = Image::open($fullpath)->save($convertedImageName, 'jpg', 100);
+                        File::delete($fullpath);
+                    }
+
+                });
+            } catch (Exception $ex) {
+                $error = $ex->getMessage();
+            }
+
+        }
+
+        if(isset($error)) {
+            pr($error);
+        }
+
+        return View::make('cliente.cadastro-unitario', get_defined_vars());
+    }
+
+    public function getSolicitarSegundaVia($ficha_id)
+    {
+        $search = Input::get('search');
+
+        $with = [
+            'solicitacoes' => function ($query) use ($search)
+            {
+                $query->where('codigo', 'LIKE', '%' . $search . '%')
+                      ->paginate(10);
+            }
+        ];
+
+        $ficha = FichaTecnica::with($with)
+                             ->whereId($ficha_id)
+                             ->first();
+
+        return View::make('cliente/solicitar-segunda-via', get_defined_vars());
+    }
+
+    public function postSolicitarSegundaVia()
+    {
+        $solicitacao_id = Input::get('solicitacao_id');
+
+        try {
+            DB::transaction(function() use($solicitacao_id) {
+                $solicitacao = Solicitacao::whereId($solicitacao_id)->first();
+
+                $remessa = Remessa::create([
+                    'baixado'          => 0,
+                    'deletado'         => 0,
+                    'usuario_id'       => $auth->id,
+                    'ficha_tecnica_id' => $ficha->id,
+                    'status_atual_id'  => 1
+                ]);
+
+                $remessa->status()->attach(1, [
+                    'usuario_id' => $auth->id
+                ]);
+
+                $novaSolicitacao = Solicitacao::create([
+                    'codigo'        => $solicitacao->codigo,
+                    'status_atual'  => 1,
+                    'deletado'      => 0,
+                    'remessa_id'    => $remessa->id,
+                    'via'           => ($solicitacao->via + 1),
+                    'carga_enviada' => 1
+                ]);
+
+                foreach ($solicitacao->camposVariaveis as $campo) {
+                    $novaSolicitacao->camposVariaveis()->attach($campo->id, [
+                        'valor' => $campo->valor
+                    ]);
+                }
+            });
+
+            return Response::json([
+                'status' => true
+            ]);
+        } catch (Exception $ex) {
+            return Response::json([
+                'status' => false,
+                'message' => $ex->getMessage()
+            ]);
+        }
+    }
+
+}

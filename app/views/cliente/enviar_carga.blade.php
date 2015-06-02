@@ -14,7 +14,10 @@
 
     <div class="pull-left total">
     {{ Form::open(['files' => true, 'id' => 'frm-enviar-carga']) }}
-
+        <a class="btn medium left blue" href="{{ URL::to('cliente/cadastro-unitario', [$ficha->id]) }}" style="margin: 10px 0 0 0">
+            <i class="halflings halflings-user"></i> Realizar solicitação unitária
+        </a>
+        <div class="clear"></div>
         <div class="fc-section">
             <div class="title">
                 <span>1</span>
